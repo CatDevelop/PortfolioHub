@@ -1,0 +1,39 @@
+.ConsoleAndPhoto {
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    max-width: 600px;
+    align-items: center;
+}
+
+.Console {
+    margin-top: 0;
+    max-width: 300px;
+    /*max-height: ;*/
+    height: 100%;
+    width: 60%;
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+
+}
+.ConsoleText{
+    text-align: center;
+    position: absolute;
+    top: 38%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    font-size: calc(15px + .4vw);
+    word-wrap: break-word;
+
+}
+
+.Avatar {
+    max-width: 200px;
+    /*max-height: 215px;*/
+    height: 100%;
+    width: 40%;
+    flex: 1 1 auto;
+}

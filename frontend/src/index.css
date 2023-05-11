@@ -1,0 +1,329 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.tox-statusbar__branding {
+  display: none;
+}
+
+.tox-edit-area__iframe {
+  background-color: #313134 !important;
+  color: white !important;
+}
+
+.tox-menu {
+  background-color: #202023 !important;
+  margin-top: 10px !important;
+}
+
+.tox-tinymce {
+  border: 0px red solid !important;
+}
+
+.tox-statusbar,
+.tox-menubar,
+.tox-toolbar-overlord,
+.tox-toolbar__overflow,
+.tox-toolbar__primary,
+.tox-editor-header {
+  background-color: #4F4F53 !important;
+}
+
+.tox-mbtn {
+  color: white !important;
+}
+
+.tox-collection__item--active:not(.tox-swatch),
+.tox-mbtn--active,
+.tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active) {
+  background-color: #404040 !important;
+}
+
+.tox-collection__item {
+  color: white !important;
+  /*background-color: #404040 !important;*/
+}
+
+.tox-collection__item--enabled {
+  background-color: #202023 !important;
+  box-shadow: 0 0 0 1px #404040 inset !important;
+}
+
+.tox-collection__item--enabled:hover {
+  background-color: #404040 !important;
+  box-shadow: 0 0 0 1px #404040 inset !important;
+}
+
+.tox-collection__item-accessory {
+  color: #9C9C9C !important;
+}
+
+.tox-tbtn svg {
+  fill: white !important;
+  color: white !important;
+}
+
+.tox-tbtn:focus,
+.tox-tbtn--enabled,
+.tox-tbtn--enabled:hover,
+.tox-tbtn--select,
+.tox-mbtn--active,
+.tox-tbtn:hover {
+  background: #404040 !important;
+}
+
+.tox-split--enabled,
+.tox-split-button:hover {
+  box-shadow: 0 0 0 1px #404040 inset;
+  background-color: #404040 !important;
+}
+
+.tox-tbtn__select-label {
+  color: white !important;
+}
+
+.tox-swatches__picker-btn {
+  display: none !important;
+}
+
+.tox-statusbar__wordcount,
+.tox-statusbar__path-item,
+.tox-statusbar {
+  color: white !important;
+}
+
+
+.tox-pop__dialog {
+  background-color: #202023 !important;
+  border: 1px solid #202023 !important;
+}
+
+
+
+
+
+
+
+.ce-toolbar__settings-btn:hover,
+.ce-toolbar__plus:hover {
+  background-color: #404040 !important;
+}
+
+.ce-toolbar__settings-btn,
+.ce-toolbar__plus {
+  color: white !important;
+}
+
+.ce-inline-toolbar,
+/*.ce-inline-toolbar__toggler-and-button-wrapper,*/
+.tc-popover,
+.ce-toolbox,
+.ce-popover,
+.ce-conversion-toolbar {
+  background-color: #202023 !important;
+  border: 0px solid transparent !important;
+}
+
+.cdx-search-field {
+  background-color: rgb(79, 79, 83) !important;
+}
+
+.ce-popover--opened {
+  min-width: 300px !important;
+}
+
+.tc-popover__item-icon,
+.ce-popover__item-icon,
+.ce-conversion-tool__icon {
+  background-color: transparent !important;
+  border: 0px solid transparent !important;
+}
+.ce-popover__item-icon svg {
+  color: white !important;
+  /*fill: white !important;*/
+}
+
+.tc-add-column:hover,
+.tc-add-row:hover,
+.ce-inline-tool:hover,
+.ce-inline-toolbar__dropdown:hover,
+.ce-popover__item:hover,
+.ce-conversion-tool:hover {
+  background-color: #404040 !important;
+}
+
+.cdx-search-field__icon svg {
+  color: white !important;
+  /*fill: white !important;*/
+}
+
+.cdx-search-field__input {
+  color: white !important;
+}
+
+.ce-popover__item-label {
+  font-family: "Raleway", sans-serif;
+}
+
+.ce-toolbar__content,
+.ce-block__content {
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  word-wrap: break-word;
+}
+
+.tc-add-row:before {
+  background-color: transparent !important;
+}
+.ce-block--selected .ce-block__content {
+  background-color: #404040 !important;
+  border-radius: 5px !important;
+}
+
+.ce-block__content {
+  padding: 0 3px !important;
+}
+
+.cdx-button {
+  max-width: 400px;
+  margin: auto;
+}
+
+.nice-select-dropdown,
+.nice-select {
+  background-color: #313134 !important;
+  color: white !important;
+  border: 0px solid transparent !important;
+}
+
+.option:hover {
+  background-color: #404040 !important;
+}
+
+.nice-select-search {
+  background-color: #404040 !important;
+  color: white !important;
+  border: 0px solid transparent !important;
+}
+
+
+
+
+
+
+.menu-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.menu-trigger {
+  /*background: #ffffff;*/
+  /*border-radius: 90px;*/
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px;
+  /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);*/
+  /*border: none;*/
+  vertical-align: middle;
+  transition: box-shadow 0.4s ease;
+  margin-left: auto; /* Strictly for positioning */
+}
+
+.menu-trigger:hover path {
+  /*box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);*/
+  stroke: #81E6D9;
+}
+
+.menu-trigger span {
+  font-weight: 700;
+  vertical-align: middle;
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.menu-trigger img {
+  border-radius: 90px;
+}
+
+.menu {
+  background: #313134;
+  border: 2px solid #2D2D3A;
+  border-radius: 15px;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 300px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  padding: 10px;
+}
+
+.menu2 {
+  top: -70px;
+  transform: translateY(20px);
+  width: 235px;
+  padding: 5px;
+}
+
+.menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li{
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  padding: 0 10px;
+  cursor: pointer;
+  /*justify-content: center;*/
+}
+
+.menu li:hover {
+  /*border-bottom: 1px solid #dddddd;*/
+  background-color: #404040;
+  border-radius: 7px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  display: block;
+  font-family: SFPro, serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 24px;
+}
+
+.menu2 li a {
+  font-size: 16px;
+  padding: 5px 0 5px 10px;
+}

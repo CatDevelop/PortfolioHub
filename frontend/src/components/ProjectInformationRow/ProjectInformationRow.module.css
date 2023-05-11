@@ -1,0 +1,40 @@
+.projectInformationRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.title {
+    color: rgb(154, 230, 180);
+    background-color: rgba(154, 230, 180, 0.16);
+    text-transform: uppercase;
+    border-radius: 3px;
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+.text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: rgba(255, 255, 255, 0.92);
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.link {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color:#ff63c3;
+}
+
+.link:hover{
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color:#ff63c3;
+    text-decoration-thickness: 0.5px;
+}
+
+.link:visited{
+    color:#ff63c3;
+}

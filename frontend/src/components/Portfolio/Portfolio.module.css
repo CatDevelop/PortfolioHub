@@ -1,0 +1,220 @@
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: start;
+}
+
+.right {
+    text-align: end;
+}
+
+.p {
+    font-family: SFPro, serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+}
+
+.h1, .h2, .h3 {
+    font-family: SFPro, serif;
+    font-weight: 700;
+}
+
+.h1 {
+    font-size: 32px;
+}
+
+.h2 {
+    font-size: 24px;
+}
+.h3 {
+    font-size: 18px;
+}
+.h4 {
+    font-size: 16px;
+}
+.h5 {
+    font-size: 12px;
+}
+.h6 {
+    font-size: 11px;
+}
+
+.delimiter::before {
+    display: inline-block;
+    content: "***";
+    font-size: 30px;
+    line-height: 65px;
+    height: 30px;
+    letter-spacing: 0.2em;
+}
+
+.delimiter {
+    line-height: 1.6em;
+    width: 100%;
+    text-align: center;
+}
+
+.nestedList {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    counter-reset: item;
+    list-style: none;
+}
+
+.nestedListItem {
+    line-height: 1.6em;
+    display: flex;
+    margin: 2px 0;
+}
+
+.nestedListItem::before {
+    counter-increment: item;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+.nestedListItemOrdered::before  {
+    content: counters(item, ".") ". ";
+    color: #81E6D9;
+    font-size: 20px;
+}
+
+.nestedListItemUnordered::before  {
+    content: "•";
+    color: #81E6D9;
+    font-size: 20px;
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.checklistItem {
+    display: flex;
+    flex-direction: row;
+    gap: 5px
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #4F4F53;
+    border-radius: 12px;
+}
+
+.tableRow {
+    display: grid;
+    border-bottom: 2px #4F4F53 solid;
+}
+
+.tableRow:last-child {
+    border-bottom: 0 transparent solid;
+}
+
+.tableCell {
+    word-wrap: anywhere;
+    padding: 10px;
+    border-right: 2px #4F4F53 solid;
+
+    font-family: SFPro, serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.tableHeadings {
+    background-color: #2C2C30;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.tableHeadingsCell {
+    font-weight: 700;
+}
+
+.tableCell:last-child {
+    border-right: 0 transparent solid;
+}
+
+.codeContainer {
+    background-color: #313136;
+    border-radius: 15px;
+}
+
+.codeContainerTitle {
+    color: #FFFFFFCC;
+    padding: 10px 20px 8px 20px;
+}
+
+.preCode {
+    background: #101012;
+    color: rgb(171, 178, 191);
+    text-shadow: rgba(0, 0, 0, 0.3) 0px 1px;
+    font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    tab-size: 2;
+    hyphens: none;
+    padding: 1em;
+    /*margin: 0.5em 0px;*/
+    overflow: auto;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.code {
+    /*background: rgb(40, 44, 52);*/
+    color: rgb(171, 178, 191);
+    text-shadow: rgba(0, 0, 0, 0.3) 0px 1px;
+    font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    tab-size: 2;
+    hyphens: none;
+}
+
+.quoteContainer {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.quoteCaption {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.quoteCaptionDecoration {
+    color: #6e6e6e;
+    font-size: 48px;
+}
+
+.quoteText {
+    font-size: 28px;
+}
+
+.portfolio a {
+    color: #F086CB;
+    text-decoration: underline;
+}

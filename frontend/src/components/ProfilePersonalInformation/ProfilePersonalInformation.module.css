@@ -1,0 +1,73 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    padding: 0 26px;
+    margin-bottom: 24px;
+    max-width: 1000px;
+
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-areas: 'information tags' 'social resume';
+    row-gap: 75px;
+    column-gap: 100px;
+}
+
+.rightContainer,
+.leftContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+
+.title {
+    font-family: SFPro, serif;
+    font-weight: 500;
+    font-size: 28px;
+}
+
+.information {
+    grid-area: information;
+}
+
+.social {
+    grid-area: social;
+}
+
+.tags{
+    grid-area: tags;
+}
+
+.resume{
+    grid-area: resume;
+}
+
+.information,
+.social,
+.tags,
+.resume {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: show 1s ease-in-out;
+}
+
+.informationRows {
+    display: flex;
+    flex-direction: column;
+    gap: 15px
+}
+
+.tagsTitle {
+    font-family: SFPro, serif;
+    font-weight: 500;
+    font-size: 24px;
+}

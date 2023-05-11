@@ -1,0 +1,24 @@
+.selectContainer {
+    max-width: 400px;
+    width: 100%;
+    /*margin: 10px auto;*/
+}
+
+.title {
+    position: relative;
+    text-align: left;
+    margin-bottom: 4px;
+    font-family: SFPro, serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.titleBox {
+    display: flex;
+    flex-direction: row;
+    gap: 5px
+}
+
+.required {
+    color: #FC8181;
+}

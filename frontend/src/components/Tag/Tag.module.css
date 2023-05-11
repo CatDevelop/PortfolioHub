@@ -1,0 +1,26 @@
+.tag {
+    border-radius: 4px;
+    width: max-content;
+}
+
+.text {
+    padding: 4px 8px;
+    font-family: SFPro, serif;
+    font-size: 14px;
+    color: rgba(3, 3, 3, 1);
+    font-weight: 500;
+    line-height: 12px;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.language {
+    background-color: rgba(247, 244, 166, 1);
+}
+
+.level {
+    background-color: #F7BCE2;
+}
+
+.role {
+    background-color: #A6BDF7;
+}

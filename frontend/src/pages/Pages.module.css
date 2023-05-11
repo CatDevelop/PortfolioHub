@@ -1,0 +1,36 @@
+.errorPage {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorPageTB {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.errorPage h1 {
+    font-family: SFPro, serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #FFFFFF;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.errorPage p {
+    font-family: SFPro, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #C2C2C2;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 10px;
+}
+
+

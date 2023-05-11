@@ -1,0 +1,76 @@
+.landingPage {
+    display: flex;
+    flex-direction: column;
+}
+
+.firstSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+}
+
+.firstSection h1 {
+    font-family: SFPro, serif;
+    font-size: 48px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.firstSection p {
+    font-family: SFPro, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #C2C2C2;
+    text-align: center;
+    line-height: 160%;
+}
+
+.firstSection img {
+    width: 700px;
+    margin: auto;
+}
+
+.firstSectionImage {
+    z-index: -1000;
+    position: absolute;
+    top: -10px;
+    left: 0;
+}
+
+.ball {
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: 78px;
+    background: radial-gradient(53.36% 53.36% at 50% 50%, rgba(0, 115, 113, 0.2) 0%, rgba(0, 115, 113, 0) 100%) ;
+    /*opacity: 0.35;*/
+    border-radius: 50%;
+    /*filter: blur(150px);*/
+}
+
+.regButton {
+    margin: auto;
+    height: 45px;
+    color: #030303;
+    background: #F086CB;
+    border-radius: 10px;
+    max-width: 230px;
+    min-width: 230px;
+
+    font-weight: 600;
+    font-size: 20px;
+    font-family: SFPro, serif;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.regButton:hover {
+    background: #F7A6DB;
+}
+
+

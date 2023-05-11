@@ -1,0 +1,102 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    background: #313134;
+    border-radius: 20px;
+    padding: 13px 26px 13px 26px;
+    margin-bottom: 24px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 45px;
+    justify-content: space-between;
+}
+
+.leftContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 23px;
+}
+
+.avatar {
+    /*background: red;*/
+    max-width: 120px;
+    max-height: 120px;
+    width: 120px;
+    height: 120px;
+
+    border: 1px solid #000000;
+    border-radius: 128px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.nameAndDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: SFPro, serif;
+    justify-content: center;
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 600;
+    color: #EEEEEE;
+}
+
+.description {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(158, 158, 158, 1);
+}
+
+.likesAndProjects {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    align-items: center;
+
+}
+
+.likes,
+.projects {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.projectsIcon,
+.likeIcon {
+    width: 32px;
+    height: 32px;
+}
+
+.likesCount {
+    color: rgba(240, 134, 203, 1);
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 600;
+    font-family: SFPro, serif;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    letter-spacing: 0.03em;
+}
+.projectsCount {
+    color: #81E6D9;
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 600;
+    font-family: SFPro, serif;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    letter-spacing: 0.03em;
+}
