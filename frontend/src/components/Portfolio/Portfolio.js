@@ -124,7 +124,10 @@ function Portfolio (props) {
                     }
 
                     if(block.type === "paragraph") {
-                        return <div className={classNames(s.p, s[block.tunes.anyTuneName.alignment])}
+                        if(!block.data.text)
+                            return <p className={classNames(s.p, s[block.tunes.anyTuneName.alignment])}><br/></p>
+                        else
+                            return <div className={classNames(s.p, s[block.tunes.anyTuneName.alignment])}
                                     dangerouslySetInnerHTML={{__html: block.data.text}}/>
                     }
 

@@ -48,7 +48,7 @@ function App() {
 
 
 
-                    <Route path='/:userId/project/:projectId/' element={<ProjectPage/>}/>
+                    <Route path='/:userId/project/:projectId/' element={<NotImplementPage/>}/>
 
                     {/*<Route path='*' element={<NotFoundPage/>}/>*/}
                 </Route>
@@ -56,7 +56,7 @@ function App() {
                 <Route path='/' element={<ProfileLayout/>}>
                     <Route path='/catalog' element={<NotImplementPage/>}/>
                     <Route path='/:userId' element={<PortfolioPage/>}/>
-                    <Route path='/:userId/projects' element={<ProjectsPage/>}/>
+                    <Route path='/:userId/projects' element={<NotImplementPage/>}/>
                     <Route path='/:userId/profile' element={
                         <RequireAuth>
                             <ProfilePage/>

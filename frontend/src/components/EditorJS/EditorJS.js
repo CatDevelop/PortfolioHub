@@ -139,6 +139,9 @@ const EDITOR_JS_TOOLS = {
     paragraph: {
         class: Paragraph,
         inlineToolbar: true,
+        config: {
+            preserveBlank: true
+        },
         tunes: ['anyTuneName', 'textVariant'],
     },
     anyTuneName: {
@@ -252,6 +255,7 @@ function EditorJS(props) {
                        onInitialize={handleInitialize}
                        onReady={handleReady}
                        onChange={handleSave}
+                       preserveBlank={true}
         />
         <button onClick={handleSave}>Сохранить форму</button>
     </>
