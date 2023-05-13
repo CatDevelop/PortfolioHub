@@ -119,8 +119,8 @@ export const EditProfilePage = () => {
             <ProfileUpperPart surname={profile.surname}
                               name={profile.name}
                               shortDescription={profile.shortDescription}
-                              likes={49}
-                              projects={58}
+                              likes={profile.likesCount}
+                              projects={profile.projectsCount}
             />
             <ProfileNavBar isProfile={true} userID={user.id} edit={true} save={handleSubmit(onSubmit)}/>
             <EditProfileForm register={register}

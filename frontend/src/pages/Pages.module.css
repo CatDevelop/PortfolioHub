@@ -33,4 +33,36 @@
     padding: 0 10px;
 }
 
+.editTitle {
+    font-family: SFPro, serif;
+    font-size: 20px;
+    color: #737373;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.importProjectModalTitle {
+    font-family: SFPro, serif;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.importProjectModalTitleCategoryName {
+    font-weight: 600;
+}
+
+.importProjectButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 

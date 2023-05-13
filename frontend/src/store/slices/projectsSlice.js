@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import API from "../../api/API";
+import {getProfile} from "./profileSlice";
 // import PROFILE_API from '../../api/profileAPI';
 // import { removeUser } from './userSlice';
 
@@ -30,6 +31,112 @@ export const getProjects = createAsyncThunk(
             response = await response.json();
 
             dispatch(setProjects(response.data));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const addProjectCategory = createAsyncThunk(
+    'projects/category/add',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            debugger
+            let response = await fetch(
+                `${API.ADD_PROJECT_CATEGORY}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response)
+            dispatch(getProjects(payload.userID));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const importProjectToCategory = createAsyncThunk(
+    'projects/category/importProject',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            debugger
+
+            let response = await fetch(
+                `${API.IMPORT_PROJECT_TO_CATEGORY}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response)
+            dispatch(getProjects(payload.userID));
+            dispatch(getProfile(payload.userID));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const deleteProjectCategory = createAsyncThunk(
+    'projects/category/delete',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            debugger
+
+            let response = await fetch(
+                `${API.DELETE_PROJECT_CATEGORY}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response)
+            dispatch(getProjects(payload.userID));
+            dispatch(getProfile(payload.userID));
 
             return response;
         } catch (error) {
@@ -120,6 +227,7 @@ export const getProjects = createAsyncThunk(
 
 const initialState = {
     categories: [],
+    uncategorizedProjects: [],
     isLoading: true
 };
 
@@ -129,7 +237,8 @@ const projectsSlice = createSlice({
     reducers: {
         setProjects(state, action) {
             debugger
-            state.categories = action.payload.categories;
+            state.categories = action.payload.projectsBlocks;
+            state.uncategorizedProjects = action.payload.uncategorizedProjects;
             state.isLoading = false;
         },
         removeProjects(state) {

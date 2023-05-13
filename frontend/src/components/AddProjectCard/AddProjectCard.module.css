@@ -1,0 +1,107 @@
+.projectCard {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 230px;
+
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    background-color: #313134;
+    border-radius: 20px;
+}
+
+.row {
+    width: 210px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 6px;
+
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.row:hover path,
+.row:hover {
+    color: #F086CB;
+    fill: #F086CB;
+}
+
+.downContainer {
+    background-color: #4F4F53;
+    border-radius: 0 0 20px 20px;
+    height: 80px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.downLeftContainer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.downRightContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+.projectCardHeader {
+    font-family: SFPro, serif;
+    font-size: 20px;
+    text-align: start;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.projectCardDescription {
+    font-family: SFPro, serif;
+    font-size: 14px;
+    text-align: start;
+    font-weight: 400;
+    color: #C2C2C2;
+    line-height: 18px;
+}
+
+.projectCardImage {
+    /*max-height: 122px;*/
+    border-radius: 20px 20px 0 0;
+    height: 150px;
+    object-fit: cover;
+}
+
+.likes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    justify-content: end;
+}
+
+.likesCount {
+    font-family: SFPro, serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #C2C2C2;
+}
+
+.date {
+    font-family: SFPro, serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #C2C2C2;
+    text-align: end;
+}

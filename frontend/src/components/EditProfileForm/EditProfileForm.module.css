@@ -37,6 +37,7 @@
     flex-direction: column;
     gap:10px;
 }
+.resumeTitle,
 .blockTitle {
     font-family: SFPro, serif;
     font-size: 28px;
@@ -45,10 +46,25 @@
     /*padding: 40px 0;*/
 }
 
+.resumeTitle {
+    margin-bottom: 0;
+}
+
 .authorization {
     font-family: SFPro, serif;
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.resumeTitles {
+    display: flex;
+    flex-direction: column;
+}
+
+.resumeDescription {
+    font-family: SFPro, serif;
+    font-size: 16px;
+    color: #9E9E9E;
 }

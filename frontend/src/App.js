@@ -19,6 +19,7 @@ import {ActivatePage} from "./pages/ActivatePage";
 import {EditProfilePage} from "./pages/EditProfilePage";
 import {FavouriteProjectsPage} from "./pages/FavouriteProjetsPage";
 import {NotImplementPage} from "./pages/NotImplementPage";
+import {EditProjectsPage} from "./pages/EditProjectsPage";
 
 function App() {
     return (
@@ -43,20 +44,12 @@ function App() {
                     <Route path='*' element={<NotFoundPage/>}/>
                 </Route>
 
-                <Route path='/' element={<PortfolioLayout/>}>
-
-
-
-
-                    <Route path='/:userId/project/:projectId/' element={<NotImplementPage/>}/>
-
-                    {/*<Route path='*' element={<NotFoundPage/>}/>*/}
-                </Route>
-
                 <Route path='/' element={<ProfileLayout/>}>
                     <Route path='/catalog' element={<NotImplementPage/>}/>
                     <Route path='/:userId' element={<PortfolioPage/>}/>
-                    <Route path='/:userId/projects' element={<NotImplementPage/>}/>
+                    <Route path='/:userId/projects' element={<ProjectsPage/>}/>
+                    <Route path='/:userId/projects/edit' element={<EditProjectsPage/>}/>
+                    <Route path='/:userId/project/:projectId/' element={<ProjectPage/>}/>
                     <Route path='/:userId/profile' element={
                         <RequireAuth>
                             <ProfilePage/>

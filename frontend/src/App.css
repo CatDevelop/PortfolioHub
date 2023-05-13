@@ -1,158 +1,167 @@
 /************ Custom Font ************/
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Black.otf');
-  font-weight: 900;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Black.otf');
+    font-weight: 900;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Heavy.otf');
-  font-weight: 800;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Heavy.otf');
+    font-weight: 800;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Bold.otf');
-  font-weight: 700;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Bold.otf');
+    font-weight: 700;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Semibold.otf');
-  font-weight: 600;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Semibold.otf');
+    font-weight: 600;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Medium.otf');
-  font-weight: 500;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Medium.otf');
+    font-weight: 500;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Regular.otf');
-  font-weight: 400;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Regular.otf');
+    font-weight: 400;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Light.otf');
-  font-weight: 300;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Light.otf');
+    font-weight: 300;
+    font-display: fallback;
 }
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Thin.otf');
-  font-weight: 200;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Thin.otf');
+    font-weight: 200;
+    font-display: fallback;
 }
 
 
 @font-face {
-  font-family: SFPro;
-  src: url('./assets/font/SF-Pro-Display-Ultralight.otf');
-  font-weight: 100;
+    font-family: SFPro;
+    src: url('./assets/font/SF-Pro-Display-Ultralight.otf');
+    font-weight: 100;
+    font-display: fallback;
 }
+
 /************ Default Css ************/
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 75px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
 }
 
 body {
-  font-weight: 400;
-  overflow-x: hidden;
-  position: relative;
-  background-color: #242428 !important;
-  color: #fff !important;
-  font-family: 'Centra', sans-serif !important;
+    font-weight: 400;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #242428 !important;
+    color: #fff !important;
+    font-family: 'Centra', sans-serif !important;
 }
 
 h1, h2 {
-  font-family: "MPlus";
+    font-family: "MPlus";
 }
+
 h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  padding: 0;
-  line-height: normal;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
 }
 
 p, a, li, button, ul {
-  margin: 0;
-  padding: 0;
-  line-height: normal;
-  text-decoration: none;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 img {
-  width: 100%;
-  height: auto;
+    width: 100%;
+    height: auto;
 }
 
 button {
-  border: 0;
-  background-color: transparent;
+    border: 0;
+    background-color: transparent;
 }
 
 input:focus, textarea:focus, select:focus {
-  outline: none;
+    outline: none;
 }
 
-@media (min-width:1700px) {
-  main .container {
-    max-width: 100%;
-    padding: 0 150px;
-  }
+@media (min-width: 1700px) {
+    main .container {
+        max-width: 100%;
+        padding: 0 150px;
+    }
 }
 
 p.success {
-  color: green;
+    color: green;
 }
 
 p.danger {
-  color: red;
+    color: red;
 }
 
 
 .Cont {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .blueBox {
-  background-color: aqua;
-  max-width: 500px;
-  width: 55%;
-  max-height: 500px;
-  display: inline-block;
-  flex: 1 1 auto;
-  /*max-height: ;*/
-  /*height: 1;*/
+    background-color: aqua;
+    max-width: 500px;
+    width: 55%;
+    max-height: 500px;
+    display: inline-block;
+    flex: 1 1 auto;
+    /*max-height: ;*/
+    /*height: 1;*/
 }
 
 .redBox {
-  background-color: red;
-  max-width: 400px;
-  max-height: 400px;
-  width: 45%;
-  display: inline-block;
-  flex: 1 1 auto;
-  /*max-height: ;*/
-  height: 100%;
+    background-color: red;
+    max-width: 400px;
+    max-height: 400px;
+    width: 45%;
+    display: inline-block;
+    flex: 1 1 auto;
+    /*max-height: ;*/
+    height: 100%;
 }
-
-
 
 
 /*.Toastify__toast--success {

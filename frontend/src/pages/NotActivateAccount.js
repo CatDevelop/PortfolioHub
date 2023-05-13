@@ -1,12 +1,23 @@
 import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
 import InfoBlock from "../components/InfoBlock/InfoBlock";
 import s from "./Pages.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../components/Input/Input";
 import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
 import NavigateButton from "../components/NavigateButton/NavigateButton";
+import {useDispatch} from "react-redux";
+import {removeUser} from "../store/slices/userSlice";
+import {removeProfile} from "../store/slices/profileSlice";
 
 export const NotActivateAccount = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const logout = () => {
+        debugger
+        dispatch(removeProfile());
+        dispatch(removeUser());
+        navigate("/");
+    };
     return (
         <div>
             <div className={s.errorPage}>
@@ -38,6 +49,12 @@ export const NotActivateAccount = () => {
                             <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="#111827" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         Главная
+                    </NavigateButton>
+                    <NavigateButton click={logout}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 16L7 12M7 12L11 8M7 12L21 12M16 16V17C16 18.6569 14.6569 20 13 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H13C14.6569 4 16 5.34315 16 7V8" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Выйти из аккаунта
                     </NavigateButton>
                 </div>
             </div>

@@ -51,8 +51,8 @@ export const EditPortfolioPage = () => {
                                 surname={profile.surname}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
-                                likes={100}
-                                projects={49}
+                                likes={profile.likesCount}
+                                projects={profile.projectsCount}
                                 edit={true}
                                 yourAccount={user.id === profile.id}
                                 handleSubmit={handleSubmit}

@@ -11,9 +11,13 @@ const UPDATE_PORTFOLIO = `${HOST}/UpdatePortfolio.php`;
 
 const GET_PROJECTS = `${HOST}/GetProjects.php`;
 const GET_PROJECT = `${HOST}/GetProject.php`;
+const ADD_PROJECT_CATEGORY = `${HOST}/AddProjectCategory.php`;
+const IMPORT_PROJECT_TO_CATEGORY = `${HOST}/ImportProjectToCategory.php`;
+const DELETE_PROJECT_CATEGORY = `${HOST}/DeleteProjectCategory.php`;
 
 const UPLOAD_RESUME_FILE = `${HOST}/UploadResumeFile.php`;
 const UPDATE_PROFILE = `${HOST}/UpdateProfile.php`;
+const UPDATE_PASSWORD = `${HOST}/UpdatePassword.php`;
 
 const API = {
     SIGN_UP,
@@ -22,11 +26,15 @@ const API = {
     GET_USER,
     GET_PROJECTS,
     GET_PROJECT,
+    ADD_PROJECT_CATEGORY,
     UPLOAD_RESUME_FILE,
     UPDATE_PROFILE,
+    IMPORT_PROJECT_TO_CATEGORY,
     GET_PORTFOLIO,
     ADD_PORTFOLIO,
-    UPDATE_PORTFOLIO
+    UPDATE_PORTFOLIO,
+    UPDATE_PASSWORD,
+    DELETE_PROJECT_CATEGORY
 };
 
 export default API;

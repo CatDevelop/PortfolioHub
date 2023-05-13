@@ -18,7 +18,7 @@
 	if(empty($Portfolio))
 		ThrowError($Link, 400, "Нет полей для изменений!");
 
-	$A1 = $Link->query("INSERT INTO Portfolios (UserID, Portfolio) VALUES('$userID', '$Portfolio')"); 
+	$A1 = $Link->query("INSERT INTO Portfolios (UserID, Blocks) VALUES('$userID', '$Portfolio')"); 
 
 	if($A1)
 		SendResponse($Link, ["message" => "Вы успешно изменили портфолио!"]);

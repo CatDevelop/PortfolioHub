@@ -12,18 +12,27 @@ import projectImage15 from "../assets/img/CDlogoHeroReturn.png";
 import {getProfile} from "../store/slices/profileSlice";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import Breadcrumbs from "../components/Breadcrumbs/Breadcrumbs";
 
 
 export const ProjectPage = () => {
-    const { projectId } = useParams();
+    const { userId, projectId } = useParams();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProfile(projectId));
     }, []);
     debugger
+
+    const breadcrumbs = [
+        {id: 1, title: "Рожков Максим", src:"/"},
+        {id: 2, title: "Проекты", src:"/projects"},
+        {id: 3, title: "AutoMagShina", year:"2021-2022"},
+    ]
+
     return (
         <div>
-            <ConsoleAndPhoto/>
+            <Breadcrumbs breadcrumbs={breadcrumbs}/>
+            {/*<ConsoleAndPhoto/>*/}
             {
                 /*categories.map(c => {
                     return <ProjectsTable title={c.title} projects={projects.filter(p => p.categoryId === c.id)}/>

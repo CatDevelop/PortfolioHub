@@ -119,7 +119,11 @@ function EditProfileForm({register, errors, reset, profile, selectedTags, setSel
                 </div>
 
                 <div className={s.block}>
-                    <h1 className={s.blockTitle}>Резюме</h1>
+                    <div className={s.resumeTitles}>
+                        <h1 className={s.resumeTitle}>Резюме</h1>
+                        <p className={s.resumeDescription}>(docx, doc, pdf, txt)</p>
+                    </div>
+
                     <ResumeEdit register={register}
                                 registerName='editProfileResume'
                                 errors={errors}

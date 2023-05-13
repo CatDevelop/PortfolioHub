@@ -16,6 +16,20 @@
     animation: show 1s ease-in-out;
 }
 
+.edit {
+    border-radius: 12px;
+    border: 3px dashed  #898989;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-bottom: 16px;
+}
+
 .header {
     font-family: SFPro, serif;
     font-size: 20px;
@@ -24,7 +38,15 @@
     /*text-underline-offset: 6px;*/
     /*text-decoration-color: #525252;*/
     /*text-decoration-thickness: 0px;*/
-    margin-bottom: 16px;
+    /*margin-bottom: 16px;*/
+}
+
+.description {
+    font-family: SFPro, serif;
+    font-size: 16px;
+    font-weight: 700;
+    /*margin-bottom: 16px;*/
+    color: #9E9E9E;
 }
 
 .projectsTableContent {
@@ -47,4 +69,26 @@
     .projectsTableContent {
         grid-template-columns: 1fr;
     }
+}
+
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #4F4F53;
+    border-radius: 4px;
 }

@@ -1,13 +1,24 @@
 import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
 import InfoBlock from "../components/InfoBlock/InfoBlock";
 import s from "./Pages.module.css";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Input from "../components/Input/Input";
 import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
 import NavigateButton from "../components/NavigateButton/NavigateButton";
 import Button from "../components/Button/Button";
+import {removeUser} from "../store/slices/userSlice";
+import {useDispatch} from "react-redux";
+import {removeProfile} from "../store/slices/profileSlice";
 
 export const NotFilledAccount = (props) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const logout = () => {
+        debugger
+        dispatch(removeProfile());
+        dispatch(removeUser());
+        navigate("/");
+    };
     return (
         <div>
             <div className={s.errorPage}>
@@ -38,6 +49,12 @@ export const NotFilledAccount = (props) => {
                             <path d="M15.2322 5.23223L18.7677 8.76777M16.7322 3.73223C17.7085 2.75592 19.2914 2.75592 20.2677 3.73223C21.244 4.70854 21.244 6.29146 20.2677 7.26777L6.5 21.0355H3V17.4644L16.7322 3.73223Z" stroke="#111827" strokeWidth="3" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         Редактировать профиль
+                    </NavigateButton>
+                    <NavigateButton click={logout}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 16L7 12M7 12L11 8M7 12L21 12M16 16V17C16 18.6569 14.6569 20 13 20H6C4.34315 20 3 18.6569 3 17V7C3 5.34315 4.34315 4 6 4H13C14.6569 4 16 5.34315 16 7V8" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Выйти из аккаунта
                     </NavigateButton>
                 </div>
 

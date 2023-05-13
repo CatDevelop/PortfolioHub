@@ -107,6 +107,40 @@ export const updateProfile = createAsyncThunk(
         }
     }
 );
+
+export const updatePassword = createAsyncThunk(
+    'profile/password/update',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            let response = await fetch(
+                `${API.UPDATE_PASSWORD}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());*/
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response);
+            //dispatch(getProfile(payload.userID));
+            // dispatch(setProfile(response.data));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
 //
 // export const fillProfileInfo = createAsyncThunk(
 //   'profile/fillInfo',
@@ -196,14 +230,14 @@ const initialState = {
     surname: null,
     name: null,
     shortDescription: null,
+    projectsCount: 0,
+    likesCount: 0,
     logoSource: null,
     photoSource: null,
     cvSource: null,
     activate: null,
     visible: "Public",
     tags: [],
-    positions: [],
-    informationBlocks: [],
     links: [],
     isLoading: true,
 };
@@ -216,49 +250,41 @@ const profileSlice = createSlice({
             console.log("setProfile");
             removeProfile();
             // console.log(action);
-            if (action.payload.id)
+            if ("id" in action.payload)
                 state.id = action.payload.id;
-            if (action.payload.login)
+            if ("login" in action.payload)
                 state.login = action.payload.login;
-            if (action.payload.email)
+            if ("email" in action.payload)
                 state.email = action.payload.email;
-            if (action.payload.phone)
+            if ("phone" in action.payload)
                 state.phone = action.payload.phone;
-            if (action.payload.surname)
+            if ("surname" in action.payload)
                 state.surname = action.payload.surname;
-            if (action.payload.name)
+            if ("name" in action.payload)
                 state.name = action.payload.name;
-            if (action.payload.shortDescription)
+            if ("shortDescription" in action.payload)
                 state.shortDescription = action.payload.shortDescription;
-            if (!action.payload.shortDescription && action.payload.shortDescription === "")
-                state.shortDescription = action.payload.shortDescription;
-            if (action.payload.logoSource)
+            if ("logoSource" in action.payload)
                 state.logoSource = action.payload.logoSource;
-            if (!action.payload.logoSource && action.payload.logoSource === "")
-                state.logoSource = action.payload.logoSource;
-            if (action.payload.photoSource)
+            if ("photoSource" in action.payload)
                 state.photoSource = action.payload.photoSource;
-            if (!action.payload.photoSource && action.payload.photoSource === "")
-                state.photoSource = action.payload.photoSource;
-            if (action.payload.cvSource)
+            if ("cvSource" in action.payload)
                 state.cvSource = action.payload.cvSource;
-            if (!action.payload.cvSource && action.payload.cvSource === "")
-                state.cvSource = action.payload.cvSource;
-            if (action.payload.activate)
+            if ("activate" in action.payload)
                 state.activate = parseInt(action.payload.activate);
-            if (action.payload.visible)
+            if ("visible" in action.payload)
                 state.visible = action.payload.visible;
-            if (action.payload.tags)
+            if ("tags" in action.payload)
                 if (action.payload.tags.length)
                     state.tags = JSON.parse(action.payload.tags);
                 else
                     state.tags = [];
-            if (action.payload.positions)
-                state.positions = action.payload.positions;
-            if (action.payload.informationBlocks)
-                state.informationBlocks = action.payload.informationBlocks;
-            if (action.payload.links)
+            if ("links" in action.payload)
                 state.links = action.payload.links;
+            if ("projectsCount" in action.payload)
+                state.projectsCount = action.payload.projectsCount;
+            if ("likesCount" in action.payload)
+                state.likesCount = action.payload.likesCount;
             state.isLoading = false;
         },
         removeProfile(state) {

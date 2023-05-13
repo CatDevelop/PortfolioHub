@@ -62,8 +62,8 @@ export const FavouriteProjectsPage = () => {
             <ProfileUpperPart surname={profile.surname}
                               name={profile.name}
                               shortDescription={profile.shortDescription}
-                              likes={49}
-                              projects={58}
+                              likes={profile.likesCount}
+                              projects={profile.projectsCount}
             />
             <ProfileNavBar isProfile={false} userID={user.id}/>
 

@@ -13,8 +13,6 @@
 		ThrowError($Link, 400, "Введите ID пользователя!");
 
 	$result = [];
-	$positions = [];
-	$informationBlocks = [];
 	$links = [];
 
 	$A1 = $Link->query("SELECT * FROM `Users` WHERE `ID`=$userID LIMIT 1");
@@ -30,44 +28,6 @@
 					"activate" => $row["Activate"]
 				];
 				SendResponse($Link, $result);
-			}
-
-			$A2 = $Link->query("SELECT Position FROM `Positions` WHERE `UserID`= ".$row["ID"]);
-			if ($A2->num_rows > 0)
-			{
-				while($position = $A2->fetch_assoc()) 
-				{
-					$positions[] = $position["Position"];
-				}
-			}
-
-			$A3 = $Link->query("SELECT `ID`, `BlockType`, `BlockTitle`, `Content` FROM `InformationBlocks` JOIN `InformationBlockText` ON InformationBlocks.`ContentID` = InformationBlockText.ContentID WHERE `UserID`= ".$row["ID"]." AND `BlockType`='Text'");
-			if ($A3->num_rows > 0)
-			{
-				while($informationBlockText = $A3->fetch_assoc()) 
-				{
-					$informationBlocks[] = [
-						"id" => $informationBlockText["ID"],
-						"blockType" => $informationBlockText["BlockType"],
-						"blockTitle" => $informationBlockText["BlockTitle"],
-						"content" => $informationBlockText["Content"]
-					];
-				}
-			}
-
-
-			$A4 = $Link->query("SELECT `ID`, `BlockType`, `BlockTitle`, `Content` FROM `InformationBlocks` JOIN `InformationBlockTable` ON InformationBlocks.`ContentID` = InformationBlockTable.ContentID WHERE `UserID`= ".$row["ID"]." AND `BlockType`='Table'");
-			if ($A4->num_rows > 0)
-			{
-				while($informationBlockTable = $A4->fetch_assoc()) 
-				{
-					$informationBlocks[] = [
-						"id" => $informationBlockTable["ID"],
-						"blockType" => $informationBlockTable["BlockType"],
-						"blockTitle" => $informationBlockTable["BlockTitle"],
-						"content" => json_decode($informationBlockTable["Content"])->content
-					];
-				}
 			}
 
 			$A5 = $Link->query("SELECT * FROM `Links` WHERE `UserID`= ".$row["ID"]);
@@ -88,6 +48,16 @@
 			else 
 				$t = $row["Tags"];
 
+			$A6 = $Link->query("SELECT COUNT(UserID) AS count FROM `Projects` WHERE `UserID`= ".$row["ID"]." AND `InCategory`=1");
+			$projectsCount = $A6->fetch_assoc()["count"];
+
+			$A7 = $Link->query("SELECT SUM(Rating) AS rating FROM `Projects` WHERE `UserID`= ".$row["ID"]." AND `InCategory`=1");
+			$likesCount = $A7->fetch_assoc()["rating"];
+
+			if(!$likesCount)
+				$likesCount = "0";
+
+
 			$result  = [
 				"id" => $row["ID"],
 				"login" => $row["Login"],
@@ -96,14 +66,14 @@
 				"surname" => $row["Surname"],
 				"name" => $row["Name"],
 				"shortDescription" => $row["ShortDescription"],
+				"projectsCount" => $projectsCount,
+				"likesCount" => $likesCount,
 				"logoSource" => $row["LogoSource"],
 				"photoSource" => $row["PhotoSource"],
 				"cvSource" => $row["CVSource"],
 				"activate" => $row["Activate"],
 				"visible" => $row["Visible"],
 				"tags" => $t,
-				"positions" => $positions,
-				"informationBlocks" => $informationBlocks,
 				"links" => $links
 			];
 		}

@@ -19,7 +19,7 @@
 		{
 			$result  = [
 				"id" => $row["ID"],
-				"portfolio" => $row["Portfolio"],
+				"portfolio" => $row["Blocks"],
 				"updateDate" => $row["UpdateDate"]
 			];
 

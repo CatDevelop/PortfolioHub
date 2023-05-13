@@ -7,19 +7,6 @@
 	include "URFUPortfolioHubLibrary.php"; 
 	mysqli_set_charset($Link, 'utf8'); 
 
-	/*$data = '{ "content": [ 
-    {"0": "1984", "1": "Born in Osaka, Japan."},
-    {"0":"2010", "1":"Completed the Masters Program in the Information Science at Nara Institute"},
-    {"0": "2010", "1": "Worked at Yahoo! Japan"}
-  ]
-}';*/
-
-	//$A3 = $Link->query("INSERT INTO InformationBlockTable (Content) VALUES ('$data')");
-	//$postData = json_decode(file_get_contents('php://input'), true);
-
-	//$authData = $postData["email"]; // Логин или почта
-	//$password = $postData["password"];
-
 	$userID = GetGet("UserID");
 
 	if($userID == "UserID")
@@ -28,41 +15,76 @@
 	$blocks = [];
 	$result  = [];
 
-	$A1 = $Link->query("SELECT * FROM `ProjectsBlocks` WHERE `UserID`= $userID");
-	if ($A1->num_rows > 0)
+	$catProjects = [];
+
+	$A1 = $Link->query("SELECT * FROM `Users` WHERE ID=$userID LIMIT 1");
+	if ($A1->num_rows <= 0)
+		ThrowError($Link, 400, "Пользователь не найден!");
+
+	$A2 = $Link->query("SELECT * FROM `ProjectsBlocks` WHERE `UserID`= $userID LIMIT 1");
+	if ($A2->num_rows > 0)
 	{
-		while($row = $A1->fetch_assoc()) 
+		while($row = $A2->fetch_assoc()) 
 		{
-			$projects = [];
-			$A2 = $Link->query("SELECT * FROM `Projects` WHERE `ProjectsBlockID`= ".$row["ID"]);
-			if ($A2->num_rows > 0)
-			{
-				while($project = $A2->fetch_assoc()) 
-				{
-					$projects[] = [
-						"id" => $project["ID"],
-						"name" => $project["Name"],
-						"shortDescription" => $project["ShortDescription"],
-						"previewSource" => $project["PreviewSource"],
-						"likesCount" => $project["Rating"]
-					];
+			$b = json_decode($row["Blocks"]);
+
+			foreach ($b as $id => $block) {
+				$projects = [];
+				foreach ($block->projects as $project1) {
+					$A3 = $Link->query("SELECT * FROM `Projects` WHERE `ID`= ".$project1);
+					if ($A3->num_rows > 0)
+					{
+						while($project = $A3->fetch_assoc()) 
+						{
+							$catProjects[] = $project["ID"];
+							$projects[] = [
+								"id" => $project["ID"],
+								"name" => $project["Name"],
+								"shortDescription" => $project["ShortDescription"],
+								"previewSource" => $project["PreviewSource"],
+								"likesCount" => $project["Rating"]
+							];
+						}
+					}
 				}
+				$blocks[] = [
+					"id" => "$id",
+					"name" => $block->blockTitle,
+					"projects" => $projects
+				];
 			}
-
-			$blocks[] = [
-				"id" => $row["ID"],
-				"name" => $row["BlockTitle"],
-				"projects" => $projects
-			];
 		}
-		$result["categories"] = $blocks;
-
-		SendResponse($Link, $result);
+		$result["projectsBlocks"] = $blocks;
 	}
 
-	if ($A3->num_rows > 0)
+	$catProjectsString = implode(',', $catProjects);
+	$uncategorizedProjects = [];
+
+	if($catProjectsString == "")
+		$A4 = $Link->query("SELECT * FROM `Projects` WHERE `UserID`= $userID AND `ID` NOT IN ('')");
+	else
+		$A4 = $Link->query("SELECT * FROM `Projects` WHERE `UserID`= $userID AND `ID` NOT IN ($catProjectsString)");
+
+	if ($A4->num_rows > 0)
 	{
-		SendResponse($Link, ["categories" => []]);
+		while($row = $A4->fetch_assoc()) 
+		{
+			$uncategorizedProjects[] = [
+				"id" => $row["ID"],
+				"name" => $row["Name"],
+				"shortDescription" => $row["ShortDescription"],
+				"previewSource" => $row["PreviewSource"],
+				"likesCount" => $row["Rating"]
+			];
+		}
+	}
+	$result["uncategorizedProjects"] = $uncategorizedProjects;
+
+	SendResponse($Link, $result);
+
+	if ($A2->num_rows > 0)
+	{
+		SendResponse($Link, ["projectsBlocks" => ["id" => $row["ID"], "name" => $row["BlockTitle"], "projects" =>[]]]);
 	} else 
-		ThrowError($Link, 400, "Пользователь не найден!");
+		SendResponse($Link, ["projectsBlocks" => []]);
 ?>

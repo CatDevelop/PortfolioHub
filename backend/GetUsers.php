@@ -23,15 +23,10 @@
 	{
 		while($row = $A1->fetch_assoc()) 
 		{
-			$positions = [];
-			$A2 = $Link->query("SELECT Position FROM `Positions` WHERE `UserID`= ".$row["ID"]);
-			if ($A2->num_rows > 0)
-			{
-				while($position = $A2->fetch_assoc()) 
-				{
-					$positions[] = $position["Position"];
-				}
-			}
+			if ($row["Tags"] == "[]")
+				$t = [];
+			else 
+				$t = $row["Tags"];
 
 			$result[]  = [
 				"id" => $row["ID"],
@@ -43,7 +38,7 @@
 				"shortDescription" => $row["ShortDescription"],
 				"photoSource" => $row["PhotoSource"],
 				"cvSource" => $row["CVSource"],
-				"positions" => $positions
+				"tags" => $t
 			];
 		}
 

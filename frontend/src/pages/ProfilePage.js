@@ -1,14 +1,4 @@
-import React, {useEffect} from "react";
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import ProjectsTable from "../components/ProjectsTable/ProjectsTable";
-
-import testImage from "../assets/img/project-img1.png";
-import s from "./Pages.module.css";
-import projectImage0 from "../assets/img/CDlogoAutoMagShina.png";
-import projectImage1 from "../assets/img/CDlogoUralMebel.png";
-import projectImage2 from "../assets/img/project-img2.png";
-import projectImage11 from "../assets/img/project-img11.png";
-import projectImage15 from "../assets/img/CDlogoHeroReturn.png";
+import React, {useEffect, useState} from "react";
 import {getProfile} from "../store/slices/profileSlice";
 import {Navigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -19,14 +9,35 @@ import ProfilePersonalInformation from "../components/ProfilePersonalInformation
 import {NotActivateAccount} from "./NotActivateAccount";
 import {NotFilledAccount} from "./NotFilledAccount";
 import {useProfile} from "../hooks/use-profile";
-import {retry} from "@reduxjs/toolkit/query";
-import ReactLoading from 'react-loading';
 import Loading from "../components/Loading/Loading";
+import {ModalWindow} from "../components/ModalWindow/ModalWindow";
+import {useForm} from "react-hook-form";
+import ChangePasswordForm from "../components/ChangePasswordForm/ChangePasswordForm";
 
 export const ProfilePage = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
     const user = useAuth();
+
+    const {register, handleSubmit, reset, formState: {errors}} = useForm({
+        defaultValues: {
+            changePasswordOld: '',
+            changePasswordNew: '',
+            changePasswordNewRetry: '',
+        },
+        mode: "onBlur"
+    });
+
+    const onSubmit = (payload) => {
+        // payload.authorizationPassword = md5(payload.authorizationPassword);
+        // const data = {
+        //     email: payload.authorizationEmail,
+        //     password: payload.authorizationPassword
+        // }
+        // dispatch(signInUser(data));
+    }
+
+    const [changePasswordModalActive, setChangePasswordModalActive] = useState(false);
 
     const profile = useProfile();
     console.log(profile)
@@ -53,15 +64,29 @@ export const ProfilePage = () => {
             <ProfileUpperPart surname={profile.surname}
                               name={profile.name}
                               shortDescription={profile.shortDescription}
-                              likes={49}
-                              projects={58}
+                              likes={profile.likesCount}
+                              projects={profile.projectsCount}
             />
-            <ProfileNavBar isProfile={true} userID={user.id}/>
+            <ProfileNavBar isProfile={true}
+                           userID={user.id}
+                           changePasswordModalActive={changePasswordModalActive}
+                           setChangePasswordModalActive={setChangePasswordModalActive}
+            />
             <ProfilePersonalInformation phone={profile.phone}
                                         email={profile.email}
                                         tags={profile.tags}
                                         cvSource={profile.cvSource}
             />
+
+            <ModalWindow active={changePasswordModalActive}
+                         setActive={setChangePasswordModalActive}
+                         onClose={()=>reset()}>
+                <ChangePasswordForm handleSubmit={handleSubmit}
+                                    errors={errors}
+                                    register={register}
+                                    userID={userId}
+                />
+            </ModalWindow>
             {/*<ConsoleAndPhoto/>*/}
             {
                 /*categories.map(c => {

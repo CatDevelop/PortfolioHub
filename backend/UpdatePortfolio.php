@@ -18,9 +18,7 @@
 	if(empty($Portfolio))
 		ThrowError($Link, 400, "Нет полей для изменений!");
 
-	echo "UPDATE `Portfolios` SET `Portfolio`='$Portfolio' WHERE `UserID`=$userID";
-
-	$A1 = $Link->query("UPDATE `Portfolios` SET `Portfolio`='".addslashes($Portfolio)."' WHERE `UserID`=$userID"); 
+	$A1 = $Link->query("UPDATE `Portfolios` SET `Blocks`='".addslashes($Portfolio)."' WHERE `UserID`=$userID"); 
 
 	if($A1)
 		SendResponse($Link, ["message" => "Вы успешно изменили портфолио!"]);

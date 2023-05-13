@@ -1,0 +1,64 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.projectsTable {
+    width: 960px;
+    max-height: 500px;
+    /*padding: 0 10px;*/
+    margin: 10px auto 20px auto;
+    animation: show 1s ease-in-out;
+}
+
+.edit {
+    border-radius: 12px;
+    border: 3px dashed  #898989;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+}
+
+.header {
+    font-family: SFPro, serif;
+    font-size: 20px;
+    font-weight: 700;
+    /*text-decoration: underline;*/
+    /*text-underline-offset: 6px;*/
+    /*text-decoration-color: #525252;*/
+    /*text-decoration-thickness: 0px;*/
+    margin-bottom: 16px;
+}
+
+.projectsTableContent {
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: center;
+    column-gap: 30px;
+    row-gap: 10px;
+
+    align-items: stretch;
+    /*column-gap: 30px;*/
+    padding: 0 14px;
+}
+
+.Divider {
+    margin: 40px 0 0 0;
+    color: #6e6e6e;
+    opacity: 0.4;
+    border-width: 0 0 1px;
+}
+
+@media screen and (max-width: 700px) {
+    .projectsTableContent {
+        grid-template-columns: 1fr;
+    }
+}

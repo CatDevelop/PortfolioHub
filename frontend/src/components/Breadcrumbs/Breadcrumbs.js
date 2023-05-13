@@ -2,16 +2,11 @@ import React from 'react';
 import s from './Breadcrumbs.module.css';
 import {Link} from "react-router-dom";
 
-function Breadcrumbs() {
-    const arr = [
-        {id: 1, title: "Home", src:"/"},
-        {id: 2, title: "Проекты", src:"/projects"},
-        {id: 3, title: "AutoMagShina", year:"2021-2022"},
-    ]
+function Breadcrumbs(props) {
     return (
         <div className={s.breadcrumbs}>
             {
-                arr.map(crumb => {
+                props.breadcrumbs.map(crumb => {
                     if(crumb.src) {
                         return <>
                             <Link className={s.breadcrumbsLink} to={crumb.src}>{crumb.title}</Link>

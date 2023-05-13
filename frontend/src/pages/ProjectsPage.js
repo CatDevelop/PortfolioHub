@@ -26,7 +26,7 @@ export const ProjectsPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getProfile(userId));
-        dispatch(getPortfolio(userId));
+        // dispatch(getPortfolio(userId));
         dispatch(getProjects(userId));
         debugger
     }, []);
@@ -34,15 +34,13 @@ export const ProjectsPage = () => {
     const user = useAuth();
 
     const profile = useProfile();
-    const portfolio = usePortfolio();
     const projects = useProjects();
-    console.log(portfolio);
     console.log(projects);
 
     if(!profile.activate && user.id===profile.id)
         return <NotActivateAccount userID={user.id}/>
 
-    if (portfolio.isLoading || projects.isLoading)
+    if (projects.isLoading)
         return <Loading/>
 
     if(!profile.name && user.id===profile.id)
@@ -163,38 +161,18 @@ export const ProjectsPage = () => {
                                 surname={profile.surname}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
-                                likes={100}
-                                projects={49}
+                                likes={profile.likesCount}
+                                projects={profile.projectsCount}
                                 edit={false}
                                 yourAccount={user.id === profile.id}
             />
 
             {
+                projects.categories.length !== 0 ?
                 projects.categories.map(projectCategory => {
                     return <ProjectsTable projects={projectCategory.projects} title={projectCategory.name}/>
-                })
+                }) : <p>Нет проектов</p>
             }
-
-
-
-
-            {/*<FavouriteProjects projects={projects}/>*/}
-            {/*<ConsoleAndPhoto toRotate={profile.positions}/>*/}
-            {/*<FavouriteProjects/>*/}
-            {/*<ProjectDescription*/}
-            {/*    text={"A Markdown note-taking app with 100+ plugins, cross-platform and encrypted data sync support. The life-time revenue is more than $300k."}/>*/}
-            {/*<ProjectInformationBlock informationBlocks={informationBlocks}/>*/}
-                {
-                    // projectsBlocks.length !== 0?
-                    //     projectsBlocks.map(block => {
-                    //         return <ProjectsTable title={block.blockTitle} projects={block.projects}/>
-                    //     }) : <></>
-
-                }
-
-            {/*{*/}
-            {/*    projectsBlocks.blocks.map(block => <ProjectsTable title={block.blockTitle} projects={block.projects}/>)*/}
-            {/*}*/}
         </div>
     )
 }
