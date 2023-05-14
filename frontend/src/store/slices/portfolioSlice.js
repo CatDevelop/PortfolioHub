@@ -40,41 +40,6 @@ export const getPortfolio = createAsyncThunk(
     }
 );
 
-
-export const addPortfolio = createAsyncThunk(
-    'portfolio/add',
-    async function (payload, {rejectWithValue, dispatch}) {
-        try {
-            let response = await fetch(
-                `${API.ADD_PORTFOLIO}?userID=${payload.userID ?? "1"}`,
-                {
-                    method: 'post',
-                    body: payload
-                }
-            );
-
-            if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
-                throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
-                );
-            }
-
-            response = await response.json();
-            console.log(response);
-            // dispatch(getProfile(payload.userID));
-            // dispatch(setProfile(response.data));
-
-            return response;
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
-    }
-);
-
 export const updatePortfolio = createAsyncThunk(
     'portfolio/update',
     async function (payload, {rejectWithValue, dispatch}) {
@@ -230,12 +195,6 @@ const portfolioSlice = createSlice({
         [getPortfolio.fulfilled]: (state, action) => {
         },
         [getPortfolio.rejected]: (state, action) => {
-        },
-        [addPortfolio.pending]: (state, action) => {
-        },
-        [addPortfolio.fulfilled]: (state, action) => {
-        },
-        [addPortfolio.rejected]: (state, action) => {
         },
         [updatePortfolio.pending]: (state, action) => {},
         [updatePortfolio.fulfilled]: (state, action) => {},

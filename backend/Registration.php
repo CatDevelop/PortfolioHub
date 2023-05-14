@@ -38,7 +38,7 @@
 	if ($A2->num_rows > 0) 
 	   ThrowError($Link, 400, "Почта уже занята!");
 
-	$A3 = $Link->query("INSERT INTO Users (Login, Email, Password) VALUES('$login', '$email', '$password')"); 
+	$A3 = $Link->query("INSERT INTO Users (Login, Email, Password, PhotoSource) VALUES('$login', '$email', '$password', 'plumb.png')"); 
 	$UserID = $Link->insert_id;
 	$UniqueLink = uniqid();
 	$A4 = $Link->query("INSERT INTO ActivationLink (UserID, Link) VALUES('$UserID', '$UniqueLink')"); 

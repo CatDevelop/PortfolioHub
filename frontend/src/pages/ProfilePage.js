@@ -62,6 +62,7 @@ export const ProfilePage = () => {
     return (
         <div>
             <ProfileUpperPart surname={profile.surname}
+                              avatar={profile.avatarSource}
                               name={profile.name}
                               shortDescription={profile.shortDescription}
                               likes={profile.likesCount}

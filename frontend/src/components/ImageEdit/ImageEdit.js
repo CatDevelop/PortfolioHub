@@ -1,32 +1,32 @@
 import React from 'react';
-import s from './ResumeEdit.module.css';
+import s from './ImageEdit.module.css';
 import Form from 'react-bootstrap/Form';
 import { saveAs } from 'file-saver';
 
-function ResumeEdit(props) {
-    console.log(props.file)
+function ImageEdit(props) {
+    console.log(props.image)
     return (
-        <div className={s.resumeEdit}>
+        <div className={s.imageEdit}>
             {
-                props.file ?
+                props.image ?
                     <>
                         {
-                            typeof props.file === 'string' ?  <a href={props.file} id="file-2" download>
+                            typeof props.image === 'string' ?  <a href={props.image} id="file-2" download>
                                     {/*<a href={props.resumeLink} id="file-2" download>*/}
                                     <div className={s.resumeDownload}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12 10V16M12 16L9 13M12 16L15 13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                        Скачать резюме
+                                        Скачать изображение
                                     </div>
                                 </a>:
-                                <a onClick={() => saveAs(props.file[0])} id="file-2" download>
+                                <a onClick={() => saveAs(props.image[0])} id="file-2" download>
                                     {/*<a href={props.resumeLink} id="file-2" download>*/}
                                     <div className={s.resumeDownload}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12 10V16M12 16L9 13M12 16L15 13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="#EEEEEE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                        Скачать резюме
+                                        Скачать изображение
                                     </div>
                                 </a>
                         }
@@ -59,7 +59,7 @@ function ResumeEdit(props) {
                      :
                     <>
                         <div className="box">
-                            <input type="file" nname={"file-" + props.inputId + "[]"} id={"file-"+props.inputId} className={s.inputfile}
+                            <input type="file" name={"file-" + props.inputId + "[]"} id={"file-"+props.inputId} className={s.inputfile}
                                    data-multiple-caption="{count} files selected" multiple
                                    {...props.register(props.registerName, props.options)}
                             />
@@ -76,4 +76,4 @@ function ResumeEdit(props) {
     )
 }
 
-export default ResumeEdit;
+export default ImageEdit;

@@ -30,7 +30,7 @@ function PortfolioUpperPart(props) {
 
             <div className={s.downContainer}>
                 <div>
-                    <img src={Avatar} alt="" className={s.avatar}/>
+                    <img src={"https://www.ren-design.ru/api/portfolio-hub/1.0/files/avatars/"+props.avatar} alt="" className={s.avatar}/>
                 </div>
                 <div className={s.rightContainer}>
                     <div className={s.rightUpContainer}>
@@ -60,8 +60,9 @@ function PortfolioUpperPart(props) {
                                                     <ul>
                                                         <li>
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0016 3.6001C12.6643 3.6001 13.2016 4.13736 13.2016 4.8001V10.8001H19.2016C19.8643 10.8001 20.4016 11.3374 20.4016 12.0001C20.4016 12.6628 19.8643 13.2001 19.2016 13.2001H13.2016V19.2001C13.2016 19.8628 12.6643 20.4001 12.0016 20.4001C11.3388 20.4001 10.8016 19.8628 10.8016 19.2001V13.2001H4.80156C4.13882 13.2001 3.60156 12.6628 3.60156 12.0001C3.60156 11.3374 4.13882 10.8001 4.80156 10.8001L10.8016 10.8001V4.8001C10.8016 4.13736 11.3388 3.6001 12.0016 3.6001Z" fill="white"/>
+                                                                <path d="M9 13H15M12 10V16M3 17V7C3 5.89543 3.89543 5 5 5H11L13 7H19C20.1046 7 21 7.89543 21 9V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                             </svg>
+
 
                                                             <a onClick={props.addCategory}>Создать раздел</a>
                                                         </li>
@@ -71,7 +72,7 @@ function PortfolioUpperPart(props) {
                                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0016 3.6001C12.6643 3.6001 13.2016 4.13736 13.2016 4.8001V10.8001H19.2016C19.8643 10.8001 20.4016 11.3374 20.4016 12.0001C20.4016 12.6628 19.8643 13.2001 19.2016 13.2001H13.2016V19.2001C13.2016 19.8628 12.6643 20.4001 12.0016 20.4001C11.3388 20.4001 10.8016 19.8628 10.8016 19.2001V13.2001H4.80156C4.13882 13.2001 3.60156 12.6628 3.60156 12.0001C3.60156 11.3374 4.13882 10.8001 4.80156 10.8001L10.8016 10.8001V4.8001C10.8016 4.13736 11.3388 3.6001 12.0016 3.6001Z" fill="white"/>
                                                             </svg>
 
-                                                            <a onClick={props.addCategory}>Создать проект</a>
+                                                            <a onClick={props.addProject}>Создать проект</a>
                                                         </li>
                                                     </ul> :
                                                     <ul>

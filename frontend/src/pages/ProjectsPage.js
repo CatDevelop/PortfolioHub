@@ -159,6 +159,7 @@ export const ProjectsPage = () => {
         <div>
             <PortfolioUpperPart name={profile.name}
                                 surname={profile.surname}
+                                avatar={profile.avatarSource}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
                                 likes={profile.likesCount}

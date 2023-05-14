@@ -80,7 +80,7 @@
 					$values[] = $Resume;
 				}
 
-			if(!empty($Avatar))
+			if(isset($Avatar))
 				if($row['PhotoSource'] != $Avatar) {
 					$fields[] = 'PhotoSource';
 					$values[] = $Avatar;

@@ -74,6 +74,78 @@ export const uploadResume = createAsyncThunk(
     }
 );
 
+export const uploadAvatar = createAsyncThunk(
+    'profile/uploadavatar',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            const formData = new FormData();
+            formData.append('avatar', payload.file);
+            let response = await fetch(
+                `${API.UPLOAD_AVATAR}?userID=${payload.userID ?? "1"}`,
+                {
+                    method: 'post',
+                    body: formData
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());*/
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response);
+            dispatch(getProfile(payload.userID));
+            // dispatch(setProfile(response.data));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const uploadBanner = createAsyncThunk(
+    'profile/uploadbanner',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            const formData = new FormData();
+            formData.append('banner', payload.file);
+            let response = await fetch(
+                `${API.UPLOAD_BANNER}?userID=${payload.userID ?? "1"}`,
+                {
+                    method: 'post',
+                    body: formData
+                }
+            );
+
+            if (!response.ok) {
+                //if (response.status === 401) dispatch(removeUser());*/
+
+                throw new Error(
+                    `${response.status}${
+                        response.statusText ? ' ' + response.statusText : ''
+                    }`
+                );
+            }
+
+            response = await response.json();
+            console.log(response);
+            dispatch(getProfile(payload.userID));
+            // dispatch(setProfile(response.data));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const updateProfile = createAsyncThunk(
     'profile/update',
     async function (payload, {rejectWithValue, dispatch}) {
@@ -233,7 +305,8 @@ const initialState = {
     projectsCount: 0,
     likesCount: 0,
     logoSource: null,
-    photoSource: null,
+    avatarSource: null,
+    bannerSource: null,
     cvSource: null,
     activate: null,
     visible: "Public",
@@ -266,8 +339,10 @@ const profileSlice = createSlice({
                 state.shortDescription = action.payload.shortDescription;
             if ("logoSource" in action.payload)
                 state.logoSource = action.payload.logoSource;
-            if ("photoSource" in action.payload)
-                state.photoSource = action.payload.photoSource;
+            if ("avatarSource" in action.payload)
+                state.avatarSource = action.payload.avatarSource;
+            if ("bannerSource" in action.payload)
+                state.bannerSource = action.payload.bannerSource;
             if ("cvSource" in action.payload)
                 state.cvSource = action.payload.cvSource;
             if ("activate" in action.payload)

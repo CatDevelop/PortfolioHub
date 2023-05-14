@@ -9,7 +9,7 @@ function ProfileUpperPart(props) {
     return (
         <div className={s.container}>
             <div className={s.leftContainer}>
-                <img src={Avatar} alt="" className={s.avatar}/>
+                <img src={"https://www.ren-design.ru/api/portfolio-hub/1.0/files/avatars/"+props.avatar} alt="" className={s.avatar}/>
                 <div className={s.nameAndDescription}>
                     <p className={s.name}>{props.surname} {props.name}</p>
                     <p className={s.description}>{props.shortDescription}</p>

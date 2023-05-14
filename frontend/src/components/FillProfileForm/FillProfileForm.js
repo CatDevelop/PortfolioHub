@@ -126,11 +126,11 @@ function FillProfileForm({register, errors, selectedTags, setSelectedTags, getVa
                     <h1 className={s.blockTitle}>Социальные сети</h1>
                 </div>
 
-                {/*<ResumeEdit type="submit">Войти в систему</ResumeEdit>*/}
+                {/*<ImageEdit type="submit">Войти в систему</ImageEdit>*/}
             </Form>
 
 
-            {/*<ResumeEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ResumeEdit>*/}
+            {/*<ImageEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ImageEdit>*/}
         </>
     )
 }

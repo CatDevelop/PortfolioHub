@@ -9,45 +9,28 @@
     }
 }
 
-.fillProfileForm {
+.authorizationForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /*align-items: center;*/
-    max-width: 1144px;
+    align-items: center;
+    min-width: 400px;
     /*background-color: rgba(195, 195, 195, 0.04);;*/
     border-radius: 15px;
-    padding: 0 35px;
-    gap: 25px;
-    /*margin: auto;*/
+    padding: 20px;
+    margin: auto;
 
     animation: show 1s ease-in-out;
     /*margin: auto auto 48px;*/
 }
 
-.fillProfileRow {
-    display: flex;
-    flex-direction: row;
-    gap: 128px;
-}
-
-
-.block {
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-}
-.resumeTitle,
-.blockTitle {
+.header {
     font-family: SFPro, serif;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    /*padding: 40px 0;*/
-}
-
-.resumeTitle {
-    margin-bottom: 0;
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px 0;
 }
 
 .authorization {
@@ -58,13 +41,21 @@
     text-align: center;
 }
 
-.resumeTitles {
-    display: flex;
-    flex-direction: column;
+.previewTitle {
+    text-align: left;
+
+    font-family: SFPro, serif;
+    font-weight: 500;
+    font-size: 16px;
 }
 
-.blockTitleDescription {
+.previewTitleDescription {
     font-family: SFPro, serif;
     font-size: 16px;
     color: #9E9E9E;
+    margin-bottom: 4px;
+}
+
+.previewContainer {
+    margin-bottom: 25px;
 }

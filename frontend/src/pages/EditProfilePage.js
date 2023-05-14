@@ -9,7 +9,7 @@ import projectImage1 from "../assets/img/CDlogoUralMebel.png";
 import projectImage2 from "../assets/img/project-img2.png";
 import projectImage11 from "../assets/img/project-img11.png";
 import projectImage15 from "../assets/img/CDlogoHeroReturn.png";
-import {getProfile, updateProfile, uploadResume} from "../store/slices/profileSlice";
+import {getProfile, updateProfile, uploadAvatar, uploadBanner, uploadResume} from "../store/slices/profileSlice";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useAuth} from "../hooks/use-auth";
@@ -46,7 +46,10 @@ export const EditProfilePage = () => {
         editProfileEmail: profile.email,
         editProfilePhone: '',
         editProfileShortDescription: '',
-        editProfileResume: ''
+        editProfileResume: '',
+        editProfileAvatar: '',
+        editProfileBanner: '',
+        editProfileLogo: '',
     }
 
     const {register, handleSubmit, setValue, reset, watch, getValues, formState: {errors}} = useForm({
@@ -90,13 +93,29 @@ export const EditProfilePage = () => {
         {
             if(payload.editProfileResume)
             {
-                dispatch(uploadResume({userID: userId, file: payload.editProfileResume[0]})).then(() => {
-                    if(Object.entries(data).length === 0){
-                        navigate("/"+userId+"/profile");
-                    }
-                });
+                dispatch(uploadResume({userID: userId, file: payload.editProfileResume[0]}));
             } else {
                 data["resume"] = '';
+            }
+        }
+
+        if(payload.editProfileAvatar !== profile.avatarSource)
+        {
+            if(payload.editProfileAvatar)
+            {
+                dispatch(uploadAvatar({userID: userId, file: payload.editProfileAvatar[0]}));
+            } else {
+                data["avatar"] = '';
+            }
+        }
+
+        if(payload.editProfileBanner !== profile.bannerSource)
+        {
+            if(payload.editProfileBanner)
+            {
+                dispatch(uploadBanner({userID: userId, file: payload.editProfileBanner[0]}));
+            } else {
+                data["banner"] = '';
             }
         }
 
@@ -112,12 +131,16 @@ export const EditProfilePage = () => {
     }
 
     const watchResumeFile = watch("editProfileResume", '');
+    const watchAvatarImage = watch("editProfileAvatar", '');
+    const watchBannerImage = watch("editProfileBanner", '');
+    const watchLogoImage = watch("editProfileLogo", '');
 
     debugger
     return (
         <div>
             <ProfileUpperPart surname={profile.surname}
                               name={profile.name}
+                              avatar={profile.avatarSource}
                               shortDescription={profile.shortDescription}
                               likes={profile.likesCount}
                               projects={profile.projectsCount}
@@ -131,6 +154,9 @@ export const EditProfilePage = () => {
                              setSelectedTags={setSelectedTags}
                              getValues={getValues}
                              watchResumeFile={watchResumeFile}
+                             watchAvatarImage={watchAvatarImage}
+                             watchBannerImage={watchBannerImage}
+                             watchLogoImage={watchLogoImage}
                              setValue={setValue}/>
         </div>
     )

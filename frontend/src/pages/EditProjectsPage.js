@@ -13,6 +13,9 @@ import s from "./Pages.module.css";
 import {ModalWindow} from "../components/ModalWindow/ModalWindow";
 import SelectProjectsTable from "../components/SelectProjectsTable/SelectProjectsTable";
 import Button from "../components/Button/Button";
+import AddProjectForm from "../components/AddProjectForm/AddProjectForm";
+import {useForm} from "react-hook-form";
+import Loading from "../components/Loading/Loading";
 
 export const EditProjectsPage = () => {
     const { userId } = useParams();
@@ -33,12 +36,29 @@ export const EditProjectsPage = () => {
     const [editProjects, setEditProjects] = useState(projects);
 
     const [importProjectModalActive, setImportProjectModalActive] = useState(false);
+    const [addProjectModalActive, setAddProjectModalActive] = useState(false);
     const [importProjectCategoryID, setImportProjectCategoryID] = useState({id:0, name:""});
+    const [addProjectCategoryID, setAddProjectCategoryID] = useState(null);
     const [selectProjectID, setSelectProjectID] = useState();
     const [isAddCategory, setIsAddCategory] = useState(false);
 
+    const {register: registerAddProject, watch: watchAddProject, setValue: setValueAddProject, getValues: getValuesAddProject, handleSubmit: handleSubmitAddProject, reset: resetAddProject, formState: {errors: errorsAddProject}} = useForm({
+        defaultValues: {
+            addProjectName: '',
+            addProjectDescription: '',
+            addProjectPreviewSource: '',
+            addProjectYear: '',
+        },
+        mode: "onBlur"
+    });
+
+    const watchImageFile = watchAddProject("addProjectPreviewSource", '');
+
     if(user.id !== userId)
         return <Navigate to='/' />;
+
+    if(projects.isLoading)
+        return <Loading />;
 
     const handleSubmit = () => {
         // const data = {
@@ -48,6 +68,11 @@ export const EditProjectsPage = () => {
         // dispatch(updatePortfolio(data)).then(()=>{
         //     navigate("/"+user.id);
         // });
+    }
+
+    const addProject = () => {
+        setAddProjectModalActive(true);
+        setAddProjectCategoryID(null);
     }
 
     const addCategory = () => {
@@ -82,6 +107,7 @@ export const EditProjectsPage = () => {
         <div>
             <PortfolioUpperPart name={profile.name}
                                 surname={profile.surname}
+                                avatar={profile.avatarSource}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
                                 likes={profile.likesCount}
@@ -91,6 +117,7 @@ export const EditProjectsPage = () => {
                                 yourAccount={user.id === profile.id}
                                 handleSubmit={handleSubmit}
                                 addCategory={addCategory}
+                                addProject={addProject}
             />
             <p className={s.editTitle}>Режим редактирования</p>
             {
@@ -105,6 +132,10 @@ export const EditProjectsPage = () => {
                                               setImportProjectModalActive={setImportProjectModalActive}
                                               importProjectCategoryID={importProjectCategoryID}
                                               setImportProjectCategoryID={setImportProjectCategoryID}
+                                              addProjectModalActive={addProjectModalActive}
+                                              setAddProjectModalActive={setAddProjectModalActive}
+                                              addProjectCategoryID={addProjectCategoryID}
+                                              setAddProjectCategoryID={setAddProjectCategoryID}
                         />
                     }) : <p></p>
             }
@@ -135,6 +166,25 @@ export const EditProjectsPage = () => {
                         selectProjectID: selectProjectID
                     })}>Импортировать</Button>
                 </div>
+            </ModalWindow>
+
+            <ModalWindow active={addProjectModalActive} setActive={setAddProjectModalActive} onClose={()=> {
+                setAddProjectCategoryID(null);
+                resetAddProject();
+            }}>
+                <AddProjectForm userID={userId}
+                                addProjectCategoryID={addProjectCategoryID}
+                                register={registerAddProject}
+                                handleSubmit={handleSubmitAddProject}
+                                reset={resetAddProject}
+                                errors={errorsAddProject}
+                                addProjectModalActive={addProjectModalActive}
+                                setAddProjectModalActive={setAddProjectModalActive}
+                                setAddProjectCategoryID={setAddProjectCategoryID}
+                                watchImageFile={watchImageFile}
+                                getValues={getValuesAddProject}
+                                setValue={setValueAddProject}
+                />
             </ModalWindow>
         </div>
     )

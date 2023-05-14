@@ -13,8 +13,24 @@ import {useProfile} from "../../hooks/use-profile";
 import {useParams} from "react-router-dom";
 import TagInput from "../TagInput/TagInput";
 import ResumeEdit from "../ResumeEdit/ResumeEdit";
+import ImageEdit from "../ImageEdit/ImageEdit";
+import { v4 as uuidv4 } from 'uuid';
 
-function EditProfileForm({register, errors, reset, profile, selectedTags, setSelectedTags, getValues, watchResumeFile, setValue}) {
+function EditProfileForm(
+    {
+        register,
+        errors,
+        reset,
+        profile,
+        selectedTags,
+        setSelectedTags,
+        getValues,
+        watchResumeFile,
+        watchAvatarImage,
+        watchBannerImage,
+        watchLogoImage,
+        setValue
+    }) {
     // const dispatch = useDispatch();
     // const { userId } = useParams();
     //
@@ -32,6 +48,9 @@ function EditProfileForm({register, errors, reset, profile, selectedTags, setSel
             editProfilePhone: profile.phone,
             editProfileShortDescription: profile.shortDescription,
             editProfileResume: profile.cvSource,
+            editProfileAvatar: profile.avatarSource,
+            editProfileBanner: profile.bannerSource,
+            editProfileLogo: profile.logoSource,
         });
         setSelectedTags(profile.tags)
     }, []);
@@ -121,7 +140,7 @@ function EditProfileForm({register, errors, reset, profile, selectedTags, setSel
                 <div className={s.block}>
                     <div className={s.resumeTitles}>
                         <h1 className={s.resumeTitle}>Резюме</h1>
-                        <p className={s.resumeDescription}>(docx, doc, pdf, txt)</p>
+                        <p className={s.blockTitleDescription}>(docx, doc, pdf, txt)</p>
                     </div>
 
                     <ResumeEdit register={register}
@@ -130,6 +149,7 @@ function EditProfileForm({register, errors, reset, profile, selectedTags, setSel
                                 file={getValues('editProfileResume')}
                                 watchResumeFile={watchResumeFile}
                                 setValue={setValue}
+                                inputId={uuidv4()}
                     />
                 </div>
 
@@ -138,14 +158,51 @@ function EditProfileForm({register, errors, reset, profile, selectedTags, setSel
                 </div>
 
                 <div className={s.block}>
+                    <h1 className={s.resumeTitle}>Аватар профиля</h1>
+                    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 150x150px</p>
+                    <ImageEdit register={register}
+                               registerName='editProfileAvatar'
+                               errors={errors}
+                               image={getValues('editProfileAvatar')}
+                               watchImageFile={watchAvatarImage}
+                               setValue={setValue}
+                               inputId={uuidv4()}
+                    />
+                </div>
+
+                <div className={s.block}>
+                    <h1 className={s.resumeTitle}>Баннер профиля</h1>
+                    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 1000x250px</p>
+                    <ImageEdit register={register}
+                               registerName='editProfileBanner'
+                               errors={errors}
+                               image={getValues('editProfileBanner')}
+                               watchImageFile={watchBannerImage}
+                               setValue={setValue}
+                    />
+                </div>
+
+                <div className={s.block}>
+                    <h1 className={s.resumeTitle}>Логотип портфолио</h1>
+                    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 160x150px</p>
+                    <ImageEdit register={register}
+                               registerName='editProfileLogo'
+                               errors={errors}
+                               image={getValues('editProfileLogo')}
+                               watchImageFile={watchLogoImage}
+                               setValue={setValue}
+                    />
+                </div>
+
+                <div className={s.block}>
                     <h1 className={s.blockTitle}>Опасная зона</h1>
                 </div>
 
-                {/*<ResumeEdit type="submit">Войти в систему</ResumeEdit>*/}
+                {/*<ImageEdit type="submit">Войти в систему</ImageEdit>*/}
             </Form>
 
 
-            {/*<ResumeEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ResumeEdit>*/}
+            {/*<ImageEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ImageEdit>*/}
         </>
     )
 }

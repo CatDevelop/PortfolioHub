@@ -41,6 +41,10 @@ function ProjectsTable(props) {
                         setImportProjectModalActive={props.setImportProjectModalActive}
                         importProjectCategoryID={props.importProjectCategoryID}
                         setImportProjectCategoryID={props.setImportProjectCategoryID}
+                        addProjectModalActive={props.addProjectModalActive}
+                        setAddProjectModalActive={props.setAddProjectModalActive}
+                        addProjectCategoryID={props.addProjectCategoryID}
+                        setAddProjectCategoryID={props.setAddProjectCategoryID}
                     />:<></>
                 }
 
