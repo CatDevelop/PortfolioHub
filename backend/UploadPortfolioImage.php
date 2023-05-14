@@ -10,28 +10,28 @@
 	if($UserID == "userID")
 		ThrowError($Link, 400, "Введите ID пользователя!");
 	
-	if (isset($_FILES['banner']) && $_FILES['banner']['error'] === UPLOAD_ERR_OK)
+	if (isset($_FILES['profileImage']) && $_FILES['profileImage']['error'] === UPLOAD_ERR_OK)
 	{
-		$fileTmpPath = $_FILES['banner']['tmp_name'];
-	    $fileName = $_FILES['banner']['name'];
-	    $fileSize = $_FILES['banner']['size'];
-	    $fileType = $_FILES['banner']['type'];
+		$fileTmpPath = $_FILES['profileImage']['tmp_name'];
+	    $fileName = $_FILES['profileImage']['name'];
+	    $fileSize = $_FILES['profileImage']['size'];
+	    $fileType = $_FILES['profileImage']['type'];
 	    $fileNameCmps = explode(".", $fileName);
 	    $fileExtension = strtolower(end($fileNameCmps));
 
-	    $newFileName = $UserID . '.' . $fileExtension;
+	    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
 	    $allowedfileExtensions = array('png', 'jpg', 'jpeg');
 
 	    if (in_array($fileExtension, $allowedfileExtensions))
 	    {
-	    	$uploadFileDir = './files/banners/';
-	    	$fullFileDir = 'https://www.ren-design.ru/api/portfolio-hub/1.0/files/banners/'. $newFileName;
+	    	$uploadFileDir = './files/portfolioImages/';
+	    	$fullFileDir = 'https://www.ren-design.ru/api/portfolio-hub/1.0/files/portfolioImages/'. $newFileName;
 	      	$dest_path = $uploadFileDir . $newFileName;
 
 	      	if(move_uploaded_file($fileTmpPath, $dest_path)) 
 	      	{
-	      		$A1 = $Link->query("UPDATE Users SET PhotoSource = '$newFileName' WHERE `ID`=$UserID"); 
+	      		$A1 = $Link->query("UPDATE Users SET BannerSource = '$newFileName' WHERE `ID`=$UserID"); 
 	      		if($A1)
 					SendResponse($Link, ["message" => 'Аватар успешно загружен', "filePath" => $newFileName]);
 				else

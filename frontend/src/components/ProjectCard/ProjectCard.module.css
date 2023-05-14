@@ -4,6 +4,7 @@
     gap: 0;
     max-width: 400px;
     width: 300px;
+    position: relative;
 }
 
 .downContainer {
@@ -75,4 +76,29 @@
     font-weight: 500;
     color: #C2C2C2;
     text-align: end;
+}
+
+.deleteProject {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    /*background-color: #737373;*/
+    /*border-radius: 5px;*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.deleteProject:hover {
+    background-color: #E8E8E8;
+
+}
+
+
+.deleteProject path {
+    fill: #E24444;
 }

@@ -14,7 +14,9 @@ export const ActivatePage = () => {
     const navigate = useNavigate();
 
     const activateAccount = () => {
-        dispatch(activateUser({link: link})).then(response => navigate("/"+response.payload.data.userID+"/profile"))
+        dispatch(activateUser({link: link})).then(
+            response => navigate("/"+response.payload.data.userID+"/profile")
+        )
     }
 
     useEffect(() => {

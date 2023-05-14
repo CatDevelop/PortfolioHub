@@ -25,7 +25,7 @@ function PortfolioUpperPart(props) {
 
             <div className={s.upContainer}>
                 {/*<img src="https://images.unsplash.com/photo-1682250705830-11c1cecbd3ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt=""/>*/}
-                <img src={PortfolioBanner2} alt=""/>
+                <img src={"https://www.ren-design.ru/api/portfolio-hub/1.0/files/portfolioImages/"+props.banner} alt=""/>
             </div>
 
             <div className={s.downContainer}>

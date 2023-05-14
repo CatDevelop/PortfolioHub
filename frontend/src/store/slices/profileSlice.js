@@ -1,8 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import API from "../../api/API";
+import {toast} from "react-toastify";
 // import PROFILE_API from '../../api/profileAPI';
 // import { removeUser } from './userSlice';
+
+let uploadResumeToast;
+let uploadAvatarToast;
+let uploadBannerToast;
+let updateProfileToast;
+let updatePasswordToast;
 
 export const getProfile = createAsyncThunk(
     'profile/getProfile',
@@ -53,17 +60,13 @@ export const uploadResume = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response);
             dispatch(getProfile(payload.userID));
             // dispatch(setProfile(response.data));
 
@@ -89,19 +92,14 @@ export const uploadAvatar = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response);
             dispatch(getProfile(payload.userID));
-            // dispatch(setProfile(response.data));
 
             return response;
         } catch (error) {
@@ -115,7 +113,7 @@ export const uploadBanner = createAsyncThunk(
     async function (payload, {rejectWithValue, dispatch}) {
         try {
             const formData = new FormData();
-            formData.append('banner', payload.file);
+            formData.append('profileImage', payload.file);
             let response = await fetch(
                 `${API.UPLOAD_BANNER}?userID=${payload.userID ?? "1"}`,
                 {
@@ -125,20 +123,14 @@ export const uploadBanner = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response);
             dispatch(getProfile(payload.userID));
-            // dispatch(setProfile(response.data));
-
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -159,19 +151,14 @@ export const updateProfile = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response);
             dispatch(getProfile(payload.userID));
-            // dispatch(setProfile(response.data));
 
             return response;
         } catch (error) {
@@ -193,106 +180,20 @@ export const updatePassword = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());*/
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response);
-            //dispatch(getProfile(payload.userID));
-            // dispatch(setProfile(response.data));
-
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
-//
-// export const fillProfileInfo = createAsyncThunk(
-//   'profile/fillInfo',
-//   async function (payload, { rejectWithValue, dispatch }) {
-//     try {
-//       const userId = localStorage.getItem('userId');
-//       const accessToken = 'Bearer ' + localStorage.getItem('accessToken');
-//
-//       payload = { ...payload, userId };
-//       let response = await fetch(PROFILE_API.FILL_INFO_URL, {
-//         method: 'post',
-//         headers: {
-//           Authorization: accessToken,
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(payload),
-//       });
-//
-//       if (!response.ok) {
-//         if (response.status === 401) dispatch(removeUser());
-//
-//         throw new Error(
-//           `${response.status}${
-//             response.statusText ? ' ' + response.statusText : ''
-//           }`
-//         );
-//       }
-//
-//       response = response.json();
-//
-//       dispatch(getProfile());
-//
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
-//
-// export const updateProfileInfo = createAsyncThunk(
-//   'profile/updateProfileInfo',
-//   async function (payload, { rejectWithValue, dispatch, getState }) {
-//     try {
-//       const accessToken = 'Bearer ' + localStorage.getItem('accessToken');
-//       const userId = localStorage.getItem('userId');
-//
-//       payload = { ...payload, userId };
-//
-//       let response = fetch(PROFILE_API.UPDATE_INFO_URL, {
-//         method: 'put',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization: accessToken,
-//         },
-//         body: JSON.stringify(payload),
-//       });
-//
-//       if (!response.ok) {
-//         if (response.status === 401) {
-//           dispatch(removeUser());
-//           dispatch(removeProfile());
-//         }
-//
-//         throw new Error(
-//           `${response.status}${
-//             response.statusText ? ' ' + response.statusText : ''
-//           }`
-//         );
-//       }
-//
-//       response = response.json();
-//
-//       dispatch(getProfile());
-//
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+
 
 const initialState = {
     id: null,
@@ -395,16 +296,121 @@ const profileSlice = createSlice({
     },
     extraReducers: {
         [getProfile.pending]: (state, action) => {
+
         },
         [getProfile.fulfilled]: (state, action) => {
         },
         [getProfile.rejected]: (state, action) => {
         },
+        [updateProfile.pending]: (state, action) => {
+            updateProfileToast = toast.loading("Изменяю личную информацию на сервере...")
+        },
+        [updateProfile.fulfilled]: (state, action) => {
+            toast.update(updateProfileToast,
+                {
+                    render: "Личная информация успешно изменена",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [updateProfile.rejected]: (state, action) => {
+            toast.update(updateProfileToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [uploadAvatar.pending]: (state, action) => {
+            uploadAvatarToast = toast.loading("Загружаю ваш аватар на сервер...")
+        },
+        [uploadAvatar.fulfilled]: (state, action) => {
+            toast.update(uploadAvatarToast,
+                {
+                    render: "Аватар успешно загружен",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [uploadAvatar.rejected]: (state, action) => {
+            toast.update(uploadAvatarToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [uploadBanner.pending]: (state, action) => {
+            uploadBannerToast = toast.loading("Загружаю баннер портфолио на сервер...")
+        },
+        [uploadBanner.fulfilled]: (state, action) => {
+            toast.update(uploadBannerToast,
+                {
+                    render: "Баннер портфолио успешно загружен",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [uploadBanner.rejected]: (state, action) => {
+            toast.update(uploadBannerToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
         [uploadResume.pending]: (state, action) => {
+            uploadResumeToast = toast.loading("Загружаю файл резюме на сервер...")
         },
         [uploadResume.fulfilled]: (state, action) => {
+            toast.update(uploadResumeToast,
+                {
+                    render: "Резюме успешно загружено",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
         },
         [uploadResume.rejected]: (state, action) => {
+            toast.update(uploadResumeToast,
+                { render: "Ошибка при загрузке резюме\n"+action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [updatePassword.pending]: (state, action) => {
+            updatePasswordToast = toast.loading("Изменяю пароль...")
+        },
+        [updatePassword.fulfilled]: (state, action) => {
+            toast.update(updatePasswordToast,
+                {
+                    render: "Пароль успешно изменён",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [updatePassword.rejected]: (state, action) => {
+            toast.update(updatePasswordToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
         },
         // [fillProfileInfo.pending]: (state, action) => {},
         // [fillProfileInfo.fulfilled]: (state, action) => {},

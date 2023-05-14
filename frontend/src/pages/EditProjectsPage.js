@@ -5,7 +5,12 @@ import { useDispatch } from 'react-redux';
 import {useProfile} from "../hooks/use-profile";
 import PortfolioUpperPart from "../components/PortfolioUpperPart/PortfolioUpperPart";
 import {useAuth} from "../hooks/use-auth";
-import {deleteProjectCategory, getProjects, importProjectToCategory} from "../store/slices/projectsSlice";
+import {
+    deleteProjectCategory,
+    deleteProjectFromCategory,
+    getProjects,
+    importProjectToCategory
+} from "../store/slices/projectsSlice";
 import {useProjects} from "../hooks/use-projects";
 import AddProjectCategoryForm from "../components/AddProjectCategoryForm/AddProjectCategoryForm";
 import ProjectsTable from "../components/ProjectsTable/ProjectsTable";
@@ -16,6 +21,8 @@ import Button from "../components/Button/Button";
 import AddProjectForm from "../components/AddProjectForm/AddProjectForm";
 import {useForm} from "react-hook-form";
 import Loading from "../components/Loading/Loading";
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 
 export const EditProjectsPage = () => {
     const { userId } = useParams();
@@ -34,6 +41,8 @@ export const EditProjectsPage = () => {
     const scrollToRef = useRef();
 
     const [editProjects, setEditProjects] = useState(projects);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(8);
 
     const [importProjectModalActive, setImportProjectModalActive] = useState(false);
     const [addProjectModalActive, setAddProjectModalActive] = useState(false);
@@ -89,6 +98,15 @@ export const EditProjectsPage = () => {
         dispatch(deleteProjectCategory(data));
     }
 
+    const deleteFromCategory = (categoryID, projectID) => {
+        const data = {
+            userID: parseInt(userId),
+            categoryID: parseInt(categoryID),
+            projectID: parseInt(projectID)
+        }
+        dispatch(deleteProjectFromCategory(data));
+    }
+
     const importProject = (payload) => {
         const data = {
             userID: parseInt(userId),
@@ -100,6 +118,7 @@ export const EditProjectsPage = () => {
         dispatch(importProjectToCategory(data)).then(()=>{
             setImportProjectModalActive(false);
             selectProjectID(null);
+            setCurrentPage(1);
         });
     }
 
@@ -108,6 +127,7 @@ export const EditProjectsPage = () => {
             <PortfolioUpperPart name={profile.name}
                                 surname={profile.surname}
                                 avatar={profile.avatarSource}
+                                banner={profile.bannerSource}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
                                 likes={profile.likesCount}
@@ -128,6 +148,7 @@ export const EditProjectsPage = () => {
                                               title={projectCategory.name}
                                               edit={true}
                                               deleteCategory={deleteCategory}
+                                              deleteFromCategory={deleteFromCategory}
                                               importProjectModalActive={importProjectModalActive}
                                               setImportProjectModalActive={setImportProjectModalActive}
                                               importProjectCategoryID={importProjectCategoryID}
@@ -149,15 +170,25 @@ export const EditProjectsPage = () => {
                            title={"Проекты без категории"}
                            description={"(Не отображаются в профиле)"}
             />
-            <ModalWindow active={importProjectModalActive} setActive={setImportProjectModalActive} onClose={()=>setSelectProjectID(null)}>
+            <ModalWindow active={importProjectModalActive} setActive={setImportProjectModalActive} onClose={()=> {
+                setSelectProjectID(null);
+                setCurrentPage(1);
+            }}>
                 <p className={s.importProjectModalTitle}>
                     Выберите проект для импорта в категорию
                     <p className={s.importProjectModalTitleCategoryName}>{importProjectCategoryID.name}</p>
                 </p>
-                <SelectProjectsTable projects={projects.uncategorizedProjects}
+                <SelectProjectsTable projects={projects.uncategorizedProjects.slice(itemsPerPage*(currentPage-1), itemsPerPage*currentPage)}
                                      selectProjectID={selectProjectID}
                                      setSelectProjectID={setSelectProjectID}
                 />
+                <Pagination total={projects.uncategorizedProjects.length}
+                            current={ currentPage }
+                            onChange={page => setCurrentPage(page)}
+                            pageSize={itemsPerPage}
+                            hideOnSinglePage
+                />
+
                 <div className={s.importProjectButton}>
                     <Button onClick={()=>importProject(
                     {

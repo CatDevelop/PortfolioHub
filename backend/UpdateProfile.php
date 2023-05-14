@@ -96,11 +96,9 @@
 			else
 				$arr[] = $value . " = null";
 		}
-		print_r($arr) ;
-		print_r($values) ;
 		$stringArr = implode(', ', $arr);
-		echo "UPDATE `Users` SET $stringArr WHERE `ID`=$userID";
 		$A2 = $Link->query("UPDATE `Users` SET $stringArr WHERE `ID`=$userID"); 
+		SendResponse($Link, ["message" => 'Информация успешно изменена']);
 	} else {
 		ThrowError($Link, 400, "Нет полей для изменений!");
 	}

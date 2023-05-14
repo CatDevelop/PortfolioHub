@@ -19,7 +19,7 @@
 	    $fileNameCmps = explode(".", $fileName);
 	    $fileExtension = strtolower(end($fileNameCmps));
 
-	    $newFileName = $UserID . '.' . $fileExtension;
+	    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
 	    $allowedfileExtensions = array('png', 'jpg', 'jpeg');
 

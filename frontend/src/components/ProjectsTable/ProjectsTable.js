@@ -52,9 +52,13 @@ function ProjectsTable(props) {
                     props.projects.length !== 0 ?
                     props.projects.map(project => {
                         return <ProjectCard title={project.name}
+                                            projectID={project.id}
+                                            categoryID={props.id}
                                             description={project.shortDescription}
                                             imgUrl={project.previewSource}
                                             likesCount={project.likesCount}
+                                            edit={props.edit}
+                                            deleteFromCategory={props.deleteFromCategory}
                         />
                     }) : <p> {props.edit?"":"Нет проектов"}</p>
                 }

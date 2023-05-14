@@ -7,6 +7,8 @@ import API from '../../api/API';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+let activateToast;
+
 const loginNotify = () => toast.success('🦄 Вы успешно авторизовались!', {
     position: "bottom-right",
     autoClose: 3000,
@@ -99,10 +101,9 @@ export const activateUser = createAsyncThunk(
             });
 
             if (!response.ok) {
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
@@ -165,10 +166,26 @@ const userSlice = createSlice({
         [signUpUser.rejected]: (state, action) => {
         },
         [activateUser.pending]: (state, action) => {
+            activateToast = toast.loading("Активирую аккаунт...")
         },
         [activateUser.fulfilled]: (state, action) => {
+            toast.update(activateToast,
+                {
+                    render: "Аккаунт успешно активирован",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
         },
         [activateUser.rejected]: (state, action) => {
+            toast.update(activateToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
         },
     },
 });

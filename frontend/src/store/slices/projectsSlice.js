@@ -2,8 +2,14 @@ import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import API from "../../api/API";
 import {getProfile} from "./profileSlice";
+import {toast} from "react-toastify";
 // import PROFILE_API from '../../api/profileAPI';
 // import { removeUser } from './userSlice';
+
+let addProjectCategoryToast;
+let deleteProjectCategoryToast;
+let importProjectToCategoryToast;
+let deleteProjectFromCategoryToast;
 
 export const getProjects = createAsyncThunk(
     'projects/getProjects',
@@ -19,12 +25,9 @@ export const getProjects = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
@@ -53,12 +56,9 @@ export const addProjectCategory = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
@@ -88,12 +88,42 @@ export const importProjectToCategory = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
+                );
+            }
+
+            response = await response.json();
+            console.log(response)
+            dispatch(getProjects(payload.userID));
+            dispatch(getProfile(payload.userID));
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const deleteProjectFromCategory = createAsyncThunk(
+    'projects/category/deleteProject',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            debugger
+
+            let response = await fetch(
+                `${API.DELETE_PROJECT_FROM_CATEGORY}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                response = await response.json();
+                throw new Error(
+                    `${response.error}`
                 );
             }
 
@@ -124,17 +154,13 @@ export const deleteProjectCategory = createAsyncThunk(
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
             response = await response.json();
-            console.log(response)
             dispatch(getProjects(payload.userID));
             dispatch(getProfile(payload.userID));
 
@@ -144,86 +170,6 @@ export const deleteProjectCategory = createAsyncThunk(
         }
     }
 );
-//
-// export const fillProfileInfo = createAsyncThunk(
-//   'profile/fillInfo',
-//   async function (payload, { rejectWithValue, dispatch }) {
-//     try {
-//       const userId = localStorage.getItem('userId');
-//       const accessToken = 'Bearer ' + localStorage.getItem('accessToken');
-//
-//       payload = { ...payload, userId };
-//       let response = await fetch(PROFILE_API.FILL_INFO_URL, {
-//         method: 'post',
-//         headers: {
-//           Authorization: accessToken,
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(payload),
-//       });
-//
-//       if (!response.ok) {
-//         if (response.status === 401) dispatch(removeUser());
-//
-//         throw new Error(
-//           `${response.status}${
-//             response.statusText ? ' ' + response.statusText : ''
-//           }`
-//         );
-//       }
-//
-//       response = response.json();
-//
-//       dispatch(getProfile());
-//
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
-//
-// export const updateProfileInfo = createAsyncThunk(
-//   'profile/updateProfileInfo',
-//   async function (payload, { rejectWithValue, dispatch, getState }) {
-//     try {
-//       const accessToken = 'Bearer ' + localStorage.getItem('accessToken');
-//       const userId = localStorage.getItem('userId');
-//
-//       payload = { ...payload, userId };
-//
-//       let response = fetch(PROFILE_API.UPDATE_INFO_URL, {
-//         method: 'put',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           Authorization: accessToken,
-//         },
-//         body: JSON.stringify(payload),
-//       });
-//
-//       if (!response.ok) {
-//         if (response.status === 401) {
-//           dispatch(removeUser());
-//           dispatch(removeProfile());
-//         }
-//
-//         throw new Error(
-//           `${response.status}${
-//             response.statusText ? ' ' + response.statusText : ''
-//           }`
-//         );
-//       }
-//
-//       response = response.json();
-//
-//       dispatch(getProfile());
-//
-//       return response;
-//     } catch (error) {
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
 
 const initialState = {
     categories: [],
@@ -247,15 +193,94 @@ const projectsSlice = createSlice({
         },
     },
     extraReducers: {
-        [getProjects.pending]: (state, action) => {
+        [addProjectCategory.pending]: (state, action) => {
+            addProjectCategoryToast = toast.loading("Добавляю категорию проектов на сервер...")
         },
-        [getProjects.fulfilled]: (state, action) => {
+        [addProjectCategory.fulfilled]: (state, action) => {
+            toast.update(addProjectCategoryToast,
+                {
+                    render: "Категория успешно добавлена",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
         },
-        [getProjects.rejected]: (state, action) => {
+        [addProjectCategory.rejected]: (state, action) => {
+            toast.update(addProjectCategoryToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
         },
-        // [fillProfileInfo.pending]: (state, action) => {},
-        // [fillProfileInfo.fulfilled]: (state, action) => {},
-        // [fillProfileInfo.rejected]: (state, action) => {},
+        [deleteProjectCategory.pending]: (state, action) => {
+            deleteProjectCategoryToast = toast.loading("Удаляю категорию проектов...")
+        },
+        [deleteProjectCategory.fulfilled]: (state, action) => {
+            toast.update(deleteProjectCategoryToast,
+                {
+                    render: "Категория успешно удалена",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [deleteProjectCategory.rejected]: (state, action) => {
+            toast.update(deleteProjectCategoryToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [importProjectToCategory.pending]: (state, action) => {
+            importProjectToCategoryToast = toast.loading("Импортирую проект в категорию...")
+        },
+        [importProjectToCategory.fulfilled]: (state, action) => {
+            toast.update(importProjectToCategoryToast,
+                {
+                    render: "Проект успешно импортирован",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [importProjectToCategory.rejected]: (state, action) => {
+            toast.update(importProjectToCategoryToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [deleteProjectFromCategory.pending]: (state, action) => {
+            deleteProjectFromCategoryToast = toast.loading("Удаляю проект из категории...")
+        },
+        [deleteProjectFromCategory.fulfilled]: (state, action) => {
+            toast.update(deleteProjectFromCategoryToast,
+                {
+                    render: "Проект успешно удалён из категории",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [deleteProjectFromCategory.rejected]: (state, action) => {
+            toast.update(deleteProjectFromCategoryToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
     },
 });
 export const {setProjects, removeProjects} = projectsSlice.actions;

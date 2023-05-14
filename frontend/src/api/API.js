@@ -13,12 +13,13 @@ const GET_PROJECT = `${HOST}/GetProject.php`;
 const ADD_PROJECT = `${HOST}/AddProject.php`;
 const ADD_PROJECT_CATEGORY = `${HOST}/AddProjectCategory.php`;
 const IMPORT_PROJECT_TO_CATEGORY = `${HOST}/ImportProjectToCategory.php`;
+const DELETE_PROJECT_FROM_CATEGORY = `${HOST}/DeleteProjectFromCategory.php`;
 const DELETE_PROJECT_CATEGORY = `${HOST}/DeleteProjectCategory.php`;
 
 const UPLOAD_RESUME_FILE = `${HOST}/UploadResumeFile.php`;
 const UPLOAD_PROJECT_PREVIEW = `${HOST}/UploadProjectPreview.php`;
 const UPLOAD_AVATAR = `${HOST}/UploadAvatar.php`;
-const UPLOAD_BANNER = `${HOST}/UploadBanner.php`;
+const UPLOAD_BANNER = `${HOST}/UploadPortfolioImage.php`;
 const UPDATE_PROFILE = `${HOST}/UpdateProfile.php`;
 const UPDATE_PASSWORD = `${HOST}/UpdatePassword.php`;
 
@@ -34,6 +35,7 @@ const API = {
     UPLOAD_RESUME_FILE,
     UPDATE_PROFILE,
     IMPORT_PROJECT_TO_CATEGORY,
+    DELETE_PROJECT_FROM_CATEGORY,
     GET_PORTFOLIO,
     UPDATE_PORTFOLIO,
     UPDATE_PASSWORD,

@@ -49,6 +49,7 @@ export const PortfolioPage = () => {
             <PortfolioUpperPart name={profile.name}
                                 surname={profile.surname}
                                 avatar={profile.avatarSource}
+                                banner={profile.bannerSource}
                                 tags={profile.tags}
                                 shortDescription={profile.shortDescription}
                                 likes={profile.likesCount}

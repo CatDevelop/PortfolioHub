@@ -105,7 +105,7 @@ export const EditProfilePage = () => {
             {
                 dispatch(uploadAvatar({userID: userId, file: payload.editProfileAvatar[0]}));
             } else {
-                data["avatar"] = '';
+                data["avatar"] = 'plumb.png';
             }
         }
 
