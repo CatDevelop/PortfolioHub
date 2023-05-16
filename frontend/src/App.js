@@ -20,58 +20,63 @@ import {EditProfilePage} from "./pages/EditProfilePage";
 import {FavouriteProjectsPage} from "./pages/FavouriteProjetsPage";
 import {NotImplementPage} from "./pages/NotImplementPage";
 import {EditProjectsPage} from "./pages/EditProjectsPage";
+import ScrollToTop from "./hoc/ScrollToTop";
+import {CatalogPage} from "./pages/CatalogPage";
 
 function App() {
     return (
         <Router>
-            <Routes>
-                <Route path='/' element={<HomeLayout/>}>
-                    <Route index element={<WelcomePage/>}/>
-                    <Route path='/registration' element={
-                        <RequireUnauth>
-                            <RegistrationPage/>
-                        </RequireUnauth>}/>
-                    <Route path='/authorization' element={
-                        <RequireUnauth>
-                            <AuthorizationPage/>
-                        </RequireUnauth>}/>
-                    <Route path='/activate/:link' element={
-                        // <RequireUnauth>
+            <ScrollToTop>
+                <Routes>
+                    <Route path='/' element={<HomeLayout/>}>
+                        <Route index element={<WelcomePage/>}/>
+                        <Route path='/registration' element={
+                            <RequireUnauth>
+                                <RegistrationPage/>
+                            </RequireUnauth>}/>
+                        <Route path='/authorization' element={
+                            <RequireUnauth>
+                                <AuthorizationPage/>
+                            </RequireUnauth>}/>
+                        <Route path='/activate/:link' element={
+                            // <RequireUnauth>
                             <ActivatePage/>
-                        // </RequireUnauth>
-                    }
-                    />
-                    <Route path='*' element={<NotFoundPage/>}/>
-                </Route>
+                            // </RequireUnauth>
+                        }
+                        />
+                        <Route path='/catalog' element={<CatalogPage/>}/>
+                        <Route path='*' element={<NotFoundPage/>}/>
+                    </Route>
 
-                <Route path='/' element={<ProfileLayout/>}>
-                    <Route path='/catalog' element={<NotImplementPage/>}/>
-                    <Route path='/:userId' element={<PortfolioPage/>}/>
-                    <Route path='/:userId/projects' element={<ProjectsPage/>}/>
-                    <Route path='/:userId/projects/edit' element={<EditProjectsPage/>}/>
-                    <Route path='/:userId/project/:projectId/' element={<ProjectPage/>}/>
-                    <Route path='/:userId/profile' element={
-                        <RequireAuth>
-                            <ProfilePage/>
-                        </RequireAuth>}/>
-                    <Route path='/:userId/profile/edit' element={
-                        <RequireAuth>
-                            <EditProfilePage/>
-                        </RequireAuth>}/>
-                    <Route path='/:userId/profile/favourite' element={
-                        <RequireAuth>
-                            <FavouriteProjectsPage/>
-                        </RequireAuth>}/>
-                    <Route path='/:userId/edit' element={
-                        <RequireAuth>
-                            <EditPortfolioPage/>
-                        </RequireAuth>}/>
-                </Route>
+                    <Route path='/' element={<ProfileLayout/>}>
 
-                <Route path='/' element={<ProfileLayout/>}>
-                    <Route path='/components' element={<ComponentsPage/>}/>
-                </Route>
-            </Routes>
+                        <Route path='/:userId' element={<PortfolioPage/>}/>
+                        <Route path='/:userId/projects' element={<ProjectsPage/>}/>
+                        <Route path='/:userId/projects/edit' element={<EditProjectsPage/>}/>
+                        <Route path='/:userId/project/:projectId/' element={<ProjectPage/>}/>
+                        <Route path='/:userId/profile' element={
+                            <RequireAuth>
+                                <ProfilePage/>
+                            </RequireAuth>}/>
+                        <Route path='/:userId/profile/edit' element={
+                            <RequireAuth>
+                                <EditProfilePage/>
+                            </RequireAuth>}/>
+                        <Route path='/:userId/profile/favourite' element={
+                            <RequireAuth>
+                                <FavouriteProjectsPage/>
+                            </RequireAuth>}/>
+                        <Route path='/:userId/edit' element={
+                            <RequireAuth>
+                                <EditPortfolioPage/>
+                            </RequireAuth>}/>
+                    </Route>
+
+                    <Route path='/' element={<ProfileLayout/>}>
+                        <Route path='/components' element={<ComponentsPage/>}/>
+                    </Route>
+                </Routes>
+            </ScrollToTop>
         </Router>);
 }
 

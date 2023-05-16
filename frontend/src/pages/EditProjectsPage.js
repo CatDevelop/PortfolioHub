@@ -169,6 +169,7 @@ export const EditProjectsPage = () => {
             <ProjectsTable projects={projects.uncategorizedProjects}
                            title={"Проекты без категории"}
                            description={"(Не отображаются в профиле)"}
+                           userID={userId}
             />
             <ModalWindow active={importProjectModalActive} setActive={setImportProjectModalActive} onClose={()=> {
                 setSelectProjectID(null);

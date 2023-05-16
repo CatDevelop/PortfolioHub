@@ -9,6 +9,7 @@ const GET_PORTFOLIO = `${HOST}/GetPortfolio.php`;
 const UPDATE_PORTFOLIO = `${HOST}/UpdatePortfolio.php`;
 
 const GET_PROJECTS = `${HOST}/GetProjects.php`;
+const GET_USERS = `${HOST}/GetUsers.php`;
 const GET_PROJECT = `${HOST}/GetProject.php`;
 const ADD_PROJECT = `${HOST}/AddProject.php`;
 const ADD_PROJECT_CATEGORY = `${HOST}/AddProjectCategory.php`;
@@ -42,7 +43,8 @@ const API = {
     DELETE_PROJECT_CATEGORY,
     UPLOAD_PROJECT_PREVIEW,
     UPLOAD_AVATAR,
-    UPLOAD_BANNER
+    UPLOAD_BANNER,
+    GET_USERS
 };
 
 export default API;

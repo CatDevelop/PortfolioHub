@@ -43,17 +43,21 @@
 }
 
 .container {
-    background: #313134;
-    border-radius: 20px;
-    padding: 0 26px;
     margin-bottom: 55px;
 
     display: flex;
     flex-direction: row;
-    gap: 45px;
-    height: 56px;
+    /*gap: 45px;*/
     justify-content: space-between;
     align-items: center;
+}
+
+.leftContainer {
+    animation: showLeft 1.5s ease-in-out;
+}
+
+.rightContainer {
+    animation: showRight 1.5s ease-in-out;
 }
 
 .rightContainer,
@@ -62,6 +66,28 @@
     flex-direction: row;
     gap: 45px;
 }
+
+.resume {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 29px;
+}
+
+
+
+
+
+
+
+
+
 
 .content {
     text-indent: 1em;
@@ -83,10 +109,10 @@
 .quit,
 .navbarLink {
     font-family: SFPro, serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     color: #FFFFFF;
-    padding: 15px 0;
+    padding: 20px 0;
     vertical-align: middle;
     text-align: center;
     cursor: pointer;
@@ -126,4 +152,10 @@
 
 .dropdownQuit a {
     color: #E24444 !important;
+}
+
+.editTitle {
+    font-family: SFPro, serif;
+    font-size: 20px;
+    color: #737373;
 }

@@ -182,17 +182,17 @@ function EditProfileForm(
                     />
                 </div>
 
-                <div className={s.block}>
-                    <h1 className={s.resumeTitle}>Логотип портфолио</h1>
-                    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 160x150px</p>
-                    <ImageEdit register={register}
-                               registerName='editProfileLogo'
-                               errors={errors}
-                               image={getValues('editProfileLogo')}
-                               watchImageFile={watchLogoImage}
-                               setValue={setValue}
-                    />
-                </div>
+                {/*<div className={s.block}>*/}
+                {/*    <h1 className={s.resumeTitle}>Логотип портфолио</h1>*/}
+                {/*    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 160x150px</p>*/}
+                {/*    <ImageEdit register={register}*/}
+                {/*               registerName='editProfileLogo'*/}
+                {/*               errors={errors}*/}
+                {/*               image={getValues('editProfileLogo')}*/}
+                {/*               watchImageFile={watchLogoImage}*/}
+                {/*               setValue={setValue}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
                 <div className={s.block}>
                     <h1 className={s.blockTitle}>Опасная зона</h1>

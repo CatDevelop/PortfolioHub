@@ -11,19 +11,16 @@ export const getProject = createAsyncThunk(
     async function (projectID, {rejectWithValue, dispatch}) {
         try {
             let response = await fetch(
-                `${API.GET_PROJECT}?ID=${projectID}`,
+                `${API.GET_PROJECT}?projectID=${projectID}`,
                 {
                     method: 'get',
                 }
             );
 
             if (!response.ok) {
-                //if (response.status === 401) dispatch(removeUser());
-
+                response = await response.json();
                 throw new Error(
-                    `${response.status}${
-                        response.statusText ? ' ' + response.statusText : ''
-                    }`
+                    `${response.error}`
                 );
             }
 
@@ -111,11 +108,13 @@ const initialState = {
     id: null,
     name: null,
     year: null,
-    description: null,
+    shortDescription: null,
+    image: null,
     rating: 0,
-    informationBlocks: [],
-    screenshots: [],
+    inCategory: false,
     comments: [],
+    blocks: [],
+    isLoading: true,
 };
 
 const projectSlice = createSlice({
@@ -126,24 +125,26 @@ const projectSlice = createSlice({
             state.id = action.payload.id;
             state.name = action.payload.name;
             state.year = action.payload.year;
-            state.description = action.payload.description;
+            state.shortDescription = action.payload.shortDescription;
             state.rating = action.payload.rating;
-            state.informationBlocks = action.payload.informationBlocks;
-            state.screenshots = action.payload.screenshots;
+            state.inCategory = action.payload.inCategory;
+            state.image = action.payload.image;
             state.comments = action.payload.comments;
+            state.blocks = JSON.parse(action.payload.blocks);
+            state.isLoading = false;
+        },
+        removeProject(state, action) {
+            state.id = null;
+            state.name = null;
+            state.year = null;
+            state.shortDescription = null;
+            state.image = null;
+            state.rating = 0;
+            state.inCategory = false;
+            state.comments = [];
+            state.blocks = [];
+            state.isLoading = true;
         }
-        // removeProfile(state) {
-        //   state.secondName = null;
-        //   state.firstName = null;
-        //   state.patronymic = null;
-        //   state.phone = null;
-        //   state.telegram = null;
-        //   state.university = null;
-        //   state.faculty = null;
-        //   state.speciality = null;
-        //   state.course = null;
-        //   state.workExperience = null;
-        // },
     },
     extraReducers: {
         [getProject.pending]: (state, action) => {

@@ -152,7 +152,7 @@ export const ComponentsPage = () => {
                 <Footer/>
             </div>
             <div>
-                <ProjectsTable title={"Тестовый блок"} projects={projects}/>
+                <ProjectsTable title={"Тестовый блок"} projects={projects} />
             </div>
             <div>
                 <ProjectInformationBlock informationBlocks={informationBlocks}/>

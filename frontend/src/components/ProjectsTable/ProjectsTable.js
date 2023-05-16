@@ -53,6 +53,7 @@ function ProjectsTable(props) {
                     props.projects.map(project => {
                         return <ProjectCard title={project.name}
                                             projectID={project.id}
+                                            userID={props.userID}
                                             categoryID={props.id}
                                             description={project.shortDescription}
                                             imgUrl={project.previewSource}

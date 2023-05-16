@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import s from './PortfolioNavBar.module.css';
+import s from './ProjectNavBar.module.css';
 import Avatar from '../../assets/img/Av1.png'
 import {Link, useNavigate} from "react-router-dom";
 import {removeUser} from "../../store/slices/userSlice";
@@ -11,7 +11,7 @@ import Button from "../Button/Button";
 import NavigateButton from "../NavigateButton/NavigateButton";
 import DownloadFileButton from "../DownloadFileButton/DownloadFileButton";
 
-function PortfolioNavBar(props) {
+function ProjectNavBar(props) {
     const dispatch = useDispatch();
     let navigate = useNavigate();
 
@@ -22,29 +22,14 @@ function PortfolioNavBar(props) {
     return (
         <div className={s.container}>
             <div className={s.leftContainer}>
-                {/*<div className={classNames(s.lk, s.navbarLinkActive)}>*/}
-                {/*    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
-                {/*        <path d="M21.3327 9.33333C21.3327 12.2789 18.9449 14.6667 15.9993 14.6667C13.0538 14.6667 10.666 12.2789 10.666 9.33333C10.666 6.38781 13.0538 4 15.9993 4C18.9449 4 21.3327 6.38781 21.3327 9.33333Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>*/}
-                {/*        <path d="M15.9993 18.6667C10.8447 18.6667 6.66602 22.8453 6.66602 28H25.3327C25.3327 22.8453 21.154 18.6667 15.9993 18.6667Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>*/}
-                {/*    </svg>*/}
-                {/*    <Link className={s.navbarLink} to={"./"}>Личная информация</Link>*/}
-                {/*</div>*/}
-
-                {/*<div className={s.favourite}>*/}
-                {/*    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
-                {/*        <path d="M5.75736 8.42411C3.41421 10.7673 3.41421 14.5662 5.75736 16.9094L16.0001 27.1521L26.2426 16.9094C28.5858 14.5662 28.5858 10.7673 26.2426 8.42411C23.8995 6.08096 20.1005 6.08096 17.7574 8.42411L16.0001 10.1815L14.2426 8.42411C11.8995 6.08096 8.10051 6.08096 5.75736 8.42411Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>*/}
-                {/*    </svg>*/}
-                {/*    <Link className={s.navbarLink} to={"./favorite"}>Избранное</Link>*/}
-                {/*</div>*/}
-
                 <div className={s.resume}>
-                    {
-                        props.cvSource ? <>
-                            {/*Резюме:*/}
-                            <DownloadFileButton link={props.cvSource} text={"Скачать резюме"}/>
-                        </> : <br/>
-                    }
-
+                    {/*{*/}
+                    {/*    props.cvSource ? <>*/}
+                    {/*        /!*Резюме:*!/*/}
+                    {/*        <DownloadFileButton link={props.cvSource} text={"Скачать резюме"}/>*/}
+                    {/*    </> : <></>*/}
+                    {/*}*/}
+                    <br/>
                 </div>
             </div>
 
@@ -116,4 +101,4 @@ function PortfolioNavBar(props) {
     )
 }
 
-export default PortfolioNavBar;
+export default ProjectNavBar;

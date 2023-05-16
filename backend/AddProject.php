@@ -5,7 +5,7 @@
 	header('Content-Type: application/json; charset=utf-8');
 
 	include "URFUPortfolioHubLibrary.php"; 
-	mysqli_set_charset($Link, 'utf8'); 
+	mysqli_set_charset($Link, 'utf8mb4'); 
 
 	$postData = json_decode(file_get_contents('php://input'), true);
 

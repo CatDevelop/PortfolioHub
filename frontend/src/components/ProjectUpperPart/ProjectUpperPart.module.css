@@ -60,11 +60,13 @@
     max-height: 250px;
     max-width: 1000px;
     height: 250px;
+
+    position: relative;
 }
 
 .upContainer img {
     object-fit: cover;
-    height: 250px;
+    height: 25px;
     border-radius: 20px;
 }
 
@@ -213,4 +215,41 @@
     font-family: SFPro, serif;
     font-feature-settings: 'pnum' on, 'lnum' on;
     letter-spacing: 0.03em;
+}
+
+.projectImage {
+    width: 1000px;
+    height: 250px;
+
+    image-rendering: optimizespeed;
+    border-radius: 20px;
+    background-position: center !important;
+    background-size: cover !important;
+}
+
+.projectInfo {
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    display: flex;
+    width: 1000px;
+    padding: 0 30px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectName {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.projectDescription {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    color: #737373;
 }

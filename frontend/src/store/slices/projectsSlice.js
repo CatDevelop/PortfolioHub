@@ -189,6 +189,7 @@ const projectsSlice = createSlice({
         },
         removeProjects(state) {
             state.categories = [];
+            state.uncategorizedProjects= [];
             state.isLoading = true;
         },
     },

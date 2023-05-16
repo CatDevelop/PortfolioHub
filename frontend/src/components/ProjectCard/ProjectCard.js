@@ -2,11 +2,13 @@ import React from "react";
 import s from './ProjectCard.module.css';
 import {useDispatch} from "react-redux";
 import {deleteProjectFromCategory} from "../../store/slices/projectsSlice";
+import {useNavigate} from "react-router-dom";
 
 
-export const ProjectCard = ({categoryID, projectID, title, description, imgUrl, likesCount, edit=false, deleteFromCategory}) => {
+export const ProjectCard = ({userID, categoryID, projectID, title, description, imgUrl, likesCount, edit=false, deleteFromCategory}) => {
+    const navigate = useNavigate();
     return (
-        <div className={s.projectCard}>
+        <div className={s.projectCard} onClick={()=>navigate("/"+userID+"/project/"+projectID)}>
             {
                 edit ?
                     <div className={s.deleteProject} onClick={()=>deleteFromCategory(categoryID, projectID)}>

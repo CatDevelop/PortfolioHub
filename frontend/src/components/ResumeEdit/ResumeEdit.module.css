@@ -17,7 +17,7 @@
     align-items: center;
     /*padding: 18px;*/
     height: 40px;
-    min-width: 400px;
+    min-width: 280px;
     width: 100%;
     border-radius: 12px;
     background: #313134;
@@ -86,7 +86,7 @@
 
 
 .inputfile + label {
-    width: 616px;
+    width: 400px;
     height: 40px;
     display: flex;
     flex-direction: row;

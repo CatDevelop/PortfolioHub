@@ -5,25 +5,22 @@
 	header('Content-Type: application/json; charset=utf-8');
 
 	include "URFUPortfolioHubLibrary.php"; 
-	mysqli_set_charset($Link, 'utf8'); 
+	mysqli_set_charset($Link, 'utf8mb4'); 
 
-	$projectID = GetGet("ID");
+	$ProjectID = GetGet("projectID");
 
-	if($projectID == "ID")
+	if($ProjectID == "projectID")
 		ThrowError($Link, 400, "Введите ID проекта!");
 
 	$result = [];
-	
-	$informationBlocks = [];
-	$screenshots = [];
 	$comments = [];
 
-	$A1 = $Link->query("SELECT * FROM `Projects` WHERE `ID`= $projectID LIMIT 1");
+	$A1 = $Link->query("SELECT * FROM `Projects` WHERE `ID`= $ProjectID LIMIT 1");
 	if ($A1->num_rows > 0)
 	{
 		while($row = $A1->fetch_assoc()) 
 		{	
-			$A4 = $Link->query("SELECT * FROM `Comments` WHERE `ProjectID`= ".$projectID);
+			$A4 = $Link->query("SELECT * FROM `Comments` WHERE `ProjectID`= ".$ProjectID);
 			if ($A4->num_rows > 0)
 			{
 				while($comment = $A4->fetch_assoc()) 
@@ -41,9 +38,11 @@
 				"id" => $row["ID"],
 				"name" => $row["Name"],
 				"year" => $row["Year"],
-				"description" => $row["Description"],
+				"shortDescription" => $row["ShortDescription"],
+				"image" => $row["Image"],
 				"rating" => $row["Rating"],
 				"blocks" =>  $row["Blocks"],
+				"inCategory" => $row["InCategory"],
 				"comments" => $comments
 			];
 		}
