@@ -17,6 +17,7 @@ import {CatalogUserCard} from "../components/CatalogUserCard/CatalogUserCard";
 import {useUsers} from "../hooks/use-users";
 import {getUsers} from "../store/slices/usersSlice";
 import Catalog from "../components/Catalog/Catalog";
+import PageTitle from "../components/PageTitle/PageTitle";
 
 export const CatalogPage = () => {
     const {userId} = useParams();
@@ -47,6 +48,7 @@ export const CatalogPage = () => {
 
     return (
         <div>
+            <PageTitle title={"Каталог пользователей"}/>
             <Catalog users={users.users}/>
 
         </div>
