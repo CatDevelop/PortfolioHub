@@ -75,7 +75,8 @@
 				"activate" => $row["Activate"],
 				"visible" => $row["Visible"],
 				"tags" => $t,
-				"links" => $links
+				"links" => $links,
+				"isVisibleEmail" => $row["IsVisibleEmail"]
 			];
 		}
 

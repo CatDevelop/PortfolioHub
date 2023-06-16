@@ -21,7 +21,7 @@ export const getPortfolio = createAsyncThunk(
             if (!response.ok) {
                 //if (response.status === 401) dispatch(removeUser());*/
                 //dispatch(setPortfolio({payload: {portfolio: [], updateDate:null}}));
-
+                dispatch(setLoadingPortfolio(false))
                 throw new Error(
                     `${response.status}${
                         response.statusText ? ' ' + response.statusText : ''
@@ -172,6 +172,9 @@ const portfolioSlice = createSlice({
             state.updateDate = action.payload.updateDate;
             state.isLoading = false;
         },
+        setLoadingPortfolio(state, action) {
+            state.isLoading = action.payload
+        },
         removePortfolio(state) {
             state.portfolio = [];
             state.updateDate = null;
@@ -202,6 +205,6 @@ const portfolioSlice = createSlice({
     },
 });
 
-export const {setPortfolio, removePortfolio} = portfolioSlice.actions;
+export const {setPortfolio,setLoadingPortfolio, removePortfolio} = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

@@ -14,6 +14,8 @@ import {useAuth} from "../hooks/use-auth";
 import {getPortfolio, updatePortfolio} from "../store/slices/portfolioSlice";
 import {usePortfolio} from "../hooks/use-portfolio";
 import Loading from "../components/Loading/Loading";
+import s from "./Pages.module.css";
+import Button from "../components/Button/Button";
 
 export const EditPortfolioPage = () => {
     const { userId } = useParams();
@@ -31,18 +33,42 @@ export const EditPortfolioPage = () => {
 
     const [portfolioEdit, setPortfolioEdit] = useState();
 
+
+    const [scroll, setScroll] = React.useState(0);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleScroll = () => {
+        setScroll(window.scrollY);
+    };
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
+
+
     if(user.id !== userId)
         return <Navigate to='/' />;
 
     const handleSubmit = () => {
-        const data = {
-            userID: user.id,
-            portfolio: JSON.stringify(portfolioEdit)
+        if(!isLoading) {
+            setIsLoading(true);
+            const data = {
+                userID: user.id,
+                portfolio: JSON.stringify(portfolioEdit)
+            }
+            dispatch(updatePortfolio(data)).then(() => {
+                setIsLoading(false)
+                navigate("/" + user.id);
+            });
         }
-        dispatch(updatePortfolio(data)).then(()=>{
-            navigate("/"+user.id);
-        });
     }
+
+    if(portfolio.isLoading || profile.isLoading)
+        return <Loading/>
 
     return (
         <div>
@@ -70,6 +96,10 @@ export const EditPortfolioPage = () => {
                               portfolio={portfolio.portfolio}
                     />
             }
+
+            <div className={s.floatButton}>
+                <Button click={handleSubmit} isHide={scroll < 250}>Сохранить изменения</Button>
+            </div>
 
 
         </div>

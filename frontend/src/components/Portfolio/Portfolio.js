@@ -3,6 +3,7 @@ import s from './Portfolio.module.css';
 import classNames from "classnames/bind";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import NavigateButton from "../NavigateButton/NavigateButton";
 
 function PreCode (props) {
     return <p className={s.preCode}>{props.children}</p>
@@ -162,22 +163,44 @@ function Portfolio (props) {
                             </div>
                         );
 
-                    if(block.type === "quote")
+                    if(block.type === "AnyButton")
                         return (
-                            <div className={s.quoteContainer}>
-                                <div className={s.quoteTextContainer}>
-
-                                    <div className={classNames(s.quoteText)}
-                                         dangerouslySetInnerHTML={{__html: block.data.text}}/>
-                                </div>
-                                <div className={s.quoteCaption}>
-                                    <p className={s.quoteCaptionDecoration}>-</p>
-                                    <div className={classNames(s.quoteCaptionText)}
-                                         dangerouslySetInnerHTML={{__html: block.data.caption}}/>
-                                </div>
-
+                            <div className={s.navButton}>
+                                <a target="_blank" rel="noopener noreferrer" href={block.data.link}>{block.data.text}</a>
                             </div>
+                        );
+
+                    if(block.type === "inlineImage")
+                        return (
+                            <div className={s.inlineImage}>
+                                <img className={block.data.withBorder ? s.inlineImageWithBorder :""} src={block.data.url} alt={""}/>
+                                <div className={s.inlineImageCaption} dangerouslySetInnerHTML={{__html: block.data.caption}}></div>
+                            </div>
+                        );
+
+                    if(block.type === "quote")
+                    {
+                        if(block.data.alignment === "left")
+                        {
+                            return (
+                                <blockquote className={s.sidekick}>
+                                    <div dangerouslySetInnerHTML={{__html: block.data.text}}/>
+                                    <cite>{block.data.caption}</cite>
+                                </blockquote>
                         )
+                        } else
+                        {
+                            return (
+                                <div className={s.quoteContainerContainer}>
+                                    <div className={s.quoteContainer}>
+                                        <div className={s.quoteText} dangerouslySetInnerHTML={{__html: block.data.text}}/>
+                                        <div className={s.quoteAuthor} dangerouslySetInnerHTML={{__html: "- " +block.data.caption}}/>
+
+                                    </div>
+                                </div>
+                            )
+                        }
+                    }
                 })
             }
         </div>

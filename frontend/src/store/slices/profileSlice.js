@@ -2,6 +2,12 @@ import {createSlice} from '@reduxjs/toolkit';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import API from "../../api/API";
 import {toast} from "react-toastify";
+import {removePortfolio} from "./portfolioSlice";
+import {removeProject} from "./projectSlice";
+import {removeProjects} from "./projectsSlice";
+import {removeUser} from "./userSlice";
+import {getUsers, removeUsers} from "./usersSlice";
+import {useAuth} from "../../hooks/use-auth";
 // import PROFILE_API from '../../api/profileAPI';
 // import { removeUser } from './userSlice';
 
@@ -10,6 +16,8 @@ let uploadAvatarToast;
 let uploadBannerToast;
 let updateProfileToast;
 let updatePasswordToast;
+let deleteProfileToast;
+let changeVisibilityToast;
 
 export const getProfile = createAsyncThunk(
     'profile/getProfile',
@@ -25,7 +33,7 @@ export const getProfile = createAsyncThunk(
 
             if (!response.ok) {
                 //if (response.status === 401) dispatch(removeUser());*/
-
+                dispatch(setLoadingProfile(false))
                 throw new Error(
                     `${response.status}${
                         response.statusText ? ' ' + response.statusText : ''
@@ -167,6 +175,40 @@ export const updateProfile = createAsyncThunk(
     }
 );
 
+export const deleteProfile = createAsyncThunk(
+    'profile/delete',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            let response = await fetch(
+                `${API.DELETE_PROFILE}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                response = await response.json();
+                throw new Error(
+                    `${response.error}`
+                );
+            }
+
+            response = await response.json();
+            dispatch(removeProfile());
+            dispatch(removePortfolio());
+            dispatch(removeProject());
+            dispatch(removeProjects());
+            dispatch(removeUser());
+            dispatch(removeUsers());
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const updatePassword = createAsyncThunk(
     'profile/password/update',
     async function (payload, {rejectWithValue, dispatch}) {
@@ -185,6 +227,36 @@ export const updatePassword = createAsyncThunk(
                     `${response.error}`
                 );
             }
+
+            response = await response.json();
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const changeVisibility = createAsyncThunk(
+    'profile/visible/change',
+    async function (payload, {rejectWithValue, dispatch}) {
+        try {
+            let response = await fetch(
+                `${API.CHANGE_VISIBILITY}`,
+                {
+                    method: 'post',
+                    body: JSON.stringify(payload)
+                }
+            );
+
+            if (!response.ok) {
+                response = await response.json();
+                throw new Error(
+                    `${response.error}`
+                );
+            }
+
+            dispatch(getUsers())
+            dispatch(getProfile(payload.userID))
 
             response = await response.json();
             return response;
@@ -213,6 +285,7 @@ const initialState = {
     visible: "Public",
     tags: [],
     links: [],
+    isVisibleEmail: false,
     isLoading: true,
 };
 
@@ -261,7 +334,13 @@ const profileSlice = createSlice({
                 state.projectsCount = action.payload.projectsCount;
             if ("likesCount" in action.payload)
                 state.likesCount = action.payload.likesCount;
+
+            if ("isVisibleEmail" in action.payload)
+                state.isVisibleEmail = action.payload.isVisibleEmail === "1";
             state.isLoading = false;
+        },
+        setLoadingProfile(state, action) {
+            state.isLoading = action.payload
         },
         removeProfile(state) {
             state.id = null;
@@ -412,12 +491,56 @@ const profileSlice = createSlice({
                 }
             );
         },
+        [deleteProfile.pending]: (state, action) => {
+            deleteProfileToast = toast.loading("Удаляю портфолио...")
+        },
+        [deleteProfile.fulfilled]: (state, action) => {
+            toast.update(deleteProfileToast,
+                {
+                    render: "Аккаунт успешно удалён",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [deleteProfile.rejected]: (state, action) => {
+            toast.update(deleteProfileToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
+        [changeVisibility.pending]: (state, action) => {
+            changeVisibilityToast = toast.loading("Изменяю видимость...")
+        },
+        [changeVisibility.fulfilled]: (state, action) => {
+            toast.update(changeVisibilityToast,
+                {
+                    render: "Видимость портфолио успешно изменена",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
+        },
+        [changeVisibility.rejected]: (state, action) => {
+            toast.update(changeVisibilityToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
+        },
         // [fillProfileInfo.pending]: (state, action) => {},
         // [fillProfileInfo.fulfilled]: (state, action) => {},
         // [fillProfileInfo.rejected]: (state, action) => {},
     },
 });
 
-export const {setProfile, removeProfile} = profileSlice.actions;
+export const {setProfile, setLoadingProfile, removeProfile} = profileSlice.actions;
 
 export default profileSlice.reducer;

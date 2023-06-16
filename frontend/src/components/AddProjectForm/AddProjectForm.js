@@ -1,53 +1,50 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './AddProjectForm.module.css';
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Form from "react-bootstrap/Form";
-import {useForm} from "react-hook-form";
-import {signInUser} from '../../store/slices/userSlice';
 import {useDispatch} from "react-redux";
-import md5 from 'md5';
-import {toast} from "react-toastify";
-import {addProject, uploadPreview} from "../../store/slices/projectSlice";
-import ResumeEdit from "../ResumeEdit/ResumeEdit";
+import {addProject, uploadProjectPreview} from "../../store/slices/projectSlice";
 import ImageEdit from "../ImageEdit/ImageEdit";
-import {uploadResume} from "../../store/slices/profileSlice";
 
 function AddProjectForm(props) {
     const dispatch = useDispatch();
-
-
+    const [isLoading, setIsLoading] = useState(false);
     const onSubmit = (payload) => {
-        // payload.authorizationPassword = md5(payload.authorizationPassword);
-        const data = {
-            userID: props.userID,
-            projectName: payload.addProjectName,
-            projectDescription: payload.addProjectDescription
-        };
+        if(!isLoading) {
+            setIsLoading(true);
+            // payload.authorizationPassword = md5(payload.authorizationPassword);
+            const data = {
+                userID: props.userID,
+                projectName: payload.addProjectName,
+                projectDescription: payload.addProjectDescription
+            };
 
-        if (payload.addProjectYear)
-            data["projectYear"] = payload.addProjectYear;
+            if (payload.addProjectYear)
+                data["projectYear"] = payload.addProjectYear;
 
-        if (props.addProjectCategoryID)
-            data["projectCategoryID"] = props.addProjectCategoryID.id;
+            if (props.addProjectCategoryID)
+                data["projectCategoryID"] = props.addProjectCategoryID.id;
 
-        console.log(data);
-        dispatch(addProject(data)).then((dispatchPayload) => {
+            console.log(data);
+            dispatch(addProject(data)).then((dispatchPayload) => {
 
-            if (payload.addProjectPreviewSource) {
-                dispatch(uploadPreview(
-                    {
-                        userID: props.userID,
-                        projectID: dispatchPayload.payload.data.projectID,
-                        file: payload.addProjectPreviewSource[0]
-                    }
-                ));
-            }
+                if (payload.addProjectPreviewSource) {
+                    dispatch(uploadProjectPreview(
+                        {
+                            userID: props.userID,
+                            projectID: dispatchPayload.payload.data.projectID,
+                            file: payload.addProjectPreviewSource[0]
+                        }
+                    ));
+                }
 
-            props.reset();
-            props.setAddProjectCategoryID(null);
-            props.setAddProjectModalActive(false);
-        });
+                props.reset();
+                props.setAddProjectCategoryID(null);
+                props.setAddProjectModalActive(false);
+                setIsLoading(false);
+            });
+        }
     }
 
     return (
@@ -59,7 +56,14 @@ function AddProjectForm(props) {
                        registerName='addProjectName'
                        options={
                            {
-                               required: true
+                               required: {
+                                   value: true,
+                                   message: "Поле обязательно для ввода"
+                               },
+                               maxLength: {
+                                   value: 40,
+                                   message: "Не более 40 символов"
+                               }
                            }
                        }
                        errors={props.errors}
@@ -70,7 +74,14 @@ function AddProjectForm(props) {
                        registerName='addProjectDescription'
                        options={
                            {
-                               required: true
+                               required: {
+                                   value: true,
+                                   message: "Поле обязательно для ввода"
+                               },
+                               maxLength: {
+                                   value: 100,
+                                   message: "Не более 100 символов"
+                               }
                            }
                        }
                        errors={props.errors}
@@ -81,6 +92,11 @@ function AddProjectForm(props) {
                        registerName='addProjectYear'
                        errors={props.errors}
                        title="Год разработки"
+                       options={{
+                           pattern: {
+                               value: /^[0-9]{4}$/, message: "Необходимо ввести год (4 цифры)"
+                           }
+                       }}
                        type="number"/>
 
                 <div className={s.previewContainer}>

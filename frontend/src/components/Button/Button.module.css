@@ -1,10 +1,33 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+}
+
+
 .button {
     font-family: SFPro, serif;
     font-size: 16px;
     font-weight: 600;
     line-height: 1.2;
     border-radius: 12px;
-    transition: all 250ms ease 0s;
+    transition: background-color 250ms ease 0s, opacity 0.5s linear, transform 0.5s linear;
     height: 2.5rem;
     min-width: 2.5rem;
     white-space: nowrap;
@@ -13,6 +36,15 @@
     padding-right: 1rem;
     background-color: #81E6D9;
     cursor: pointer;
+    transform: translateX(0px);
+
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+
+    visibility: visible;
+    opacity: 1;
 }
 
 .button:hover {
@@ -22,3 +54,39 @@
 .button:active {
     background-color: #38B2AC;
 }
+
+.button:disabled {
+    background-color: #313134;
+    color: #9C9C9C;
+
+    cursor: default;
+}
+
+
+.second {
+    background-color: #F086CB !important;
+
+}
+
+
+.second:hover {
+    background-color: #F7BCE2 !important;
+}
+
+.second:active {
+    background-color: #F053A1 !important;
+}
+
+.second:disabled {
+    background-color: #313134 !important;
+    color: #9C9C9C !important;
+}
+
+.hide {
+    /*animation: hide 1s ease-in-out;*/
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.5s, opacity 0.5s linear, transform 0.5s linear;
+    transform: translateX(15px);
+}
+

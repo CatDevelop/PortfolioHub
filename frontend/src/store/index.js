@@ -4,6 +4,7 @@ import usersReducer from './slices/usersSlice';
 import profileReducer from './slices/profileSlice';
 import projectSlice from "./slices/projectSlice";
 import projectsSlice from "./slices/projectsSlice";
+import favouriteProjectsSlice from "./slices/favouriteProjectsSlice";
 import portfolioReducer from "./slices/portfolioSlice";
 
 export default configureStore({
@@ -13,6 +14,7 @@ export default configureStore({
     portfolio: portfolioReducer,
     profile: profileReducer,
     projects: projectsSlice,
+    favouriteProjects: favouriteProjectsSlice,
     project: projectSlice
   },
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './AuthorizationForm.module.css';
 import Input from "../Input/Input";
 import Button from "../Button/Button";
@@ -7,7 +7,6 @@ import {useForm} from "react-hook-form";
 import {signInUser} from '../../store/slices/userSlice';
 import {useDispatch} from "react-redux";
 import md5 from 'md5';
-import {toast} from "react-toastify";
 
 function AuthorizationForm(props) {
     const dispatch = useDispatch();
@@ -19,13 +18,18 @@ function AuthorizationForm(props) {
         mode: "onBlur"
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const onSubmit = (payload) => {
-        payload.authorizationPassword = md5(payload.authorizationPassword);
-        const data = {
-            email: payload.authorizationEmail,
-            password: payload.authorizationPassword
+        if(!isLoading) {
+            setIsLoading(true);
+            payload.authorizationPassword = md5(payload.authorizationPassword);
+            const data = {
+                email: payload.authorizationEmail,
+                password: payload.authorizationPassword
+            }
+            dispatch(signInUser(data)).then(() => setIsLoading(false));
         }
-        dispatch(signInUser(data));
     }
 
     return (
@@ -37,7 +41,10 @@ function AuthorizationForm(props) {
                            registerName='authorizationEmail'
                            options={
                                {
-                                   required: true
+                                   required: {
+                                       value: true,
+                                       message: "Поле обязательно для ввода"
+                                   },
                                }
                            }
                            errors={errors}
@@ -48,7 +55,10 @@ function AuthorizationForm(props) {
                            registerName='authorizationPassword'
                            options={
                                {
-                                   required: true
+                                   required: {
+                                       value: true,
+                                       message: "Поле обязательно для ввода"
+                                   },
                                }
                            }
                            errors={errors}

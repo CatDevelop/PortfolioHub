@@ -39,6 +39,7 @@
 							$catProjects[] = $project["ID"];
 							$projects[] = [
 								"id" => $project["ID"],
+								"userId" => $project["UserID"],
 								"name" => $project["Name"],
 								"shortDescription" => $project["ShortDescription"],
 								"previewSource" => $project["PreviewSource"],
@@ -71,6 +72,7 @@
 		{
 			$uncategorizedProjects[] = [
 				"id" => $row["ID"],
+				"userId" => $userID,
 				"name" => $row["Name"],
 				"shortDescription" => $row["ShortDescription"],
 				"previewSource" => $row["PreviewSource"],

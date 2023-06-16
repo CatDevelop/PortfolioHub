@@ -8,6 +8,8 @@
     flex-direction: column;
     justify-content: center;
     gap: 25px;
+
+    margin-bottom: 45px;
 }
 
 .firstSection h1 {
@@ -74,3 +76,22 @@
 }
 
 
+.secondSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+}
+
+.secondSection h1 {
+    font-family: SFPro, serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.carousel {
+    display: flex;
+    box-shadow: inset 0 100px 0 100px rgba(0,0,0,0.5);
+}

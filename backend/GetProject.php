@@ -28,6 +28,7 @@
 					$comments[] = [
 						"id" => $comment["ID"],
 						"email" => $comment["Email"],
+						"avatar" => $comment["AvatarSource"],
 						"login" => $comment["Login"],
 						"text" => $comment["Text"]
 					];
@@ -36,10 +37,12 @@
 
 			$result = [
 				"id" => $row["ID"],
+				"userId" => $row["UserID"],
 				"name" => $row["Name"],
 				"year" => $row["Year"],
 				"shortDescription" => $row["ShortDescription"],
 				"image" => $row["Image"],
+				"preview" => $row["PreviewSource"],
 				"rating" => $row["Rating"],
 				"blocks" =>  $row["Blocks"],
 				"inCategory" => $row["InCategory"],

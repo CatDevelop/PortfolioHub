@@ -48,6 +48,7 @@
 				"likesCount" => (int) $likesCount,
 				"avatarSource" => $row["PhotoSource"],
 				"tags" => $t,
+				"isVisibleEmail" => $row["IsVisibleEmail"],
 			];
 		}
 

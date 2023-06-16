@@ -92,3 +92,7 @@
     background-color: #4F4F53;
     border-radius: 4px;
 }
+
+.empty {
+    grid-column: 2;
+}

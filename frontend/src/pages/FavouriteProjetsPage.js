@@ -1,22 +1,17 @@
-import React, { useEffect } from 'react';
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import InfoBlock from "../components/InfoBlock/InfoBlock";
-import s from "../components/NavBar/NavBar1.module.css";
-import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {Navigate, useParams} from "react-router-dom";
 import {getProfile} from "../store/slices/profileSlice";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useProfile} from "../hooks/use-profile";
-import {activateUser} from "../store/slices/userSlice";
-import PortfolioUpperPart from "../components/PortfolioUpperPart/PortfolioUpperPart";
-import PortfolioNavBar from "../components/PortfolioNavBar/PortfolioNavBar";
 import ProfileUpperPart from "../components/ProfileUpperPart/ProfileUpperPart";
 import ProfileNavBar from "../components/ProfileNavBar/ProfileNavBar";
-import ProjectsTable from "../components/ProjectsTable/ProjectsTable";
 import {useAuth} from "../hooks/use-auth";
 import Loading from "../components/Loading/Loading";
 import {NotActivateAccount} from "./NotActivateAccount";
 import {NotFilledAccount} from "./NotFilledAccount";
 import FavouriteProjects from "../components/FavouriteProjects/FavouriteProjects";
+import {useFavouriteProjects} from "../hooks/use-favourite-projects";
+import {getFavouriteProjects} from "../store/slices/favouriteProjectsSlice";
 
 export const FavouriteProjectsPage = () => {
     const { userId } = useParams();
@@ -24,10 +19,11 @@ export const FavouriteProjectsPage = () => {
     const user = useAuth();
 
     const profile = useProfile();
-    console.log(profile)
+    const favouriteProjects = useFavouriteProjects();
 
     useEffect(() => {
         dispatch(getProfile(userId));
+        dispatch(getFavouriteProjects(userId));
     }, []);
 
     if(profile.isLoading && !profile.activate)
@@ -57,6 +53,10 @@ export const FavouriteProjectsPage = () => {
             "previewSource":"images\/previews\/1.png"
         },
     ]
+
+    if(profile.isLoading || favouriteProjects.isLoading)
+        return <Loading/>
+
     return (
         <div>
             <ProfileUpperPart surname={profile.surname}
@@ -68,7 +68,7 @@ export const FavouriteProjectsPage = () => {
             />
             <ProfileNavBar isProfile={false} userID={user.id}/>
 
-            <FavouriteProjects projects={projects}/>
+            <FavouriteProjects projects={favouriteProjects.projects}/>
 
         </div>
     )

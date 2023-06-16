@@ -8,28 +8,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 let activateToast;
-
-const loginNotify = () => toast.success('🦄 Вы успешно авторизовались!', {
-    position: "bottom-right",
-    autoClose: 3000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-});
-
-const registrationNotify = () => toast.success('🦄 Вы успешно зарегестрировались в системе!', {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-    });
+let signInToast;
+let signUpToast;
 
 export const signInUser = createAsyncThunk(
     'user/signIn',
@@ -52,8 +32,6 @@ export const signInUser = createAsyncThunk(
 
             dispatch(setUser(response.data));
             // dispatch(getProfile());
-
-            loginNotify();
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -82,7 +60,6 @@ export const signUpUser = createAsyncThunk(
 
             dispatch(signInUser(user));
             //dispatch(togglePopup("signUp"));
-            registrationNotify();
 
             return response;
         } catch (error) {
@@ -150,21 +127,51 @@ const userSlice = createSlice({
     },
     extraReducers: {
         [signInUser.pending]: (state, action) => {
-            state.status = 'loading';
+            signInToast = toast.loading("Вхожу в аккаунт...")
         },
         [signInUser.fulfilled]: (state, action) => {
-            state.status = 'resolved';
+            toast.update(signInToast,
+                {
+                    render: "Вы успешно авторизовались!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
         },
         [signInUser.rejected]: (state, action) => {
-            state.status = 'rejected';
-            state.error = action.payload;
+            toast.update(signInToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
         },
+
         [signUpUser.pending]: (state, action) => {
+            signUpToast = toast.loading("Создаю аккаунт...")
         },
         [signUpUser.fulfilled]: (state, action) => {
+            toast.update(signUpToast,
+                {
+                    render: "Ваш аккаунт успешно создан!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 4000,
+                    hideProgressBar: false
+                });
         },
         [signUpUser.rejected]: (state, action) => {
+            toast.update(signUpToast,
+                { render: action.payload,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 10000,
+                }
+            );
         },
+
         [activateUser.pending]: (state, action) => {
             activateToast = toast.loading("Активирую аккаунт...")
         },

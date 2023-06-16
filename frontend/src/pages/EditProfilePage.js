@@ -1,30 +1,18 @@
-import React, {useEffect, useMemo, useState} from "react";
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import ProjectsTable from "../components/ProjectsTable/ProjectsTable";
-
-import testImage from "../assets/img/project-img1.png";
-
-import projectImage0 from "../assets/img/CDlogoAutoMagShina.png";
-import projectImage1 from "../assets/img/CDlogoUralMebel.png";
-import projectImage2 from "../assets/img/project-img2.png";
-import projectImage11 from "../assets/img/project-img11.png";
-import projectImage15 from "../assets/img/CDlogoHeroReturn.png";
+import React, {useEffect, useState} from "react";
 import {getProfile, updateProfile, uploadAvatar, uploadBanner, uploadResume} from "../store/slices/profileSlice";
 import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useAuth} from "../hooks/use-auth";
 import ProfileUpperPart from "../components/ProfileUpperPart/ProfileUpperPart";
 import ProfileNavBar from "../components/ProfileNavBar/ProfileNavBar";
-import ProfilePersonalInformation from "../components/ProfilePersonalInformation/ProfilePersonalInformation";
 import {NotActivateAccount} from "./NotActivateAccount";
-import {NotFilledAccount} from "./NotFilledAccount";
 import {useProfile} from "../hooks/use-profile";
-import FillProfileForm from "../components/FillProfileForm/FillProfileForm";
 import {FillProfilePage} from "./FillProfilePage";
 import {useForm} from "react-hook-form";
 import EditProfileForm from "../components/EditProfileForm/EditProfileForm";
 import Loading from "../components/Loading/Loading";
-
+import Button from "../components/Button/Button";
+import s from "./Pages.module.css"
 
 export const EditProfilePage = () => {
     const { userId } = useParams();
@@ -39,6 +27,26 @@ export const EditProfilePage = () => {
     const navigate = useNavigate();
 
     const [selectedTags, setSelectedTags] = useState();
+
+
+
+
+
+    const [scroll, setScroll] = React.useState(0);
+
+    const handleScroll = () => {
+        setScroll(window.scrollY);
+    };
+
+    React.useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
+
+
+
 
     const defaultValues = {
         editProfileName: profile.name,
@@ -57,6 +65,8 @@ export const EditProfilePage = () => {
         mode: "onBlur"
     });
 
+    const [isVisibleEmail, setIsVisibleEmail] = useState(profile.isVisibleEmail);
+
     if(profile.isLoading && !profile.activate)
         return <Loading/>
 
@@ -73,6 +83,9 @@ export const EditProfilePage = () => {
         console.log(payload)
 
         let data = {}
+
+        if(isVisibleEmail !== profile.isVisibleEmail)
+            data["isVisibleEmail"] = isVisibleEmail;
 
         if(payload.editProfileName !== profile.name)
             data["name"] = payload.editProfileName;
@@ -135,7 +148,6 @@ export const EditProfilePage = () => {
     const watchBannerImage = watch("editProfileBanner", '');
     const watchLogoImage = watch("editProfileLogo", '');
 
-    debugger
     return (
         <div>
             <ProfileUpperPart surname={profile.surname}
@@ -157,7 +169,14 @@ export const EditProfilePage = () => {
                              watchAvatarImage={watchAvatarImage}
                              watchBannerImage={watchBannerImage}
                              watchLogoImage={watchLogoImage}
-                             setValue={setValue}/>
+                             setValue={setValue}
+                             isVisibleEmail={isVisibleEmail}
+                             setIsVisibleEmail={setIsVisibleEmail}
+            />
+
+            <div className={s.floatButton}>
+                <Button click={handleSubmit(onSubmit)} isHide={scroll < 250}>Сохранить изменения</Button>
+            </div>
         </div>
     )
 }

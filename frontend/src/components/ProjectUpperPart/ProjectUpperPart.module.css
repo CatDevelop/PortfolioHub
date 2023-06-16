@@ -253,3 +253,9 @@
     font-size: 16px;
     color: #737373;
 }
+
+.likeIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

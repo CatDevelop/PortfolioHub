@@ -54,6 +54,7 @@
     /*max-height: 122px;*/
     border-radius: 20px 20px 0 0;
     height: 150px;
+    object-position: center;
     object-fit: cover;
 }
 

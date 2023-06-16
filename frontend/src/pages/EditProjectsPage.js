@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {getProfile} from "../store/slices/profileSlice";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useProfile} from "../hooks/use-profile";
 import PortfolioUpperPart from "../components/PortfolioUpperPart/PortfolioUpperPart";
 import {useAuth} from "../hooks/use-auth";
@@ -23,9 +23,12 @@ import {useForm} from "react-hook-form";
 import Loading from "../components/Loading/Loading";
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
+import {NotFoundPage} from "./NotFoundPage";
+import {NotActivateAccount} from "./NotActivateAccount";
+import {NotFilledAccount} from "./NotFilledAccount";
 
 export const EditProjectsPage = () => {
-    const { userId } = useParams();
+    const {userId} = useParams();
     const dispatch = useDispatch();
     const user = useAuth();
     useEffect(() => {
@@ -35,7 +38,6 @@ export const EditProjectsPage = () => {
     }, []);
 
     const profile = useProfile();
-    const navigate = useNavigate();
     const projects = useProjects();
 
     const scrollToRef = useRef();
@@ -46,12 +48,20 @@ export const EditProjectsPage = () => {
 
     const [importProjectModalActive, setImportProjectModalActive] = useState(false);
     const [addProjectModalActive, setAddProjectModalActive] = useState(false);
-    const [importProjectCategoryID, setImportProjectCategoryID] = useState({id:0, name:""});
+    const [importProjectCategoryID, setImportProjectCategoryID] = useState({id: 0, name: ""});
     const [addProjectCategoryID, setAddProjectCategoryID] = useState(null);
     const [selectProjectID, setSelectProjectID] = useState();
     const [isAddCategory, setIsAddCategory] = useState(false);
 
-    const {register: registerAddProject, watch: watchAddProject, setValue: setValueAddProject, getValues: getValuesAddProject, handleSubmit: handleSubmitAddProject, reset: resetAddProject, formState: {errors: errorsAddProject}} = useForm({
+    const {
+        register: registerAddProject,
+        watch: watchAddProject,
+        setValue: setValueAddProject,
+        getValues: getValuesAddProject,
+        handleSubmit: handleSubmitAddProject,
+        reset: resetAddProject,
+        formState: {errors: errorsAddProject}
+    } = useForm({
         defaultValues: {
             addProjectName: '',
             addProjectDescription: '',
@@ -63,11 +73,14 @@ export const EditProjectsPage = () => {
 
     const watchImageFile = watchAddProject("addProjectPreviewSource", '');
 
-    if(user.id !== userId)
-        return <Navigate to='/' />;
 
-    if(projects.isLoading)
-        return <Loading />;
+    const [isLoading, setIsLoading] = useState(false);
+
+    if (user.id !== userId)
+        return <Navigate to='/'/>;
+
+    if (projects.isLoading)
+        return <Loading/>;
 
     const handleSubmit = () => {
         // const data = {
@@ -91,36 +104,61 @@ export const EditProjectsPage = () => {
     }
 
     const deleteCategory = (categoryID) => {
-        const data = {
-            userID: parseInt(userId),
-            categoryID: parseInt(categoryID)
+        if(!isLoading) {
+            setIsLoading(true);
+            const data = {
+                userID: parseInt(userId),
+                categoryID: parseInt(categoryID)
+            }
+            dispatch(deleteProjectCategory(data)).then(() => {
+                setIsLoading(false)
+            });
         }
-        dispatch(deleteProjectCategory(data));
     }
 
     const deleteFromCategory = (categoryID, projectID) => {
-        const data = {
-            userID: parseInt(userId),
-            categoryID: parseInt(categoryID),
-            projectID: parseInt(projectID)
+        if(!isLoading) {
+            setIsLoading(true);
+            const data = {
+                userID: parseInt(userId),
+                categoryID: parseInt(categoryID),
+                projectID: parseInt(projectID)
+            }
+            dispatch(deleteProjectFromCategory(data)).then(() => {
+                setIsLoading(false)
+            });
         }
-        dispatch(deleteProjectFromCategory(data));
     }
 
     const importProject = (payload) => {
-        const data = {
-            userID: parseInt(userId),
-            categoryID: parseInt(payload.categoryID),
-            projectID: parseInt(payload.selectProjectID)
-            // portfolio: JSON.stringify(portfolioEdit)
+        if(!isLoading) {
+            setIsLoading(true);
+            const data = {
+                userID: parseInt(userId),
+                categoryID: parseInt(payload.categoryID),
+                projectID: parseInt(payload.selectProjectID)
+            }
+            console.log(data)
+            dispatch(importProjectToCategory(data)).then(() => {
+                setImportProjectModalActive(false);
+                selectProjectID(null);
+                setCurrentPage(1);
+                setIsLoading(false)
+            });
         }
-        console.log(data)
-        dispatch(importProjectToCategory(data)).then(()=>{
-            setImportProjectModalActive(false);
-            selectProjectID(null);
-            setCurrentPage(1);
-        });
     }
+
+    if (profile.isLoading || projects.isLoading)
+        return <Loading/>
+
+    if(!profile.id || (!profile.name && user.id!==profile.id) || (profile.visible === "Private" && user.id!==profile.id))
+        return <NotFoundPage/>
+
+    if (!profile.activate && user.id === profile.id)
+        return <NotActivateAccount userID={user.id}/>
+
+    if (!profile.name && user.id === profile.id)
+        return <NotFilledAccount userID={user.id}/>
 
     return (
         <div>
@@ -147,6 +185,7 @@ export const EditProjectsPage = () => {
                                               id={projectCategory.id}
                                               title={projectCategory.name}
                                               edit={true}
+                                              userID={userId}
                                               deleteCategory={deleteCategory}
                                               deleteFromCategory={deleteFromCategory}
                                               importProjectModalActive={importProjectModalActive}
@@ -171,7 +210,7 @@ export const EditProjectsPage = () => {
                            description={"(Не отображаются в профиле)"}
                            userID={userId}
             />
-            <ModalWindow active={importProjectModalActive} setActive={setImportProjectModalActive} onClose={()=> {
+            <ModalWindow active={importProjectModalActive} setActive={setImportProjectModalActive} onClose={() => {
                 setSelectProjectID(null);
                 setCurrentPage(1);
             }}>
@@ -179,28 +218,29 @@ export const EditProjectsPage = () => {
                     Выберите проект для импорта в категорию
                     <p className={s.importProjectModalTitleCategoryName}>{importProjectCategoryID.name}</p>
                 </p>
-                <SelectProjectsTable projects={projects.uncategorizedProjects.slice(itemsPerPage*(currentPage-1), itemsPerPage*currentPage)}
-                                     selectProjectID={selectProjectID}
-                                     setSelectProjectID={setSelectProjectID}
+                <SelectProjectsTable
+                    projects={projects.uncategorizedProjects.slice(itemsPerPage * (currentPage - 1), itemsPerPage * currentPage)}
+                    selectProjectID={selectProjectID}
+                    setSelectProjectID={setSelectProjectID}
                 />
                 <Pagination total={projects.uncategorizedProjects.length}
-                            current={ currentPage }
+                            current={currentPage}
                             onChange={page => setCurrentPage(page)}
                             pageSize={itemsPerPage}
                             hideOnSinglePage
                 />
 
                 <div className={s.importProjectButton}>
-                    <Button onClick={()=>importProject(
-                    {
-                        categoryID: importProjectCategoryID.id,
-                        categoryName: importProjectCategoryID.name,
-                        selectProjectID: selectProjectID
-                    })}>Импортировать</Button>
+                    <Button onClick={() => importProject(
+                        {
+                            categoryID: importProjectCategoryID.id,
+                            categoryName: importProjectCategoryID.name,
+                            selectProjectID: selectProjectID
+                        })}>Импортировать</Button>
                 </div>
             </ModalWindow>
 
-            <ModalWindow active={addProjectModalActive} setActive={setAddProjectModalActive} onClose={()=> {
+            <ModalWindow active={addProjectModalActive} setActive={setAddProjectModalActive} onClose={() => {
                 setAddProjectCategoryID(null);
                 resetAddProject();
             }}>

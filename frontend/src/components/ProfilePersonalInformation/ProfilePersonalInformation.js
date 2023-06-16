@@ -20,14 +20,14 @@ function ProfilePersonalInformation(props) {
             text: "Python"
         }
     ]
-
+    
     return (
         <div className={s.container}>
             {/*<div className={s.leftContainer}>*/}
             <div className={s.information}>
                 <p className={s.title}>Личная информация</p>
                 <div className={s.informationRows}>
-                    <ProfileInformationRow title={"Эл. почта"} information={props.email}/>
+                    <ProfileInformationRow title={"Эл. почта"} information={props.email+(props.isVisibleEmail?"": " [Скрыто]")}/>
                     <ProfileInformationRow title={"Моб. телефон"} information={props.phone}/>
                 </div>
             </div>

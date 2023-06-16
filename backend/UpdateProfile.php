@@ -19,6 +19,7 @@
 	$Resume = $postData["resume"];
 	$Avatar = $postData["avatar"];
 	$CVSource = $postData["cvSource"];
+	$IsVisibleEmail = $postData["isVisibleEmail"];
 
 	if(empty($userID))
 		ThrowError($Link, 400, "Введить ID пользователя");
@@ -31,6 +32,14 @@
 	{
 		while($row = $A1->fetch_assoc()) 
 		{
+
+			if(isset($IsVisibleEmail))
+				if($row['IsVisibleEmail'] != $IsVisibleEmail) {
+					$fields[] = 'IsVisibleEmail';
+					$values[] = $IsVisibleEmail;
+				}
+
+
 			if(!empty($Name))
 				if($row['Name'] != $Name) {
 					$fields[] = 'Name';

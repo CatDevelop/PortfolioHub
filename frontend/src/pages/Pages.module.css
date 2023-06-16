@@ -1,3 +1,70 @@
+@keyframes showDown {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes showUp {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes showLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes showRight {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes showFade {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+
+.floatButton {
+    display: none;
+}
+@media screen and (min-width: 1500px) and (orientation: landscape) {
+    .floatButton {
+        display: block;
+        position: fixed;
+        bottom: 48px;
+        right: 48px;
+    }
+}
+
+
+
+
+
+
 .errorPage {
     display: flex;
     flex-direction: column;
@@ -39,6 +106,7 @@
     color: #737373;
     margin-bottom: 30px;
     text-align: center;
+    animation: showFade 1.5s ease-in-out;
 }
 
 .importProjectModalTitle {
@@ -59,6 +127,7 @@
     font-weight: 600;
 }
 
+
 .importProjectButton {
     display: flex;
     flex-direction: row;
@@ -66,3 +135,37 @@
     align-items: center;
 }
 
+.catalogFilters {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.catalogDownFilters {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    margin-bottom: 75px;
+}
+
+.catalogSort {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+}
+
+.projectCommentsTitleContainer {
+    margin-top: 50px;
+    border-top: 1px solid #313134;
+}
+
+.projectCommentsTitle {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 52px;
+    margin-bottom: 20px;
+}

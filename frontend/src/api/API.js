@@ -19,10 +19,20 @@ const DELETE_PROJECT_CATEGORY = `${HOST}/DeleteProjectCategory.php`;
 
 const UPLOAD_RESUME_FILE = `${HOST}/UploadResumeFile.php`;
 const UPLOAD_PROJECT_PREVIEW = `${HOST}/UploadProjectPreview.php`;
+const UPLOAD_PROJECT_IMAGE = `${HOST}/UploadProjectImage.php`;
 const UPLOAD_AVATAR = `${HOST}/UploadAvatar.php`;
 const UPLOAD_BANNER = `${HOST}/UploadPortfolioImage.php`;
 const UPDATE_PROFILE = `${HOST}/UpdateProfile.php`;
 const UPDATE_PASSWORD = `${HOST}/UpdatePassword.php`;
+const UPDATE_PROJECT = `${HOST}/UpdateProject.php`;
+const DELETE_PROJECT = `${HOST}/DeleteProject.php`;
+const DELETE_PROFILE = `${HOST}/DeleteProfile.php`;
+const CHANGE_VISIBILITY = `${HOST}/ChangeVisibility.php`;
+const GET_FAVOURITE_PROJECTS = `${HOST}/GetFavouriteProjects.php`;
+const ADD_LIKE = `${HOST}/AddLike.php`;
+const DELETE_LIKE = `${HOST}/DeleteLike.php`;
+const ADD_COMMENT = `${HOST}/AddComment.php`;
+
 
 const API = {
     SIGN_UP,
@@ -44,7 +54,16 @@ const API = {
     UPLOAD_PROJECT_PREVIEW,
     UPLOAD_AVATAR,
     UPLOAD_BANNER,
-    GET_USERS
+    GET_USERS,
+    UPDATE_PROJECT,
+    UPLOAD_PROJECT_IMAGE,
+    DELETE_PROJECT,
+    DELETE_PROFILE,
+    CHANGE_VISIBILITY,
+    GET_FAVOURITE_PROJECTS,
+    ADD_LIKE,
+    DELETE_LIKE,
+    ADD_COMMENT
 };
 
 export default API;

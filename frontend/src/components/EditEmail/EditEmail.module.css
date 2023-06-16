@@ -1,0 +1,25 @@
+.editEmail {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: end;
+}
+
+.eye {
+    cursor: pointer;
+    background-color: #313135;
+    border-radius: 6px;
+
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    transition: all 250ms ease 0s;
+}
+
+.eye:hover {
+    background-color: #4F4F53;
+}

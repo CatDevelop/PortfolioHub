@@ -8,7 +8,7 @@ function ImageEdit(props) {
     return (
         <div className={s.imageEdit}>
             {
-                props.image && props.image !== "plumb.png" ?
+                props.image && props.image !== "plumb.png" && props.image !== "Plumb.png" ?
                     <>
                         {
                             typeof props.image === 'string' ?  <a href={props.image} id="file-2" download>

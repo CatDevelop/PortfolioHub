@@ -1,11 +1,6 @@
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import InfoBlock from "../components/InfoBlock/InfoBlock";
 import s from "./Pages.module.css";
-import {Link, useNavigate} from "react-router-dom";
-import Input from "../components/Input/Input";
-import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
+import {useNavigate} from "react-router-dom";
 import NavigateButton from "../components/NavigateButton/NavigateButton";
-import Button from "../components/Button/Button";
 import {removeUser} from "../store/slices/userSlice";
 import {useDispatch} from "react-redux";
 import {removeProfile} from "../store/slices/profileSlice";

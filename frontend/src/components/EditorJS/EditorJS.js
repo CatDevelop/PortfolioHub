@@ -1,39 +1,28 @@
 import {createReactEditorJS} from 'react-editor-js'
-import React, {useEffect} from "react";
+import React from "react";
 import Table from '@editorjs/table'
 import Paragraph from '@editorjs/paragraph'
 import List from '@editorjs/nested-list'
-import Warning from '@editorjs/warning'
 import LinkTool from '@editorjs/link'
 import Image from '@editorjs/image'
-import Raw from '@editorjs/raw'
 import Header from '@editorjs/header'
 import Quote from '@editorjs/quote'
 import Marker from '@editorjs/marker'
 import CheckList from '@editorjs/checklist'
 import Delimiter from '@editorjs/delimiter'
 import InlineCode from '@editorjs/inline-code'
-import SimpleImage from 'simple-image-editorjs'
 import AlignmentTuneTool from 'editorjs-text-alignment-blocktune'
 import AnyButton from 'editorjs-button'
 import TextVariantTune from '@editorjs/text-variant-tune';
 import Code from '@editorjs/code'
-import Emoji from '@groupher/editor-emoji'
+import s from "./EditorJS.module.css"
 
 // import editorjsCodeflask from '@calumk/editorjs-codeflask';
-import ToggleBlock from 'editorjs-toggle-block';
 import AttachesTool from '@editorjs/attaches';
 import InlineImage from 'editorjs-inline-image';
 import Underline from '@editorjs/underline';
 import ChangeCase from 'editorjs-change-case';
 import Strikethrough from '@sotaproject/strikethrough';
-import CodeBox from '@bomdi/codebox';
-import DragDrop from 'editorjs-drag-drop';
-import Loading from "../Loading/Loading";
-import {usePortfolio} from "../../hooks/use-portfolio";
-import {getProfile} from "../../store/slices/profileSlice";
-import {getPortfolio} from "../../store/slices/portfolioSlice";
-import {useDispatch} from "react-redux";
 
 const i18n = {
     messages: {
@@ -122,12 +111,12 @@ const EDITOR_JS_TOOLS = {
             locale: 'tr' // or ['tr', 'TR', 'tr-TR']
         }
     },
-    attaches: {
-        class: AttachesTool,
-        config: {
-            endpoint: 'http://localhost:3000/uploadFile'
-        }
-    },
+    // attaches: {
+    //     class: AttachesTool,
+    //     config: {
+    //         endpoint: 'http://localhost:3000/uploadFile'
+    //     }
+    // },
     list: {
         class: List,
         inlineToolbar: true,
@@ -142,7 +131,7 @@ const EDITOR_JS_TOOLS = {
         config: {
             preserveBlank: true
         },
-        tunes: ['anyTuneName', 'textVariant'],
+        tunes: ['anyTuneName'],
     },
     anyTuneName: {
         class: AlignmentTuneTool,
@@ -154,10 +143,10 @@ const EDITOR_JS_TOOLS = {
             }
         },
     },
-    warning: Warning,
+    // warning: Warning,
     inlineImage: {
         class: InlineImage,
-        inlineToolbar: true,
+        inlineToolbar: false,
         config: {
             embed: {
                 display: true,
@@ -174,16 +163,24 @@ const EDITOR_JS_TOOLS = {
             title: "Код"
         }
     },
-    linkTool: LinkTool,
-    image: {
-        class: Image,
-        config: {
-            endpoints: {
-                byFile: 'http://localhost:3000/uploadFile', // Your backend file uploader endpoint
-                byUrl: 'http://localhost:3000/fetchUrl', // Your endpoint that provides uploading by Url
-            }
-        }
-    },
+    // linkTool: {
+    //     class: LinkTool,
+    //     config: {
+    //         endpoint: 'https://www.ren-design.ru/api/portfolio-hub/1.0/GetMeta.php', // Your backend endpoint for url data fetching,
+    //         // headers: {
+    //         //     "Content-Type": "application/json"
+    //         // }
+    //     }
+    // },
+    // image: {
+    //     class: Image,
+    //     config: {
+    //         endpoints: {
+    //             byFile: 'http://localhost:3000/uploadFile', // Your backend file uploader endpoint
+    //             byUrl: 'http://localhost:3000/fetchUrl', // Your endpoint that provides uploading by Url
+    //         }
+    //     }
+    // },
     // raw: Raw,
     quote: Quote,
     marker: Marker,
@@ -246,7 +243,7 @@ function EditorJS(props) {
     const ReactEditorJS = createReactEditorJS();
     // editorCore.current.value = props.portfolio;
 
-    return <>
+    return <div className={s.editor}>
         <ReactEditorJS defaultValue={props.portfolio}
                        tools={EDITOR_JS_TOOLS}
                        placeholder={"Нажмите + или Tab, чтобы выбрать блок"}
@@ -257,8 +254,8 @@ function EditorJS(props) {
                        onChange={handleSave}
                        preserveBlank={true}
         />
-        <button onClick={handleSave}>Сохранить форму</button>
-    </>
+        {/*<button onClick={handleSave}>Сохранить форму</button>*/}
+    </div>
 }
 
 export default EditorJS;

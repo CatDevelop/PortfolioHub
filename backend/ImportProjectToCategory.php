@@ -20,7 +20,7 @@
 		ThrowError($Link, 400, "Введите ID раздела!");
 
 	if(!isset($ProjectID))
-		ThrowError($Link, 400, "Введите ID проекта!");
+		ThrowError($Link, 400, "Выберите проект!");
 
 	$A1 = $Link->query("SELECT * FROM `ProjectsBlocks` WHERE `UserID`='$UserID' LIMIT 1");
 	if ($A1->num_rows <= 0) 

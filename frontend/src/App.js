@@ -22,14 +22,18 @@ import {NotImplementPage} from "./pages/NotImplementPage";
 import {EditProjectsPage} from "./pages/EditProjectsPage";
 import ScrollToTop from "./hoc/ScrollToTop";
 import {CatalogPage} from "./pages/CatalogPage";
+import {EditProjectPage} from "./pages/EditProjectPage";
+import WelcomeLayout from "./components/WelcomeLayout";
 
 function App() {
     return (
         <Router>
             <ScrollToTop>
                 <Routes>
-                    <Route path='/' element={<HomeLayout/>}>
+                    <Route path='/' element={<WelcomeLayout/>}>
                         <Route index element={<WelcomePage/>}/>
+                    </Route>
+                    <Route path='/' element={<HomeLayout/>}>
                         <Route path='/registration' element={
                             <RequireUnauth>
                                 <RegistrationPage/>
@@ -69,6 +73,10 @@ function App() {
                         <Route path='/:userId/edit' element={
                             <RequireAuth>
                                 <EditPortfolioPage/>
+                            </RequireAuth>}/>
+                        <Route path='/:userId/project/:projectId/edit' element={
+                            <RequireAuth>
+                                <EditProjectPage/>
                             </RequireAuth>}/>
                     </Route>
 

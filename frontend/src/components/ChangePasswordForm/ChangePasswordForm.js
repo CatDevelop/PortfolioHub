@@ -3,11 +3,8 @@ import s from './ChangePasswordForm.module.css';
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Form from "react-bootstrap/Form";
-import {useForm} from "react-hook-form";
-import {signInUser} from '../../store/slices/userSlice';
 import {useDispatch} from "react-redux";
 import md5 from 'md5';
-import {toast} from "react-toastify";
 import {updatePassword} from "../../store/slices/profileSlice";
 
 function ChangePasswordForm(props) {
@@ -23,7 +20,7 @@ function ChangePasswordForm(props) {
             newPassword: payload.changePasswordNew
         }
 
-        if(payload.changePasswordOld !== payload.changePasswordNew && payload.changePasswordNew === payload.changePasswordNewRetry)
+        if (payload.changePasswordOld !== payload.changePasswordNew && payload.changePasswordNew === payload.changePasswordNewRetry)
             dispatch(updatePassword(data));
     }
 
@@ -35,7 +32,10 @@ function ChangePasswordForm(props) {
                        registerName='changePasswordOld'
                        options={
                            {
-                               required: true
+                               required: {
+                                   value: true,
+                                   message: "Поле обязательно для ввода"
+                               },
                            }
                        }
                        errors={props.errors}
@@ -46,7 +46,14 @@ function ChangePasswordForm(props) {
                        registerName='changePasswordNew'
                        options={
                            {
-                               required: true
+                               required: {
+                                   value: true,
+                                   message: "Поле обязательно для ввода"
+                               },
+                               minLength: {
+                                   value: 4,
+                                   message: "Минимум 4 символа"
+                               }
                            }
                        }
                        errors={props.errors}
@@ -57,7 +64,14 @@ function ChangePasswordForm(props) {
                        registerName='changePasswordNewRetry'
                        options={
                            {
-                               required: true
+                               required: {
+                                   value: true,
+                                   message: "Поле обязательно для ввода"
+                               },
+                               minLength: {
+                                   value: 4,
+                                   message: "Минимум 4 символа"
+                               }
                            }
                        }
                        errors={props.errors}

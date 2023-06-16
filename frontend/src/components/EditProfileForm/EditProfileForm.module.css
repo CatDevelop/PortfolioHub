@@ -68,3 +68,44 @@
     font-size: 16px;
     color: #9E9E9E;
 }
+
+.danger {
+    border: 1px dashed #BE185D;
+    padding: 24px 27px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
+
+.dangerContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dangerTitleContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.dangerTitle {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+}
+
+.dangerDescr {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    color: #9C9C9C;
+}

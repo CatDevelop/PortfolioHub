@@ -25,6 +25,7 @@ export const getProjects = createAsyncThunk(
             );
 
             if (!response.ok) {
+                dispatch(setLoadingProjects(false))
                 response = await response.json();
                 throw new Error(
                     `${response.error}`
@@ -65,6 +66,7 @@ export const addProjectCategory = createAsyncThunk(
             response = await response.json();
             console.log(response)
             dispatch(getProjects(payload.userID));
+            dispatch(getProfile(payload.userID));
 
             return response;
         } catch (error) {
@@ -187,6 +189,9 @@ const projectsSlice = createSlice({
             state.uncategorizedProjects = action.payload.uncategorizedProjects;
             state.isLoading = false;
         },
+        setLoadingProjects(state, action) {
+            state.isLoading = action.payload
+        },
         removeProjects(state) {
             state.categories = [];
             state.uncategorizedProjects= [];
@@ -284,6 +289,6 @@ const projectsSlice = createSlice({
         },
     },
 });
-export const {setProjects, removeProjects} = projectsSlice.actions;
+export const {setProjects,setLoadingProjects, removeProjects} = projectsSlice.actions;
 
 export default projectsSlice.reducer;

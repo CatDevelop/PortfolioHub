@@ -28,19 +28,9 @@ export const ProfilePage = () => {
         mode: "onBlur"
     });
 
-    const onSubmit = (payload) => {
-        // payload.authorizationPassword = md5(payload.authorizationPassword);
-        // const data = {
-        //     email: payload.authorizationEmail,
-        //     password: payload.authorizationPassword
-        // }
-        // dispatch(signInUser(data));
-    }
-
     const [changePasswordModalActive, setChangePasswordModalActive] = useState(false);
 
     const profile = useProfile();
-    console.log(profile)
 
     useEffect(() => {
         dispatch(getProfile(userId));
@@ -58,7 +48,6 @@ export const ProfilePage = () => {
     if(!profile.isFilledProfile)
         return <NotFilledAccount userID={userId}/>
 
-    debugger
     return (
         <div>
             <ProfileUpperPart surname={profile.surname}
@@ -77,6 +66,7 @@ export const ProfilePage = () => {
                                         email={profile.email}
                                         tags={profile.tags}
                                         cvSource={profile.cvSource}
+                                        isVisibleEmail={profile.isVisibleEmail}
             />
 
             <ModalWindow active={changePasswordModalActive}

@@ -1,8 +1,5 @@
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import InfoBlock from "../components/InfoBlock/InfoBlock";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import s from "../components/NavBar/NavBar1.module.css";
-import {useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {removeUser} from "../store/slices/userSlice";
 import {useAuth} from "../hooks/use-auth";
@@ -14,8 +11,6 @@ export const WelcomePage = () => {
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const logout = () => {
-        debugger
-        //dispatch(removeProfile());
         dispatch(removeUser());
         navigate("/");
     };

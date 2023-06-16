@@ -6,34 +6,38 @@ import {CatalogUserCard} from "../CatalogUserCard/CatalogUserCard";
 function Catalog(props) {
     const users = [...props.users];
 
-    users.sort((a, b) => {
-        if(a.likesCount > b.likesCount)
-            return -1;
-        if(a.likesCount === b.likesCount) {
-            if (a.projectsCount > b.projectsCount)
-                return -1;
-            if (a.projectsCount === b.projectsCount)
-                return 0;
-            return 1;
-        }
-        return 1;
-    })
+    // users.sort((a, b) => {
+    //     if(a.likesCount > b.likesCount)
+    //         return -1;
+    //     if(a.likesCount === b.likesCount) {
+    //         if (a.projectsCount > b.projectsCount)
+    //             return -1;
+    //         if (a.projectsCount === b.projectsCount)
+    //             return 0;
+    //         return 1;
+    //     }
+    //     return 1;
+    // })
 
     return (
         <div className={s.catalog}>
             {
                 users.map(user => {
 
-                    return user.name? <CatalogUserCard name={user.name}
-                                            surname={user.surname}
-                                            shortDescription={user.shortDescription}
-                                            userID={user.id}
-                                            mail={user.email}
-                                            avatar={user.avatarSource}
-                                            likes={user.likesCount}
-                                            projects={user.projectsCount}
-                                            tags={user.tags?JSON.parse(user.tags):[]}
-                    />:<></>
+                    return user.name?
+                        <CatalogUserCard name={user.name}
+                                         surname={user.surname}
+                                         shortDescription={user.shortDescription}
+                                         userID={user.id}
+                                         mail={user.email}
+                                         avatar={user.avatarSource}
+                                         likes={user.likesCount}
+                                         projects={user.projectsCount}
+                                         tags={user.tags?Array.isArray(user.tags)?user.tags:JSON.parse(user.tags):[]}
+                                         isVisibleEmail={user.isVisibleEmail}
+                        />
+                        :
+                        <></>
                 })
             }
         </div>

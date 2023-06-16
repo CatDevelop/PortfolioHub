@@ -17,6 +17,7 @@ export const getUsers = createAsyncThunk(
             );
 
             if (!response.ok) {
+                dispatch(setLoadingUsers(false))
                 response = await response.json();
                 throw new Error(
                     `${response.error}`
@@ -48,6 +49,9 @@ const usersSlice = createSlice({
             state.users = action.payload;
             state.isLoading = false;
         },
+        setLoadingUsers(state, action) {
+            state.isLoading = action.payload
+        },
         removeUsers(state) {
             state.users = [];
             state.isLoading = true;
@@ -57,6 +61,6 @@ const usersSlice = createSlice({
 
     },
 });
-export const {setUsers, removeUsers} = usersSlice.actions;
+export const {setUsers, setLoadingUsers, removeUsers} = usersSlice.actions;
 
 export default usersSlice.reducer;

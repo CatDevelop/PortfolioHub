@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import InfoBlock from "../components/InfoBlock/InfoBlock";
-import s from "../components/NavBar/NavBar1.module.css";
-import {Link, useParams} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {useParams} from "react-router-dom";
 import {getProfile} from "../store/slices/profileSlice";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {useProfile} from "../hooks/use-profile";
 import PortfolioNavBar from "../components/PortfolioNavBar/PortfolioNavBar";
 import PortfolioUpperPart from "../components/PortfolioUpperPart/PortfolioUpperPart";
@@ -16,6 +13,7 @@ import {getPortfolio} from "../store/slices/portfolioSlice";
 import {usePortfolio} from "../hooks/use-portfolio";
 import Loading from "../components/Loading/Loading";
 import Portfolio from "../components/Portfolio/Portfolio";
+import {removeProject} from "../store/slices/projectSlice";
 
 export const PortfolioPage = () => {
     const { userId } = useParams();
@@ -23,6 +21,7 @@ export const PortfolioPage = () => {
     useEffect(() => {
         dispatch(getProfile(userId));
         dispatch(getPortfolio(userId));
+        dispatch(removeProject());
         debugger
     }, []);
 
@@ -32,17 +31,19 @@ export const PortfolioPage = () => {
     const portfolio = usePortfolio();
     console.log(portfolio);
 
+    if (profile.isLoading || portfolio.isLoading)
+        return <Loading/>
+
+    if(!profile.id || (!profile.name && user.id!==profile.id) || (profile.visible === "Private" && user.id!==profile.id))
+        return <NotFoundPage/>
+
     if(!profile.activate && user.id===profile.id)
         return <NotActivateAccount userID={user.id}/>
-
-    if (portfolio.isLoading)
-        return <Loading/>
 
     if(!profile.name && user.id===profile.id)
         return <NotFilledAccount userID={user.id}/>
 
-    if(!profile.id || !profile.name)
-        return <NotFoundPage/>
+
 
     return (
         <div>

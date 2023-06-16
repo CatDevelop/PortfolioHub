@@ -1,9 +1,4 @@
-import ConsoleAndPhoto from "../components/ConsoleAndPhoto/ConsoleAndPhoto";
-import InfoBlock from "../components/InfoBlock/InfoBlock";
 import s from "./Pages.module.css";
-import {Link} from "react-router-dom";
-import Input from "../components/Input/Input";
-import RegistrationForm from "../components/RegistrationForm/RegistrationForm";
 import NavigateButton from "../components/NavigateButton/NavigateButton";
 
 export const NotImplementPage = () => {

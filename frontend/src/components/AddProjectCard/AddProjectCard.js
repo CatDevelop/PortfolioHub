@@ -4,7 +4,7 @@ import s from './AddProjectCard.module.css';
 export const AddProjectCard = (props) => {
     return (
         <div className={s.projectCard}>
-            <p className={s.row} onClick={() => {
+            <p title={"Создать проект в категории " + props.categoryName} className={s.row} onClick={() => {
                 props.setAddProjectModalActive(true)
                 props.setAddProjectCategoryID({id: props.categoryID, name: props.categoryName})
             }}>
@@ -18,7 +18,7 @@ export const AddProjectCard = (props) => {
             </p>
 
 
-            <p className={s.row} onClick={() => {
+            <p title={"Импортировать проект из блок \"Проекты без категории\""} className={s.row} onClick={() => {
                 props.setImportProjectModalActive(true)
                 props.setImportProjectCategoryID({id: props.categoryID, name: props.categoryName})
             }}>

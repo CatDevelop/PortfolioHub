@@ -327,3 +327,7 @@ code {
     font-size: 16px;
     padding: 5px 0 5px 10px;
 }
+
+.cdx-marker {
+    color: white;
+}

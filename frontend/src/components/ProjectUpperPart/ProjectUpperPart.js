@@ -11,6 +11,9 @@ import Tags from "../Tags/Tags";
 import {useDetectOutsideClick} from "../ProfileNavBar/useDetectOutsideClick";
 import {Link} from "react-router-dom";
 import Button from "../Button/Button";
+import {addLike, deleteLike} from "../../store/slices/favouriteProjectsSlice";
+import {useAuth} from "../../hooks/use-auth";
+import {useDispatch} from "react-redux";
 
 function ProjectUpperPart(props) {
     const dropdownRef = useRef(null);
@@ -19,8 +22,10 @@ function ProjectUpperPart(props) {
         setIsActive(!isActive);
         console.log(isActive)
     };
+    const user = useAuth()
+    const dispatch = useDispatch()
 
-
+    console.log(props)
     return (
         <div className={s.container}>
 
@@ -35,7 +40,19 @@ function ProjectUpperPart(props) {
                     </div>
 
                     <div className={s.likes}>
-                        <img className={s.likeIcon} src={LikeIcon} alt={'like'}/>
+                        <div className={s.likeIcon} onClick={e =>{
+                            if(props.ownerID !== user.id)
+                            {
+                                if(props.favouriteProjects.ids.includes(props.projectID))
+                                    dispatch(deleteLike({selfID: user.id, userID: props.ownerID, projectID: props.projectID}))
+                                else
+                                    dispatch(addLike({selfID: user.id, userID: props.ownerID, projectID: props.projectID}))
+                            }
+                        }}>
+                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill={props.favouriteProjects.ids.includes(props.projectID) ? "#F086CB":""} d="M5.75736 8.42411C3.41421 10.7673 3.41421 14.5662 5.75736 16.9094L16.0001 27.1521L26.2426 16.9094C28.5858 14.5662 28.5858 10.7673 26.2426 8.42411C23.8995 6.08096 20.1005 6.08096 17.7574 8.42411L16.0001 10.1815L14.2426 8.42411C11.8995 6.08096 8.10051 6.08096 5.75736 8.42411Z" stroke="#F086CB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
                         <p className={s.likesCount}>{props.likes}</p>
                     </div>
 

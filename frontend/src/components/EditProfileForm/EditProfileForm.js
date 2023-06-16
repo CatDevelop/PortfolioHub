@@ -4,17 +4,14 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Form from "react-bootstrap/Form";
 import {useForm} from "react-hook-form";
-import {signInUser} from '../../store/slices/userSlice';
-import {useDispatch} from "react-redux";
-import md5 from 'md5';
-import {toast} from "react-toastify";
-import {getProfile} from "../../store/slices/profileSlice";
-import {useProfile} from "../../hooks/use-profile";
-import {useParams} from "react-router-dom";
 import TagInput from "../TagInput/TagInput";
 import ResumeEdit from "../ResumeEdit/ResumeEdit";
 import ImageEdit from "../ImageEdit/ImageEdit";
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
+import EditEmail from "../EditEmail/EditEmail";
+import {ModalWindow} from "../ModalWindow/ModalWindow";
+import DeletePortfolioForm from "../DeletePortfolioForm/DeletePortfolioForm";
+import ChangeVisibleForm from "../ChangeVisibleForm/ChangeVisibleForm";
 
 function EditProfileForm(
     {
@@ -29,7 +26,9 @@ function EditProfileForm(
         watchAvatarImage,
         watchBannerImage,
         watchLogoImage,
-        setValue
+        setValue,
+        isVisibleEmail,
+        setIsVisibleEmail
     }) {
     // const dispatch = useDispatch();
     // const { userId } = useParams();
@@ -53,7 +52,41 @@ function EditProfileForm(
             editProfileLogo: profile.logoSource,
         });
         setSelectedTags(profile.tags)
+        setIsVisibleEmail(profile.isVisibleEmail)
     }, []);
+
+
+    const {
+        register: registerDeletePortfolio,
+        watch: watchDeletePortfolio,
+        handleSubmit: handleSubmitDeletePortfolio,
+        getValues: getValuesDeletePortfolio,
+        reset: resetDeletePortfolio,
+        formState: {errors: errorsDeletePortfolio}
+    } = useForm({
+        defaultValues: {
+            deletePortfolioName: ''
+        },
+        mode: "onBlur"
+    });
+
+    const {register: registerChangeVisible, handleSubmit: handleSubmitChangeVisible} = useForm({
+        defaultValues: {},
+        mode: "onBlur"
+    });
+
+    const status = [
+        {value: "Public", label: "Публичное"},
+        {value: "Link", label: "По ссылке"},
+        {value: "Private", label: "Приватное"},
+    ]
+
+
+    const [visibleChangeModalActive, setVisibleChangeModalActive] = useState(false)
+    const [deleteAccountModalActive, setDeleteAccountModalActive] = useState(false)
+    const [selectVisibleStatus, setSelectVisibleStatus] = useState(status.find(s => s.value === profile.visible))
+
+    let watchDeletePortfolioName = watchDeletePortfolio("deletePortfolioName", "")
 
     return (
         <>
@@ -66,7 +99,10 @@ function EditProfileForm(
                                registerName='editProfileName'
                                options={
                                    {
-                                       required: true
+                                       required: {
+                                           value: true,
+                                           message: "Поле обязательно для ввода"
+                                       },
                                    }
                                }
                                errors={errors}
@@ -78,7 +114,10 @@ function EditProfileForm(
                                registerName='editProfileSurname'
                                options={
                                    {
-                                       required: true
+                                       required: {
+                                           value: true,
+                                           message: "Поле обязательно для ввода"
+                                       },
                                    }
                                }
                                errors={errors}
@@ -89,25 +128,23 @@ function EditProfileForm(
                     </div>
 
                     <div className={s.fillProfileRow}>
-                        <Input register={register}
-                               registerName='editProfileEmail'
-                               options={
-                                   {
-                                       required: true
-                                   }
-                               }
-                               errors={errors}
-                               title="Почта"
-                               require={true}
-                               type="text"
-                            // isBig={true}
-                               disabled={true}
+                        <EditEmail register={register}
+                                   errors={errors}
+                                   isVisibleEmail={isVisibleEmail}
+                                   setIsVisibleEmail={setIsVisibleEmail}
                         />
                         <Input register={register}
                                registerName='editProfilePhone'
                                options={
                                    {
-                                       required: true
+                                       required: {
+                                           value: true,
+                                           message: "Поле обязательно для ввода"
+                                       },
+                                       pattern: {
+                                           value: /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
+                                           message: "Введите номер телефона"
+                                       }
                                    }
                                }
                                errors={errors}
@@ -123,6 +160,14 @@ function EditProfileForm(
                                registerName='editProfileShortDescription'
                                errors={errors}
                                title="О себе"
+                               options={
+                                   {
+                                       maxLength: {
+                                           value: 500,
+                                           message: "Не более 500 символов"
+                                       }
+                                   }
+                               }
                             // require={true}
                                type="text"
                                rows={2}
@@ -182,27 +227,97 @@ function EditProfileForm(
                     />
                 </div>
 
-                {/*<div className={s.block}>*/}
-                {/*    <h1 className={s.resumeTitle}>Логотип портфолио</h1>*/}
-                {/*    <p className={s.blockTitleDescription}>(png, jpg, jpeg), 160x150px</p>*/}
-                {/*    <ImageEdit register={register}*/}
-                {/*               registerName='editProfileLogo'*/}
-                {/*               errors={errors}*/}
-                {/*               image={getValues('editProfileLogo')}*/}
-                {/*               watchImageFile={watchLogoImage}*/}
-                {/*               setValue={setValue}*/}
-                {/*    />*/}
-                {/*</div>*/}
-
                 <div className={s.block}>
                     <h1 className={s.blockTitle}>Опасная зона</h1>
-                </div>
 
-                {/*<ImageEdit type="submit">Войти в систему</ImageEdit>*/}
+
+                    <div className={s.danger}>
+                        <div className={s.dangerContainer}>
+                            <div className={s.dangerTitleContainer}>
+                                <p className={s.dangerTitle}>Изменить видимость портфолио</p>
+                                <p className={s.dangerDescr}>
+                                    {
+                                        profile.visible === "Private" ? "Сейчас портфолио никому не видно" :
+                                            profile.visible === "Link" ? "Сейчас портфолио доступно по ссылке" :
+                                                "Сейчас портфолио публично"
+                                    }
+                                </p>
+                            </div>
+                            <Button isSecond click={() => {
+                                setVisibleChangeModalActive(true)
+                            }}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15.0007 12C15.0007 13.6569 13.6576 15 12.0007 15C10.3439 15 9.00073 13.6569 9.00073 12C9.00073 10.3431 10.3439 9 12.0007 9C13.6576 9 15.0007 10.3431 15.0007 12Z"
+                                        stroke="#111827" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                    <path
+                                        d="M2.45898 12C3.73326 7.94288 7.52354 5 12.0012 5C16.4788 5 20.2691 7.94291 21.5434 12C20.2691 16.0571 16.4788 19 12.0012 19C7.52354 19 3.73324 16.0571 2.45898 12Z"
+                                        stroke="#111827" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                Изменить видимость
+                            </Button>
+                        </div>
+                        <div className={s.dangerContainer}>
+                            <div className={s.dangerTitleContainer}>
+                                <p className={s.dangerTitle}>Удалить аккаунт и портфолио</p>
+                                <p className={s.dangerDescr}>
+                                    Как только вы удаляете репозиторий,<br/>
+                                    пути назад уже нет. Будьте аккуратны
+                                </p>
+                            </div>
+
+                            <Button isSecond click={() => {
+                                setDeleteAccountModalActive(true)
+                            }}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M19 7L18.1327 19.1425C18.0579 20.1891 17.187 21 16.1378 21H7.86224C6.81296 21 5.94208 20.1891 5.86732 19.1425L5 7M10 11V17M14 11V17M15 7V4C15 3.44772 14.5523 3 14 3H10C9.44772 3 9 3.44772 9 4V7M4 7H20"
+                                        stroke="#111827" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                Удалить аккаунт и портфолио
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </Form>
 
+            <ModalWindow active={deleteAccountModalActive}
+                         setActive={setDeleteAccountModalActive}
+                         onClose={() => {
+                             resetDeletePortfolio()
+                         }}>
+                <DeletePortfolioForm handleSubmit={handleSubmitDeletePortfolio}
+                                     errors={errorsDeletePortfolio}
+                                     register={registerDeletePortfolio}
+                                     userID={profile.id}
+                                     portfolioName={profile.surname + " " + profile.name}
+                                     getValues={getValuesDeletePortfolio}
+                                     watchDeleteProjectName={watchDeletePortfolioName}
+                />
+            </ModalWindow>
 
-            {/*<ImageEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ImageEdit>*/}
+            {
+                selectVisibleStatus ? <ModalWindow active={visibleChangeModalActive}
+                                                   setActive={setVisibleChangeModalActive}
+                                                   onClose={() => {
+                                                       setSelectVisibleStatus(status.find(s => s.value === profile.visible))
+                                                   }}>
+                    <ChangeVisibleForm setSelectVisibleStatus={setSelectVisibleStatus}
+                                       selectVisibleStatus={selectVisibleStatus}
+                                       handleSubmit={handleSubmitChangeVisible}
+                                       setActive={setVisibleChangeModalActive}
+                                       userID={profile.id}
+
+                    />
+                </ModalWindow> : <></>
+            }
+
+
         </>
     )
 }

@@ -6,11 +6,12 @@ import InputMask from "react-input-mask";
 
 function Input(props) {
     return (
-        <div className={s.input}>
+        <div className={props.isBig?s.bigInput:s.input}>
             <div className={s.titleBox}><p className={s.title}>{props.title??""}</p>
                 {props.require ? <p title="Поле обязательно для ввода" className={s.required}>*</p> : <></>}</div>
             {/*<Form.Control {...props.register(props.registerName, props.options)} className={s.inputBox} {...props}/>*/}
             <Form.Control {...props.register(props.registerName, props.options)} className={classNames(props.isBig? s.bigInputBox : s.inputBox, props.errors?.[props.registerName]?s.invalid:"")} {...props}/>
+            <p className={s.error}>{props.errors[props.registerName]?.message}</p>
         </div>
     )
 }

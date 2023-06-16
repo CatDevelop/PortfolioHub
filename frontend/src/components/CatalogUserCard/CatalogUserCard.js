@@ -19,7 +19,7 @@ export const CatalogUserCard = (props) => {
                         <h1 className={s.userName}>{props.surname + " " + props.name}</h1>
                         <p className={s.userDescription}>{props.shortDescription}</p>
                     </div>
-                    <p className={s.userMail}>{props.mail}</p>
+                    <p className={s.userMail}>{props.isVisibleEmail === "1" ? props.mail:<br/>}</p>
                 </div>
             </div>
             <div className={s.rightContainer}>

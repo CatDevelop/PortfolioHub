@@ -15,9 +15,13 @@ function PortfolioUpperPart(props) {
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false);
     const onClick = () => {
+        if(!isActive)
+            window.scrollTo(0, 0);
         setIsActive(!isActive);
         console.log(isActive)
     };
+
+    console.log("BANNER", props.banner)
 
 
     return (
@@ -25,7 +29,7 @@ function PortfolioUpperPart(props) {
 
             <div className={s.upContainer}>
                 {/*<img src="https://images.unsplash.com/photo-1682250705830-11c1cecbd3ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt=""/>*/}
-                <img src={"https://www.ren-design.ru/api/portfolio-hub/1.0/files/portfolioImages/"+props.banner} alt=""/>
+                <img src={"https://www.ren-design.ru/api/portfolio-hub/1.0/files/portfolioImages/"+ (props.banner ? props.banner:"Plumb.png")} alt=""/>
             </div>
 
             <div className={s.downContainer}>

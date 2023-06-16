@@ -63,14 +63,14 @@ function NavBar(props) {
                             props.type === "main" ?
                                 user.isAuth ?
                                     <>
-                                        <li className={s.navbarItem}>
-                                            <Link className={s.navbarLink} to="/">
-                                                Главная
-                                            </Link>
-                                        </li>
+                                        {/*<li className={s.navbarItem}>*/}
+                                        {/*    <Link className={s.navbarLink} to="/">*/}
+                                        {/*        Главная*/}
+                                        {/*    </Link>*/}
+                                        {/*</li>*/}
                                         <li className={s.navbarItem}>
                                             <Link className={s.navbarLink} to={"/" + user.id}>
-                                                Портфолио
+                                                Моё портфолио
                                             </Link>
                                         </li>
                                         <li className={s.navbarItem}>

@@ -1,0 +1,116 @@
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fillProfileForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+    max-width: 1144px;
+    /*background-color: rgba(195, 195, 195, 0.04);;*/
+    border-radius: 15px;
+    /*padding: 0 35px;*/
+    gap: 25px;
+    /*margin: auto;*/
+
+    animation: show 1s ease-in-out;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #313134;
+    /*margin: auto auto 48px;*/
+}
+
+.fillProfileRow {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+
+.block {
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.resumeTitle,
+.blockTitle {
+    font-family: SFPro, serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    /*padding: 40px 0;*/
+}
+
+.resumeTitle {
+    margin-bottom: 0;
+}
+
+.authorization {
+    font-family: SFPro, serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.resumeTitles {
+    display: flex;
+    flex-direction: column;
+}
+
+.blockTitleDescription {
+    font-family: SFPro, serif;
+    font-size: 16px;
+    color: #9E9E9E;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.danger {
+    border: 1px dashed #BE185D;
+    padding: 24px 27px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dangerTitleContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.dangerTitle {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+}
+
+.dangerDescr {
+    font-family: SFPro, serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.02em;
+    color: #9C9C9C;
+}

@@ -42,13 +42,19 @@
     }
 }
 
+@keyframes showFade {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
 .container {
     margin-bottom: 55px;
 
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /*flex-direction: row;*/
     /*gap: 45px;*/
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
 }
 
@@ -58,6 +64,7 @@
 
 .rightContainer {
     animation: showRight 1.5s ease-in-out;
+    justify-self: end;
 }
 
 .rightContainer,
@@ -158,4 +165,7 @@
     font-family: SFPro, serif;
     font-size: 20px;
     color: #737373;
+    text-align: center;
+
+    animation: showFade 1.5s ease-in-out;
 }

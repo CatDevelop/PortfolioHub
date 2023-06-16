@@ -51,7 +51,7 @@ function PortfolioNavBar(props) {
             {
                 props.edit ? <div>
                     <p className={s.editTitle}>Режим редактирования</p>
-                </div> : <></>
+                </div> : <div></div>
             }
 
 
