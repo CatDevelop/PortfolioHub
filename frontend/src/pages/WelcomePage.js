@@ -20,16 +20,16 @@ export const WelcomePage = () => {
             <LandingWelcomePage userID={user.id}
 
             />
-            {!user.isAuth ? <>
-                    <Link className={s.navbarLink} to="/registration">Зарегестрироваться</Link>
-                    <Link className={s.navbarLink} to="/authorization">Авторизоваться</Link>
-                </>: <></>
-            }
-            {user.isAuth ? <>
-                <Link className={s.navbarLink} to={(user.id??"1")}>В портфолио</Link>
-                <a className={s.navbarLink} onClick={logout}>Выйти</a>
-                </> : <></>
-            }
+            {/*{!user.isAuth ? <>*/}
+            {/*        <Link className={s.navbarLink} to="/registration">Зарегестрироваться</Link>*/}
+            {/*        <Link className={s.navbarLink} to="/authorization">Авторизоваться</Link>*/}
+            {/*    </>: <></>*/}
+            {/*}*/}
+            {/*{user.isAuth ? <>*/}
+            {/*    <Link className={s.navbarLink} to={(user.id??"1")}>В портфолио</Link>*/}
+            {/*    <a className={s.navbarLink} onClick={logout}>Выйти</a>*/}
+            {/*    </> : <></>*/}
+            {/*}*/}
 
         </div>
     )

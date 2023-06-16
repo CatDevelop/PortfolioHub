@@ -127,20 +127,7 @@ function FillProfileForm({register, errors, selectedTags, setSelectedTags, getVa
                                 setValue={setValue}
                     />
                 </div>
-
-                <div className={s.block}>
-                    <h1 className={s.blockTitle}>Логотип портфолио</h1>
-                </div>
-
-                <div className={s.block}>
-                    <h1 className={s.blockTitle}>Социальные сети</h1>
-                </div>
-
-                {/*<ImageEdit type="submit">Войти в систему</ImageEdit>*/}
             </Form>
-
-
-            {/*<ImageEdit onClick={handleSubmit(onSubmit)}>sejkfnsrg</ImageEdit>*/}
         </>
     )
 }
